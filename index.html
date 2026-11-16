@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tenuta Valmora | Rossi d'Autore nei Colli Euganei</title>
+  <meta name="description" content="Tenuta Valmora è una cantina storica dei Colli Euganei, guidata dalla stessa famiglia da quattro generazioni e celebre per i suoi grandi rossi d'autore.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/logo-valmora.svg">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+
+  <!-- Topbar Informativa -->
+  <div class="topbar">
+    <span>Spedizione gratuita in tutta Italia per ordini superiori a <strong>€99,00</strong> &bull; Consegna in cantinette isotermiche certificate</span>
+  </div>
+
+  <!-- Header Principale -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="brand-logo-link" aria-label="Tenuta Valmora Home">
+        <img src="assets/images/logo-valmora.svg" alt="Tenuta Valmora Logo" class="brand-logo-img">
+        <div class="brand-text">
+          <span class="brand-title">Tenuta Valmora</span>
+          <span class="brand-subtitle">Colli Euganei &bull; Dal 1928</span>
+        </div>
+      </a>
+
+      <!-- Menu Desktop -->
+      <nav class="main-nav" aria-label="Navigazione Principale">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="chi-siamo.html" class="nav-link">Chi siamo</a>
+        <a href="shop.html" class="nav-link">Shop</a>
+        <a href="contatti.html" class="nav-link">Contatti</a>
+      </nav>
+
+      <!-- Azioni Header -->
+      <div class="header-actions">
+        <button type="button" class="cart-toggle-btn" aria-label="Visualizza carrello">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="cart-badge" style="display:none;">0</span>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Apri menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
+  <aside class="mobile-nav-drawer" id="mobile-nav-drawer">
+    <div class="mobile-drawer-header">
+      <a href="index.html" class="brand-logo-link">
+        <img src="assets/images/logo-valmora.svg" alt="Tenuta Valmora" style="width:36px; height:36px;">
+        <span class="brand-title" style="font-size:1.15rem;">Tenuta Valmora</span>
+      </a>
+      <button type="button" class="cart-close-btn" id="mobile-drawer-close" style="color:var(--color-wine-dark);" aria-label="Chiudi menu">&times;</button>
+    </div>
+    <div class="mobile-drawer-links">
+      <a href="index.html" class="mobile-drawer-link active">Home <span>&rarr;</span></a>
+      <a href="chi-siamo.html" class="mobile-drawer-link">Chi siamo <span>&rarr;</span></a>
+      <a href="shop.html" class="mobile-drawer-link">Shop Online <span>&rarr;</span></a>
+      <a href="contatti.html" class="mobile-drawer-link">Contatti <span>&rarr;</span></a>
+    </div>
+    <div style="margin-top:auto; padding-top:2rem; border-top:1px solid var(--color-border);">
+      <p style="font-size:0.8rem; color:var(--color-text-muted); margin-bottom:1rem;">Teolo, Colli Euganei (Padova)<br>Tel: +39 049 892 4110</p>
+      <a href="shop.html" class="btn btn-primary" style="width:100%;">Acquista Online</a>
+    </div>
+  </aside>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <img src="assets/images/hero-vineyard.jpg" alt="Vigneti storici Tenuta Valmora sui Colli Euganei" class="hero-bg">
+    <div class="hero-overlay"></div>
+    <div class="container">
+      <div class="hero-content">
+        <span class="heading-eyebrow light">Quattro Generazioni di Vignaioli</span>
+        <h1 class="hero-title">L'Arte dei Rossi d'Autore nei Colli Euganei</h1>
+        <p class="hero-desc">
+          Dal 1928 custodiamo vigne secolari su pendii vulcanici di trachite e basalto. 
+          Un'eredità familiare che fonde rispetto profondo per la natura ed eleganza senza tempo.
+        </p>
+        <div class="hero-actions">
+          <a href="shop.html" class="btn btn-gold">Esplora lo Shop</a>
+          <a href="chi-siamo.html" class="btn btn-outline-white">La Nostra Storia</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Striscia Valori / Pillars -->
+  <section class="trust-strip">
+    <div class="container">
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+          </div>
+          <div class="trust-text">
+            <h4>4 Generazioni</h4>
+            <p>Famiglia e tradizione viva da quasi un secolo a Teolo.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
+          </div>
+          <div class="trust-text">
+            <h4>Terroir Vulcanico</h4>
+            <p>Suoli minerali unici al mondo nei Colli Euganei.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+          </div>
+          <div class="trust-text">
+            <h4>Spedizione Isotermica</h4>
+            <p>Consegna garantita in 24/48h. Gratis da €99.</p>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          </div>
+          <div class="trust-text">
+            <h4>Checkout Protetto</h4>
+            <p>Pagamenti certificati tramite Stripe (Test Mode).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sezione Sintesi Vini d'Autore -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center">
+        <span class="heading-eyebrow">La Selezione Esclusiva</span>
+        <h2 class="section-title">I Grandi Rossi d'Autore</h2>
+        <p class="section-subtitle">
+          Dalle pendici vulcaniche baciate dal sole del Veneto nascono i nostri vini più rinomati, 
+          celebrati dalle migliori guide enologiche internazionali.
+        </p>
+      </div>
+
+      <div class="products-grid">
+        <!-- Vino 1: Valmora Rosso -->
+        <article class="product-card">
+          <div class="product-badge">Icona di Famiglia</div>
+          <div class="product-image-wrapper">
+            <img src="assets/images/bottle-rosso.jpg" alt="Valmora Rosso Colli Euganei DOC" class="product-image">
+          </div>
+          <div class="product-info">
+            <span class="product-appellation">Colli Euganei Rosso DOC</span>
+            <h3 class="product-name">Valmora Rosso</h3>
+            <div class="product-vintage">Annata 2021 &bull; 750 ml &bull; 94 Punti</div>
+            <p class="product-desc">Il nostro rosso d'autore simbolo: equilibrio magistrale tra Merlot e Cabernet sui suoli vulcanici. Affinato 14 mesi in tonneaux.</p>
+            <div class="product-bottom">
+              <div class="product-price">€28.00</div>
+              <div style="display:flex; gap:0.5rem;">
+                <button type="button" class="btn btn-outline btn-sm" onclick="openProductModal('valmora-rosso-doc')">Dettagli</button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="addToCart('valmora-rosso-doc', 1)">Acquista</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Vino 2: Eremo di San Giorgio -->
+        <article class="product-card">
+          <div class="product-badge">Tre Bicchieri Gambero Rosso</div>
+          <div class="product-image-wrapper">
+            <img src="assets/images/bottle-cabernet.jpg" alt="Eremo di San Giorgio Cabernet Sauvignon Riserva" class="product-image">
+          </div>
+          <div class="product-info">
+            <span class="product-appellation">Colli Euganei Cabernet Sauvignon Riserva DOC</span>
+            <h3 class="product-name">Eremo di San Giorgio</h3>
+            <div class="product-vintage">Annata 2019 &bull; 750 ml &bull; 96 Punti</div>
+            <p class="product-desc">Riserva solenne da singola vigna storica esposta a mezzogiorno, elevata 24 mesi in barrique di rovere francese.</p>
+            <div class="product-bottom">
+              <div class="product-price">€45.00</div>
+              <div style="display:flex; gap:0.5rem;">
+                <button type="button" class="btn btn-outline btn-sm" onclick="openProductModal('eremo-san-giorgio-cabernet')">Dettagli</button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="addToCart('eremo-san-giorgio-cabernet', 1)">Acquista</button>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Vino 3: Vulcano Nero -->
+        <article class="product-card">
+          <div class="product-badge">Tiratura Limitata</div>
+          <div class="product-image-wrapper">
+            <img src="assets/images/bottle-carmenere.jpg" alt="Vulcano Nero Carmenère Riserva DOC" class="product-image">
+          </div>
+          <div class="product-info">
+            <span class="product-appellation">Colli Euganei Carmenère Riserva DOC</span>
+            <h3 class="product-name">Vulcano Nero</h3>
+            <div class="product-vintage">Annata 2020 &bull; 750 ml &bull; 97 Punti</div>
+            <p class="product-desc">La rarità vulcanica: Carmenère in purezza con profumi balsamici, cardamomo e mirtillo nero. Sapido e minerale.</p>
+            <div class="product-bottom">
+              <div class="product-price">€52.00</div>
+              <div style="display:flex; gap:0.5rem;">
+                <button type="button" class="btn btn-outline btn-sm" onclick="openProductModal('vulcano-nero-carmenere')">Dettagli</button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="addToCart('vulcano-nero-carmenere', 1)">Acquista</button>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="text-center" style="margin-top:3.5rem;">
+        <a href="shop.html" class="btn btn-outline" style="padding:1rem 2.5rem;">
+          Scopri l'Intero Catalogo nello Shop &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sezione Split: Storia & Filosofia dei Colli Euganei -->
+  <section class="section section-sand">
+    <div class="container">
+      <div class="split-grid">
+        <div class="split-image-box">
+          <img src="assets/images/colli-euganei.jpg" alt="I colli vulcanici di Tenuta Valmora">
+          <div class="split-accent-card">
+            <h4>35 Milioni di Anni</h4>
+            <p>L'origine vulcanica sottomarina che dona ai nostri vini una mineralità e sapidità incomparabili.</p>
+          </div>
+        </div>
+
+        <div class="split-content">
+          <span class="heading-eyebrow">La Nostra Filosofia</span>
+          <h2 class="section-title">Nati dal Fuoco, Coltivati con Amore</h2>
+          <p>
+            I Colli Euganei emergono dalla pianura padana come isole di roccia basaltica e calcarea. 
+            Questo straordinario mosaico geologico, unito a un microclima protetto dalle Alpi e scaldato dalle brezze adriatiche, 
+            costituisce la culla ideale per la maturazione fenolica perfetta delle varietà a bacca rossa.
+          </p>
+          <p>
+            Nella nostra cantina la tecnologia più moderna dialoga ogni giorno con la saggezza dei nostri nonni: 
+            fermentazioni spontanee con lieviti indigeni, macerazioni lente e lunghi sonni nelle bottaie sotterranee scavate nella roccia.
+          </p>
+          <div style="margin-top:2rem;">
+            <a href="chi-siamo.html" class="btn btn-primary">Approfondisci Chi Siamo</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Banner Degustazione ed Esperienze in Cantina -->
+  <section class="section section-dark" style="position:relative; overflow:hidden;">
+    <div style="position:absolute; inset:0; opacity:0.18;">
+      <img src="assets/images/cellar-vault.jpg" alt="Bottaia sotterranea Tenuta Valmora" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <div class="container" style="position:relative; z-index:2;">
+      <div class="text-center" style="max-width:760px; margin:0 auto;">
+        <span class="heading-eyebrow light">Vivi l'Esperienza Valmora</span>
+        <h2 class="section-title">Vieni a Trovarci in Bottaia</h2>
+        <p class="section-subtitle" style="color:#D6C2C7; margin-bottom:2.5rem;">
+          Passeggia tra i nostri filari vulcanici, scopri i segreti della vinificazione in rovere 
+          e lasciati guidare dai nostri sommelier in una degustazione esclusiva con vista panoramica sui colli.
+        </p>
+        <div style="display:flex; justify-content:center; gap:1.2rem; flex-wrap:wrap;">
+          <a href="contatti.html" class="btn btn-gold">Prenota una Degustazione</a>
+          <button type="button" class="btn btn-outline-white" onclick="window.toggleChatbot()">Chiedi Orari al Sommelier</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="section" style="background-color:#FFFFFF; border-top:1px solid var(--color-border);">
+    <div class="container text-center" style="max-width:680px;">
+      <span class="heading-eyebrow">Club Esclusivo Valmora</span>
+      <h3 style="font-size:2rem; margin-bottom:0.75rem;">Unisciti agli Amanti dei Grandi Rossi</h3>
+      <p style="color:var(--color-text-muted); font-size:0.95rem; margin-bottom:1.75rem;">
+        Iscriviti per ricevere in anteprima le nuove annate numerate, inviti a degustazioni private 
+        e uno sconto speciale del 10% sul tuo primo acquisto.
+      </p>
+      <form id="newsletter-form" style="display:flex; gap:0.5rem; max-width:480px; margin:0 auto;">
+        <input type="email" placeholder="Inserisci la tua email" required class="form-input" style="flex-grow:1; border-radius:var(--radius-full);">
+        <button type="submit" class="btn btn-primary" style="border-radius:var(--radius-full); white-space:nowrap;">Iscriviti</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer Istituzionale -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
+            <img src="assets/images/logo-valmora.svg" alt="Tenuta Valmora" style="width:38px; height:38px;">
+            <span style="font-family:var(--font-serif); font-size:1.3rem; color:#FFFFFF; font-weight:700;">TENUTA VALMORA</span>
+          </div>
+          <p>
+            Cantina storica dei Colli Euganei guidata dalla stessa famiglia da quattro generazioni. 
+            Produzione artigianale di vini rossi d'autore su suoli vulcanici d'eccellenza.
+          </p>
+          <div class="footer-social">
+            <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="YouTube">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Navigazione</h4>
+          <ul class="footer-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="chi-siamo.html">La Cantina & Chi siamo</a></li>
+            <li><a href="shop.html">Shop Vini d'Autore</a></li>
+            <li><a href="contatti.html">Contatti & Prenotazioni</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Informazioni</h4>
+          <ul class="footer-links">
+            <li><a href="shop.html">Condizioni di Vendita</a></li>
+            <li><a href="contatti.html">Spedizioni & Imballaggi</a></li>
+            <li><a href="contatti.html">Diritto di Recesso</a></li>
+            <li><a href="contatti.html">Privacy & Cookie Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Sede & Contatti</h4>
+          <p style="font-size:0.88rem; line-height:1.7; color:#D6C2C7; margin-bottom:0.75rem;">
+            <strong>Tenuta Valmora S.S. Agricola</strong><br>
+            Via dei Colli Euganei 42<br>
+            35037 Teolo (Padova) - Italia
+          </p>
+          <p style="font-size:0.85rem; color:#D6C2C7;">
+            Tel: +39 049 892 4110<br>
+            Mail: <a href="mailto:info@tenutavalmora.it" style="color:var(--color-gold);">info@tenutavalmora.it</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          &copy; 2026 Tenuta Valmora S.S. Tutti i diritti riservati. P.IVA 03498120284.
+        </div>
+        <div class="footer-test-badge">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h2v2h-2zm0-10h2v8h-2z"/></svg>
+          Sito dimostrativo sviluppato via Vibe Coding &bull; Stripe Test Mode attivo
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       MODALI E COMPONENTI INTERATTIVI GLOBALI
+       ======================================================================== -->
+
+  <!-- 1. Carrello Laterale (Cart Drawer) -->
+  <div class="cart-backdrop" id="cart-backdrop"></div>
+  <div class="cart-drawer" id="cart-drawer">
+    <div class="cart-header">
+      <div class="cart-header-title">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+        <h3>Il Tuo Carrello</h3>
+        <span class="cart-header-badge cart-count-val">0</span>
+      </div>
+      <button type="button" class="cart-close-btn" id="cart-close-btn" aria-label="Chiudi carrello">&times;</button>
+    </div>
+
+    <div class="cart-shipping-bar">
+      <div class="shipping-bar-text" id="shipping-bar-text">
+        <span>Aggiungi per la spedizione gratuita</span>
+      </div>
+      <div class="shipping-bar-progress">
+        <div class="shipping-bar-fill" id="shipping-bar-fill" style="width:0%;"></div>
+      </div>
+    </div>
+
+    <!-- Items List -->
+    <div class="cart-items-container" id="cart-items-container"></div>
+
+    <!-- Empty State -->
+    <div class="cart-empty" id="cart-empty-state">
+      <div class="cart-empty-icon">🍷</div>
+      <h4>Il tuo carrello è vuoto</h4>
+      <p style="margin-bottom:1.5rem; font-size:0.9rem;">Non hai ancora aggiunto nessuna bottiglia della nostra cantina.</p>
+      <a href="shop.html" class="btn btn-primary" onclick="closeCartDrawer()">Esplora lo Shop</a>
+    </div>
+
+    <!-- Footer Carrello con subtotali e checkout -->
+    <div class="cart-footer" id="cart-footer" style="display:none;">
+      <div class="cart-summary-row">
+        <span>Subtotale bottiglie:</span>
+        <span id="cart-subtotal-val">€0.00</span>
+      </div>
+      <div class="cart-summary-row">
+        <span>Spedizione isotermica:</span>
+        <span id="cart-shipping-val">€7.90</span>
+      </div>
+      <div class="cart-summary-row total">
+        <span>Totale ordine:</span>
+        <span id="cart-total-val">€0.00</span>
+      </div>
+      <button type="button" class="btn btn-gold cart-checkout-btn" id="cart-checkout-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        Procedi al Pagamento Sicuro
+      </button>
+      <p class="cart-guarantee-note">🔒 Pagamento protetto con Stripe &bull; Garanzia bottiglia perfetta</p>
+    </div>
+  </div>
+
+  <!-- 2. Modale Checkout Stripe (Test Mode) -->
+  <div class="checkout-modal-backdrop" id="checkout-modal-backdrop">
+    <div class="checkout-modal">
+      <div class="checkout-modal-header">
+        <div class="checkout-header-info">
+          <h3 style="font-family:var(--font-serif); font-size:1.4rem; color:#FFFFFF;">Checkout Tenuta Valmora</h3>
+          <span class="stripe-badge-test">⚡ Stripe Test Mode</span>
+          <span id="stripe-connected-badge" style="background:rgba(46,204,113,0.18); color:#2ECC71; font-size:0.68rem; padding:0.25rem 0.55rem; border-radius:9999px; border:1px solid #2ECC71;">🟢 Account Collegato (pk_test_51UXz...)</span>
+        </div>
+        <button type="button" class="checkout-close-btn" id="checkout-close-btn">&times;</button>
+      </div>
+
+      <!-- Processing Overlay -->
+      <div class="checkout-processing-overlay" id="checkout-processing-overlay">
+        <div class="spinner"></div>
+        <h4 style="font-size:1.3rem; margin-bottom:0.5rem; color:var(--color-wine-dark);" id="checkout-processing-status">Elaborazione pagamento Stripe in corso...</h4>
+        <p style="font-size:0.85rem; color:var(--color-text-muted);">Non chiudere la finestra, stiamo confermando il tuo ordine.</p>
+      </div>
+
+      <div class="checkout-modal-body">
+        <!-- Banner Autofill Test Stripe -->
+        <div class="stripe-test-card-banner" id="stripe-autofill-btn" title="Clicca per compilare automaticamente">
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <span>💡 <strong>Modalità Test Attiva:</strong> Clicca qui per compilare con dati di prova Stripe</span>
+          </div>
+          <span style="font-weight:700; text-decoration:underline;">Autocompila</span>
+        </div>
+
+        <form id="checkout-form">
+          <!-- Step 1: Dati di spedizione -->
+          <h4 class="checkout-step-title">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            1. Indirizzo di Spedizione
+          </h4>
+          <div class="checkout-form-grid two-cols">
+            <div class="form-group">
+              <label class="form-label" for="checkout-first-name">Nome *</label>
+              <input type="text" id="checkout-first-name" class="form-input" required placeholder="Mario">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="checkout-last-name">Cognome *</label>
+              <input type="text" id="checkout-last-name" class="form-input" required placeholder="Rossi">
+            </div>
+          </div>
+
+          <div class="checkout-form-grid two-cols">
+            <div class="form-group">
+              <label class="form-label" for="checkout-email">Email per conferma ordine *</label>
+              <input type="email" id="checkout-email" class="form-input" required placeholder="mario.rossi@example.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="checkout-phone">Telefono (per il corriere) *</label>
+              <input type="tel" id="checkout-phone" class="form-input" required placeholder="+39 340 1234567">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label class="form-label" for="checkout-address">Indirizzo e Numero Civico *</label>
+            <input type="text" id="checkout-address" class="form-input" required placeholder="Via Monte Ceva 15">
+          </div>
+
+          <div class="checkout-form-grid" style="grid-template-columns: 2fr 1fr 1fr;">
+            <div class="form-group">
+              <label class="form-label" for="checkout-city">Città *</label>
+              <input type="text" id="checkout-city" class="form-input" required placeholder="Abano Terme">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="checkout-zip">CAP *</label>
+              <input type="text" id="checkout-zip" class="form-input" required placeholder="35031">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="checkout-province">Provincia *</label>
+              <input type="text" id="checkout-province" class="form-input" required placeholder="PD" maxlength="2">
+            </div>
+          </div>
+
+          <!-- Step 2: Pagamento Stripe Test -->
+          <h4 class="checkout-step-title" style="margin-top:1.5rem;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+            2. Pagamento Protetto con Carta (Stripe Test)
+          </h4>
+
+          <div class="stripe-box">
+            <div class="stripe-box-header">
+              <span class="stripe-logo-text">stripe</span>
+              <div style="font-size:0.75rem; color:#6B7280; display:flex; align-items:center; gap:4px;">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                Connessione SSL 256-bit Crittografata
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom:1rem;">
+              <label class="form-label" for="checkout-card-name">Intestatario Carta *</label>
+              <input type="text" id="checkout-card-name" class="form-input" required placeholder="MARIO ROSSI">
+            </div>
+
+            <div class="form-group" style="margin-bottom:1rem;">
+              <label class="form-label" for="checkout-card-number">Numero Carta *</label>
+              <div class="stripe-input-wrapper">
+                <input type="text" id="checkout-card-number" class="form-input" required placeholder="4242 4242 4242 4242" maxlength="19">
+                <div class="card-icons-inline">
+                  <span>💳 Visa</span>
+                  <span>Mastercard</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="checkout-form-grid two-cols" style="margin-bottom:0;">
+              <div class="form-group">
+                <label class="form-label" for="checkout-card-exp">Scadenza (MM/AA) *</label>
+                <input type="text" id="checkout-card-exp" class="form-input" required placeholder="12/28" maxlength="5">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="checkout-card-cvc">CVC / CVV *</label>
+                <input type="text" id="checkout-card-cvc" class="form-input" required placeholder="123" maxlength="4">
+              </div>
+            </div>
+          </div>
+
+          <!-- Riepilogo Costi -->
+          <div class="checkout-order-summary-box">
+            <div class="checkout-summary-row">
+              <span>Totale prodotti:</span>
+              <span id="checkout-subtotal-val">€0.00</span>
+            </div>
+            <div class="checkout-summary-row">
+              <span>Spedizione:</span>
+              <span id="checkout-shipping-val">€0.00</span>
+            </div>
+            <div class="checkout-summary-row total">
+              <span>Totale da Pagare:</span>
+              <span id="checkout-total-val">€0.00</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-gold" style="width:100%; padding:1rem; font-size:1rem;" id="checkout-submit-btn">
+            <span id="checkout-pay-btn-text">Paga Ora in Modalità Test</span> &rarr;
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Modale Scheda Prodotto Dettagliata -->
+  <div class="product-modal-backdrop" id="product-modal-backdrop">
+    <div class="product-modal">
+      <button type="button" class="product-modal-close" id="product-modal-close">&times;</button>
+      <div class="product-modal-grid">
+        <div class="product-modal-visual">
+          <img src="" alt="" id="modal-product-img">
+        </div>
+        <div class="product-modal-content">
+          <span class="heading-eyebrow" id="modal-product-appellation">DOC</span>
+          <h2 style="font-size:2.2rem; margin-bottom:0.35rem;" id="modal-product-name">Nome Vino</h2>
+          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
+            <span class="product-badge" style="position:static;" id="modal-product-badge">Badge</span>
+            <span style="font-size:0.85rem; color:var(--color-text-muted);" id="modal-product-format">750 ml</span>
+          </div>
+
+          <div class="product-price" style="font-size:1.8rem; margin-bottom:1.25rem;" id="modal-product-price">€0.00</div>
+
+          <p style="font-size:0.95rem; line-height:1.7; color:var(--color-text-muted); margin-bottom:1.25rem;" id="modal-product-desc"></p>
+
+          <div style="font-size:0.85rem; margin-bottom:1rem;">
+            <p><strong>Uve:</strong> <span id="modal-product-grapes"></span></p>
+            <p><strong>Terroir:</strong> <span id="modal-product-terroir"></span></p>
+          </div>
+
+          <div class="tasting-notes-box">
+            <h5>Note di Degustazione</h5>
+            <p><strong>Visiva:</strong> <span id="modal-tasting-visual"></span></p>
+            <p><strong>Olfattiva:</strong> <span id="modal-tasting-olfactory"></span></p>
+            <p><strong>Gustativa:</strong> <span id="modal-tasting-taste"></span></p>
+            <p style="margin-top:0.4rem;"><strong>Abbinamenti Consigliati:</strong> <span id="modal-product-pairing"></span></p>
+          </div>
+
+          <div style="display:flex; gap:1rem; align-items:center; margin-top:auto;">
+            <div style="display:flex; align-items:center; border:1px solid var(--color-border); border-radius:var(--radius-sm); overflow:hidden;">
+              <input type="number" id="modal-qty-input" value="1" min="1" max="36" style="width:55px; text-align:center; padding:0.6rem; border:none; font-weight:700;">
+            </div>
+            <button type="button" class="btn btn-primary" id="modal-add-cart-btn" style="flex-grow:1;">Aggiungi al Carrello</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Chatbot Widget (Sommelier Virtuale) -->
+  <div class="chatbot-wrapper">
+    <!-- Pulsante trigger fluttuante -->
+    <button type="button" class="chatbot-trigger-btn" id="chatbot-trigger-btn" aria-label="Apri Sommelier Virtuale">
+      <span class="chatbot-trigger-icon">🍷</span>
+      <span class="chatbot-trigger-text">Sommelier Virtuale</span>
+      <span class="chatbot-trigger-pill"></span>
+    </button>
+
+    <!-- Finestra di conversazione -->
+    <div class="chatbot-window" id="chatbot-window">
+      <div class="chatbot-header">
+        <div class="chatbot-header-profile">
+          <div class="chatbot-avatar">🍷</div>
+          <div>
+            <div class="chatbot-title">Sommelier Valmora</div>
+            <div class="chatbot-status">
+              <span class="status-dot"></span> Assistente Virtuale Attivo
+            </div>
+          </div>
+        </div>
+        <button type="button" class="chatbot-header-close" id="chatbot-close-btn">&times;</button>
+      </div>
+
+      <!-- Storico messaggi -->
+      <div class="chatbot-messages" id="chatbot-messages">
+        <div class="chat-bubble bot">
+          Benvenuto in <strong>Tenuta Valmora</strong>! Sono il tuo Sommelier Virtuale personale. 
+          Come posso aiutarti oggi? Posso fornirti orari per visite in cantina, informazioni sulle spedizioni dei vini, politica resi o consigliarti la bottiglia ideale per la tua tavola.
+        </div>
+      </div>
+
+      <!-- Chip di scelta rapida -->
+      <div class="chatbot-chips">
+        <button type="button" class="chip-btn" data-topic="orari">⏰ Orari e Visite</button>
+        <button type="button" class="chip-btn" data-topic="spedizioni">📦 Spedizioni e Costi</button>
+        <button type="button" class="chip-btn" data-topic="vino">🍷 Consigliami un Vino</button>
+        <button type="button" class="chip-btn" data-topic="resi">🔄 Politica Resi</button>
+        <button type="button" class="chip-btn" data-topic="contatti">📍 Recapiti</button>
+      </div>
+
+      <!-- Input invio domanda -->
+      <form class="chatbot-input-area" id="chatbot-form">
+        <input type="text" id="chatbot-input" class="chatbot-input" placeholder="Chiedi informazioni o abbinamenti..." autocomplete="off">
+        <button type="submit" class="chatbot-send-btn" aria-label="Invia">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Script JS -->
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/checkout.js?v=3"></script>
+  <script src="assets/js/chatbot.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="164 12 272 272" width="512" height="512" role="img" aria-label="Tenuta Valmora">
+  <title>Tenuta Valmora</title>
+  <defs>
+    <clipPath id="disc"><circle cx="300.0" cy="118" r="72"/></clipPath>
+  </defs>
+  
+  <!-- Emblema: i coni dei Colli Euganei e i filari di vite -->
+  <g transform="translate(300.0 148) scale(1.6) translate(-300.0 -118)">
+  <circle cx="300.0" cy="118" r="78" fill="none" stroke="#B08D57" stroke-width="1.1"/>
+  <g clip-path="url(#disc)">
+    <circle cx="264.0" cy="80" r="10" fill="#B08D57"/>
+    <path d="M190.0 214 C228.0 196 244.0 98 278.0 94 C308.0 98 318.0 160 346.0 176 L346.0 240 L190.0 240 Z" fill="#CDAAB0"/>
+    <path d="M286.0 176 C310.0 160 322.0 78 348.0 74 C376.0 78 390.0 170 420.0 200 L420.0 240 L286.0 240 Z" fill="#8E4553"/>
+    <path d="M190.0 176 Q300.0 124 410.0 176 L410.0 240 L190.0 240 Z" fill="#5E1A28"/>
+      <path d="M210.0 172 Q300.0 148 390.0 172" fill="none" stroke="#F6F1E7" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M210.0 183 Q300.0 157 390.0 183" fill="none" stroke="#F6F1E7" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M210.0 194 Q300.0 166 390.0 194" fill="none" stroke="#F6F1E7" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M210.0 205 Q300.0 175 390.0 205" fill="none" stroke="#F6F1E7" stroke-width="1.6" stroke-linecap="round"/>
+      <path d="M210.0 216 Q300.0 184 390.0 216" fill="none" stroke="#F6F1E7" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+  </g>
+</svg>
