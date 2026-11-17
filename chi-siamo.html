@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chi Siamo | La Storia e i Valori di Tenuta Valmora</title>
-  <meta name="description" content="Scopri la storia di Tenuta Valmora: quattro generazioni di vignaioli una famiglia, la sua storia e i suoi valori nel cuore dei Colli Euganei.">
+  <meta name="description" content="Scopri la storia di Tenuta Valmora: quattro generazioni di vignaioli, una famiglia, la sua storia e i suoi valori nel cuore dei Colli Euganei.">
   <link rel="icon" type="image/svg+xml" href="assets/images/logo-valmora.svg">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/components.css">
@@ -132,6 +132,68 @@
   .about-panorama-frame img { transform: none; }
 }
 
+/* Family portrait dissolves into the page, keeping an opaque reading surface. */
+.about-family { display: flex; position: relative; isolation: isolate; min-height: 740px; padding-block: 6rem; margin-top: 3rem; }
+.about-family-backdrop { position: absolute; inset: 0 0 0 32%; z-index: -2; overflow: hidden; }
+.about-family-backdrop img { width: 100%; height: 100%; object-fit: cover; object-position: 52% center; }
+.about-family::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #FAF7F2 0%, #FAF7F2 34%, rgb(250 247 242 / 98%) 44%, rgb(250 247 242 / 74%) 53%, rgb(250 247 242 / 8%) 70%, transparent 85%); }
+.about-family-copy { width: 46%; max-width: 535px; min-width: 0; }
+.about-family-copy p { color: #5D5054; }
+.about-family-copy h2 { font-size: clamp(3rem, 4.6vw, 4.9rem); }
+.about-family-layout { position: relative; }
+/* Native range: mouse, touch, and keyboard all use the same state. */
+.about-timeline-range { position: absolute; z-index: 3; margin: 0; padding: 0; appearance: none; -webkit-appearance: none; border: 0; outline: 0; background: transparent; cursor: grab; touch-action: none; accent-color: #D8BD84; }
+.about-timeline-range:active { cursor: grabbing; }
+.about-timeline-range::-webkit-slider-runnable-track { background: transparent; height: 100%; }
+.about-timeline-range::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 22px; height: 22px; margin-top: 11px; border: 2px solid #F5EAD1; border-radius: 50%; background: #D8BD84; box-shadow: 0 0 0 6px rgb(216 189 132 / 15%), 0 2px 12px rgb(0 0 0 / 16%); }
+.about-timeline-range::-moz-range-track { background: transparent; }
+.about-timeline-range::-moz-range-thumb { width: 18px; height: 18px; border: 2px solid #F5EAD1; border-radius: 50%; background: #D8BD84; box-shadow: 0 0 0 6px rgb(216 189 132 / 15%); }
+.about-timeline-range:focus-visible { outline: 1px solid #E5CF9F; outline-offset: 7px; border-radius: 4px; }
+.about-generation-select { font: inherit; color: inherit; line-height: inherit; padding: .25rem .15rem; text-align: inherit; }
+.about-generation-select:hover { color: #EAD7AE; }
+.about-history.is-interactive .about-generations li.is-current h3 { color: #EAD7AE; }
+.about-history.is-interactive .about-generation-dot { box-shadow: none; }
+.about-history-controls { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-bottom: 1.2rem; border-bottom: 1px solid rgb(216 189 132 / 30%); }
+.about-history-controls[hidden] { display: none; }
+.about-page .about-history-controls p { color: #D8C6C7; font-size: .72rem; line-height: 1.6; }
+.about-selected-count { color: #EAD7AE; letter-spacing: .12em; margin-right: 1.5rem; font-variant-numeric: tabular-nums; }
+.about-autoplay-toggle { color: #EAD7AE; padding: .65rem .8rem; font-size: .72rem; flex-shrink: 0; border: 1px solid rgb(216 189 132 / 35%); }
+.about-autoplay-toggle:hover { background: rgb(216 189 132 / 10%); }
+.about-generation-details { margin-block: 2.7rem; }
+.about-generation-detail { display: grid; grid-template-columns: .85fr 1.15fr; gap: 4rem; padding-block: 1rem; }
+.about-detail-heading .about-eyebrow { font-size: .62rem; margin-bottom: 1rem; }
+.about-page .about-detail-heading h3 { color: var(--color-cream); font-size: clamp(2rem, 3vw, 3.1rem); line-height: 1.12; }
+.about-page .about-detail-copy p { color: #E3D5D2; font-size: .91rem; line-height: 1.85; margin-bottom: .8rem; }
+.about-page .about-detail-copy p:last-child { margin-bottom: 0; }
+.about-history.is-interactive .about-generation-details { display: grid; }
+.about-history.is-interactive .about-generation-detail { grid-area: 1 / 1; opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(12px); transition: opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1), visibility .35s; }
+.about-history.is-interactive .about-generation-detail.is-active { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+.about-history-quote { padding-top: 1rem; }
+@media (max-width: 1100px) and (min-width: 761px) {
+  .about-family { min-height: 700px; }
+  .about-family-copy { width: 50%; }
+  .about-family::after { background: linear-gradient(90deg, #FAF7F2 0%, #FAF7F2 35%, rgb(250 247 242 / 96%) 49%, rgb(250 247 242 / 55%) 63%, transparent 85%); }
+}
+@media (max-width: 760px) {
+  .about-family { display: flex; flex-direction: column; min-height: 0; gap: 0; padding-block: 0; margin-top: 4rem; }
+  .about-family-backdrop { position: relative; inset: auto; width: 100%; height: 350px; z-index: auto; order: 2; margin-top: 1.8rem; }
+  .about-family-backdrop img { object-position: center 45%; }
+  .about-family::after { display: none; }
+  .about-family-copy { width: 100%; max-width: 550px; }
+  .about-family-copy h2 { font-size: clamp(2.8rem, 8vw, 3.7rem); }
+  .about-family-backdrop::after { content: ''; position: absolute; inset: 0; background: linear-gradient(#FAF7F2, transparent 25%); pointer-events: none; }
+  .about-history-panel { padding-block: 3.5rem; }
+  .about-timeline-range { writing-mode: vertical-lr; direction: ltr; }
+  .about-timeline-range::-webkit-slider-thumb { margin-top: 0; margin-left: 11px; }
+  .about-history-controls { align-items: flex-start; }
+  .about-selected-count { display: block; margin: 0 0 .35rem; }
+  .about-page .about-history-controls p { max-width: 225px; font-size: .67rem; }
+  .about-generation-details { margin-block: 2rem; }
+  .about-generation-detail { grid-template-columns: 1fr; gap: 1.4rem; padding-block: 0; }
+  .about-page .about-detail-heading h3 { font-size: 2.1rem; }
+  .about-page .about-detail-copy p { font-size: .86rem; }
+}
+
   </style>
 </head>
 <body class="about-page">
@@ -219,18 +281,19 @@
       </figure>
     </section>
 
-    <section id="la-famiglia" class="about-shell about-family" aria-labelledby="family-title">
-      <div class="about-family-copy" data-about-reveal>
-        <span class="about-eyebrow">01 / La famiglia</span>
-        <h2 id="family-title">Un sapere che<br>si tramanda.</h2>
-        <p>Da quattro generazioni, la stessa famiglia guida Tenuta Valmora. Una storia fatta di esperienza, passione e gesti quotidiani, nel cuore dei Colli Euganei.</p>
-        <p>Il nostro sguardo si rivolge al futuro, senza perdere il legame con le nostre radici. È da questo incontro che nascono i nostri rossi d’autore.</p>
-        <span class="about-signature">Famiglia. Territorio. Passione.</span>
+    <section id="la-famiglia" class="about-family" aria-labelledby="family-title">
+      <div class="about-family-backdrop" aria-hidden="true">
+        <img src="assets/images/about-hands.png?v=2" alt="" width="1536" height="1024" loading="lazy">
       </div>
-      <figure class="about-family-photo" data-about-reveal>
-        <img src="assets/images/about-hands.png" alt="Mani di un vignaiolo che si prendono cura di un grappolo d’uva" width="1536" height="1024" loading="lazy">
-        <figcaption>La cura si riconosce nei gesti.</figcaption>
-      </figure>
+      <div class="about-shell about-family-layout">
+        <div class="about-family-copy" data-about-reveal>
+          <span class="about-eyebrow">01 / La famiglia</span>
+          <h2 id="family-title">Un sapere che<br>si tramanda.</h2>
+          <p>Da quattro generazioni, la stessa famiglia guida Tenuta Valmora. Una storia fatta di esperienza, passione e gesti quotidiani, nel cuore dei Colli Euganei.</p>
+          <p>Il nostro sguardo si rivolge al futuro, senza perdere il legame con le nostre radici. È da questo incontro che nascono i nostri rossi d’autore.</p>
+          <span class="about-signature">Famiglia. Territorio. Passione.</span>
+        </div>
+      </div>
     </section>
 
     <section class="about-history" aria-labelledby="history-title">
@@ -239,36 +302,60 @@
           <div class="about-history-heading">
             <span class="about-eyebrow">Quattro generazioni, un’unica passione</span>
             <h2 id="history-title">La nostra storia continua.</h2>
-            <p class="about-history-instruction">Un percorso da scoprire, una generazione alla volta.</p>
+            <p class="about-history-instruction">Un filo che unisce il passato al futuro. Seguilo, una generazione alla volta.</p>
           </div>
           <div class="about-timeline">
             <div class="about-timeline-track" aria-hidden="true"><span></span></div>
+            <label for="generation-range" class="sr-only">Esplora le quattro generazioni</label>
+            <input id="generation-range" class="about-timeline-range" type="range" min="0" max="1000" step="1" value="0" aria-describedby="history-help" hidden>
             <ol class="about-generations">
               <li>
                 <span class="about-generation-number" aria-hidden="true">I</span>
                 <span class="about-generation-dot" aria-hidden="true"></span>
-                <h3><span class="sr-only">Prima generazione: </span>Le radici</h3>
+                <h3><button type="button" class="about-generation-select" data-generation="0" aria-controls="generation-details"><span class="sr-only">Prima generazione: </span>Le radici</button></h3>
                 <p>Il legame con la terra è il punto da cui parte il nostro racconto.</p>
               </li>
               <li>
                 <span class="about-generation-number" aria-hidden="true">II</span>
                 <span class="about-generation-dot" aria-hidden="true"></span>
-                <h3><span class="sr-only">Seconda generazione: </span>La continuità</h3>
+                <h3><button type="button" class="about-generation-select" data-generation="1" aria-controls="generation-details"><span class="sr-only">Seconda generazione: </span>La continuità</button></h3>
                 <p>L’esperienza passa di mano in mano e diventa un patrimonio condiviso.</p>
               </li>
               <li>
                 <span class="about-generation-number" aria-hidden="true">III</span>
                 <span class="about-generation-dot" aria-hidden="true"></span>
-                <h3><span class="sr-only">Terza generazione: </span>L’evoluzione</h3>
+                <h3><button type="button" class="about-generation-select" data-generation="2" aria-controls="generation-details"><span class="sr-only">Terza generazione: </span>L’evoluzione</button></h3>
                 <p>La tradizione incontra nuove idee, con lo sguardo rivolto al domani.</p>
               </li>
               <li>
                 <span class="about-generation-number" aria-hidden="true">IV</span>
                 <span class="about-generation-dot" aria-hidden="true"></span>
-                <h3><span class="sr-only">Quarta generazione: </span>Il futuro</h3>
+                <h3><button type="button" class="about-generation-select" data-generation="3" aria-controls="generation-details"><span class="sr-only">Quarta generazione: </span>Il futuro</button></h3>
                 <p>Oggi portiamo i nostri vini anche online, per condividere la nostra passione.</p>
               </li>
             </ol>
+          </div>
+          <div class="about-history-controls" hidden>
+            <p id="history-help"><span class="about-selected-count" aria-hidden="true">01 / 04</span> Trascina il pallino o seleziona una generazione</p>
+            <button type="button" class="about-autoplay-toggle" aria-label="Metti in pausa il racconto automatico">Pausa <span aria-hidden="true">Ⅱ</span></button>
+          </div>
+          <div class="about-generation-details" id="generation-details">
+            <article class="about-generation-detail" id="generation-story-0" aria-labelledby="generation-detail-title-0">
+              <div class="about-detail-heading"><span class="about-eyebrow">Generazione I / Le radici</span><h3 id="generation-detail-title-0">Tutto comincia da un legame.</h3></div>
+              <div class="about-detail-copy"><p>La storia di Tenuta Valmora affonda le proprie radici nei Colli Euganei. È qui che il legame tra una famiglia e il vino trova la sua prima espressione: nella conoscenza della terra, nell’attenzione ai suoi ritmi e nella passione per un lavoro che richiede pazienza.</p><p>La prima generazione rappresenta l’inizio di questo percorso. Un’eredità di gesti e sensibilità che continua a dare significato al nostro modo di intendere il vino.</p></div>
+            </article>
+            <article class="about-generation-detail" id="generation-story-1" aria-labelledby="generation-detail-title-1">
+              <div class="about-detail-heading"><span class="about-eyebrow">Generazione II / La continuità</span><h3 id="generation-detail-title-1">Un’eredità da custodire, ogni giorno.</h3></div>
+              <div class="about-detail-copy"><p>Tramandare un sapere significa farlo vivere. Il racconto della seconda generazione è quello della continuità: un’esperienza che passa da una persona all’altra, attraverso il lavoro condiviso e la cura quotidiana.</p><p>Conservare il legame con le proprie origini vuol dire riconoscerne il valore e portarlo avanti con responsabilità. In questo passaggio, la tradizione diventa una presenza viva, capace di accompagnare ogni nuova vendemmia.</p></div>
+            </article>
+            <article class="about-generation-detail" id="generation-story-2" aria-labelledby="generation-detail-title-2">
+              <div class="about-detail-heading"><span class="about-eyebrow">Generazione III / L’evoluzione</span><h3 id="generation-detail-title-2">Nuovi sguardi, le stesse radici.</h3></div>
+              <div class="about-detail-copy"><p>Una storia familiare cresce quando sa accogliere nuovi punti di vista. La terza generazione racconta questo incontro tra memoria e cambiamento: la volontà di guardare avanti mantenendo un’identità riconoscibile.</p><p>Al centro rimane l’espressione dei Colli Euganei e la ricerca di rossi d’autore. Il passato offre un orientamento, mentre il presente apre nuove possibilità per raccontare il territorio attraverso il vino.</p></div>
+            </article>
+            <article class="about-generation-detail" id="generation-story-3" aria-labelledby="generation-detail-title-3">
+              <div class="about-detail-heading"><span class="about-eyebrow">Generazione IV / Il futuro</span><h3 id="generation-detail-title-3">La nostra storia incontra la tua.</h3></div>
+              <div class="about-detail-copy"><p>Oggi Tenuta Valmora è guidata dalla quarta generazione della stessa famiglia. Il percorso continua con il desiderio di far conoscere i propri vini a un pubblico più ampio, portando il racconto della cantina anche online.</p><p>La vendita diretta sul web crea un nuovo punto d’incontro con chi sceglie i nostri rossi d’autore. Cambiano gli strumenti, ma il filo che tiene insieme la storia rimane lo stesso: famiglia, territorio e passione.</p></div>
+            </article>
           </div>
           <p class="about-history-quote">Cambiano le generazioni. Resta il legame con la terra.</p>
         </div>
@@ -289,7 +376,7 @@
     </section>
 
     <section class="about-invitation" aria-labelledby="invitation-title">
-      <img src="assets/images/about-cellar.png" alt="Botti di rovere in una cantina dalle volte in pietra" width="1536" height="1024" loading="lazy">
+      <img src="assets/images/about-cellar.png?v=2" alt="Botti di rovere in una cantina dalle volte in pietra" width="1536" height="1024" loading="lazy">
       <div class="about-shell about-invitation-content" data-about-reveal>
         <span class="about-eyebrow">Scopri Tenuta Valmora</span>
         <h2 id="invitation-title">La nostra storia,<br>nel tuo calice.</h2>
@@ -572,7 +659,7 @@
 
   <!-- Script JS -->
   <script>
-/* Play the four generations when the timeline enters view, without pinning. */
+/* Four generations: automatic introduction, then drag, touch or keyboard exploration. */
 (() => {
   const history = document.querySelector('.about-history');
   if (!history) return;
@@ -580,22 +667,59 @@
   const steps = [...history.querySelectorAll('.about-generations li')];
   const panorama = document.querySelector('.about-panorama-frame');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
-  const duration = 3200;
+  const range = history.querySelector('.about-timeline-range');
+  const panels = [...history.querySelectorAll('.about-generation-detail')];
+  const selectors = [...history.querySelectorAll('.about-generation-select')];
+  const controls = history.querySelector('.about-history-controls');
+  const toggle = history.querySelector('.about-autoplay-toggle');
+  const counter = history.querySelector('.about-selected-count');
+  const labels = ['Le radici', 'La continuità', 'L’evoluzione', 'Il futuro'];
+  const duration = 9000;
+  let progress = 0;
+  let selected = -1;
+  let paused = false;
+  let hasInteracted = false;
+  let settleFrame = 0;
+  history.classList.add('is-interactive');
+  range.hidden = false;
+  range.setAttribute('aria-controls', 'generation-details');
+  controls.hidden = false;
   let elapsed = 0;
   let frame = 0;
   let previousTime = null;
   let inView = false;
   let panoramaFrame = 0;
 
-  function paint(progress) {
+  function updateToggle() {
+    const completed = elapsed >= duration;
+    const label = completed ? 'Rivedi' : paused ? 'Riproduci' : 'Pausa';
+    toggle.textContent = `${label} ${!completed && !paused ? 'Ⅱ' : '▷'}`;
+    toggle.setAttribute('aria-label', completed ? 'Rivedi il racconto automatico' : paused ? 'Riproduci il racconto automatico' : 'Metti in pausa il racconto automatico');
+  }
+
+  function paint(value) {
+    progress = Math.min(1, Math.max(0, value));
     history.style.setProperty('--history-progress', progress.toFixed(4));
-    const current = Math.min(3, Math.floor(progress * 3 + .003));
+    range.value = String(Math.round(progress * 1000));
+    const current = Math.min(3, Math.round(progress * 3));
     steps.forEach((step, index) => {
-      step.classList.toggle('is-reached', index <= current);
+      step.classList.toggle('is-reached', index / 3 <= progress + .002);
       step.classList.toggle('is-current', index === current);
       if (index === current) step.setAttribute('aria-current', 'step');
       else step.removeAttribute('aria-current');
     });
+    if (current !== selected) {
+      selected = current;
+      counter.textContent = `0${current + 1} / 04`;
+      range.setAttribute('aria-valuetext', `Generazione ${current + 1} di 4: ${labels[current]}`);
+      panels.forEach((panel, index) => {
+        const active = index === current;
+        panel.classList.toggle('is-active', active);
+        panel.setAttribute('aria-hidden', String(!active));
+        panel.inert = !active;
+      });
+      selectors.forEach((button, index) => button.setAttribute('aria-pressed', String(index === current)));
+    }
   }
 
   function stop() {
@@ -606,16 +730,16 @@
 
   function animate(time) {
     frame = 0;
-    if (!inView || document.hidden || motion.matches) return;
+    if (!inView || document.hidden || motion.matches || paused) return;
     if (previousTime !== null) elapsed = Math.min(duration, elapsed + time - previousTime);
     previousTime = time;
     paint(elapsed / duration);
     if (elapsed < duration) frame = requestAnimationFrame(animate);
-    else previousTime = null;
+    else { previousTime = null; updateToggle(); }
   }
 
   function resume() {
-    if (inView && !document.hidden && !motion.matches && elapsed < duration && !frame) {
+    if (inView && !document.hidden && !motion.matches && !paused && elapsed < duration && !frame) {
       previousTime = null;
       frame = requestAnimationFrame(animate);
     }
@@ -636,22 +760,93 @@
     history.classList.toggle('has-scroll-motion', !motion.matches);
     if (motion.matches) {
       stop();
-      elapsed = duration;
-      paint(1);
-      steps.forEach(step => step.removeAttribute('aria-current'));
+      if (!hasInteracted) elapsed = duration;
+      paint(hasInteracted ? progress : 1);
       panorama?.style.removeProperty('--panorama-y');
     } else {
       paint(elapsed / duration);
       resume();
     }
     const track = history.querySelector('.about-timeline-track');
-    if (matchMedia('(max-width: 760px)').matches) {
-      const first = steps[0].querySelector('.about-generation-dot').getBoundingClientRect();
-      const last = steps[3].querySelector('.about-generation-dot').getBoundingClientRect();
-      track.style.height = `${last.top - first.top}px`;
-    } else track.style.removeProperty('height');
+    const bounds = timeline.getBoundingClientRect();
+    const first = steps[0].querySelector('.about-generation-dot').getBoundingClientRect();
+    const last = steps[3].querySelector('.about-generation-dot').getBoundingClientRect();
+    const x = first.left + first.width / 2 - bounds.left;
+    const y = first.top + first.height / 2 - bounds.top;
+    const vertical = matchMedia('(max-width: 760px)').matches;
+    track.style.left = `${x}px`;
+    track.style.top = `${y}px`;
+    track.style.right = 'auto';
+    track.style.bottom = 'auto';
+    track.style.width = vertical ? '1px' : `${last.left - first.left}px`;
+    track.style.height = vertical ? `${last.top - first.top}px` : '1px';
+    range.style.left = `${x - (vertical ? 22 : 11)}px`;
+    range.style.top = `${y - (vertical ? 11 : 22)}px`;
+    range.style.width = vertical ? '44px' : `${last.left - first.left + 22}px`;
+    range.style.height = vertical ? `${last.top - first.top + 22}px` : '44px';
+    range.setAttribute('aria-orientation', vertical ? 'vertical' : 'horizontal');
+    updateToggle();
     updatePanorama();
   }
+
+  function takeControl() {
+    hasInteracted = true;
+    paused = true;
+    stop();
+    cancelAnimationFrame(settleFrame);
+    updateToggle();
+  }
+
+  function choose(index) {
+    takeControl();
+    const target = Math.min(3, Math.max(0, index)) / 3;
+    const start = progress;
+    elapsed = target * duration;
+    if (motion.matches) { paint(target); updateToggle(); return; }
+    const began = performance.now();
+    function settle(now) {
+      const fraction = Math.min(1, (now - began) / 320);
+      const eased = 1 - Math.pow(1 - fraction, 3);
+      paint(start + (target - start) * eased);
+      if (fraction < 1) settleFrame = requestAnimationFrame(settle);
+      else { settleFrame = 0; updateToggle(); }
+    }
+    settleFrame = requestAnimationFrame(settle);
+  }
+
+  range.addEventListener('pointerdown', takeControl);
+  range.addEventListener('focus', takeControl);
+  range.addEventListener('input', () => {
+    takeControl();
+    const value = Number(range.value) / 1000;
+    elapsed = value * duration;
+    paint(value);
+  });
+  range.addEventListener('change', () => choose(Math.round(Number(range.value) / 1000 * 3)));
+  range.addEventListener('keydown', event => {
+    const backward = ['ArrowLeft', 'ArrowUp', 'PageUp'];
+    const forward = ['ArrowRight', 'ArrowDown', 'PageDown'];
+    if (![...backward, ...forward, 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const target = event.key === 'Home' ? 0 : event.key === 'End' ? 3 : selected + (backward.includes(event.key) ? -1 : 1);
+    choose(target);
+  });
+  selectors.forEach((button, index) => {
+    button.addEventListener('focus', takeControl);
+    button.addEventListener('click', () => choose(index));
+  });
+  toggle.addEventListener('click', () => {
+    cancelAnimationFrame(settleFrame);
+    if (elapsed >= duration) {
+      elapsed = 0;
+      paint(0);
+      paused = false;
+    } else paused = !paused;
+    if (motion.matches) { elapsed = duration; paint(1); }
+    if (paused) stop();
+    else resume();
+    updateToggle();
+  });
 
   if ('IntersectionObserver' in window) {
     const timelineObserver = new IntersectionObserver(entries => {
