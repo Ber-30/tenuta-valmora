@@ -64,6 +64,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    if (window.gtag) gtag('event', 'generate_lead', { form_name: 'contatti' });
+
     // Se valido: simula invio con successo
     const submitBtn = document.getElementById('contact-submit-btn');
     const originalText = submitBtn ? submitBtn.innerHTML : '';
