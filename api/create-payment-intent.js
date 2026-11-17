@@ -11,7 +11,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Metodo non consentito' });
   }
 
-  const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || 'sk_test_51Uc9TdHABkv2DTVQUGZCGZGN9RrqvI2XyYzRWpTphSKG44gskxaI1QLfEbVsoKlEI9WIlRHqS5HgVQsSDRv9yK8o00Dj0r1ymf';
+  const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || 'sk_test_51UcT3aDodjpmDiIwVz4Lvu0m1yprxZ4PNMDJBaoh0uzYP6E6bTDpPQ7DuA3liDdL12LpkIlSI51zWxHbXPsIDOau00P6EVephz';
 
   try {
     const { amount, description, customerEmail, customerName } = req.body;

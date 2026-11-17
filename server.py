@@ -15,7 +15,7 @@ PORT = 3000
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 STRIPE_SECRET_KEY = os.environ.get(
     'STRIPE_SECRET_KEY',
-    'sk_test_51Uc9TdHABkv2DTVQUGZCGZGN9RrqvI2XyYzRWpTphSKG44gskxaI1QLfEbVsoKlEI9WIlRHqS5HgVQsSDRv9yK8o00Dj0r1ymf'
+    'sk_test_51UcT3aDodjpmDiIwVz4Lvu0m1yprxZ4PNMDJBaoh0uzYP6E6bTDpPQ7DuA3liDdL12LpkIlSI51zWxHbXPsIDOau00P6EVephz'
 )
 
 class ValmoraHandler(http.server.SimpleHTTPRequestHandler):

@@ -3,7 +3,8 @@
 // Integrato con API Stripe Backend reale (registra la transazione in Dashboard)
 // ==========================================================================
 
-const STRIPE_ACCOUNT_ID = 'acct_1Uc9TdHABkv2DTVQ';
+const STRIPE_PUBLISHABLE_KEY = 'pk_test_51UcT3aDodjpmDiIwIRVNqCkihxdiOZKFZJK2trWQr293aCe9wAcvkbSCN4yDNBGv0HKvDmvDdhYMa4jfSTATJ5yf00wRgKJqtX';
+const STRIPE_ACCOUNT_ID = 'acct_1UcT3aDodjpmDiIw';
 
 function openCheckoutModal() {
   const cart = window.getCart ? window.getCart() : [];
