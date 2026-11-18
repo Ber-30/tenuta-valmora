@@ -204,12 +204,10 @@
 .about-generation-select:hover { color: #EAD7AE; }
 .about-history.is-interactive .about-generations li.is-current h3 { color: #EAD7AE; }
 .about-history.is-interactive .about-generation-dot { box-shadow: none; }
-.about-history-controls { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding-bottom: 1.2rem; border-bottom: 1px solid rgb(216 189 132 / 30%); }
+.about-history-controls { padding-bottom: 1.2rem; border-bottom: 1px solid rgb(216 189 132 / 30%); }
 .about-history-controls[hidden] { display: none; }
 .about-page .about-history-controls p { color: #D8C6C7; font-size: .72rem; line-height: 1.6; }
 .about-selected-count { color: #EAD7AE; letter-spacing: .12em; margin-right: 1.5rem; font-variant-numeric: tabular-nums; }
-.about-autoplay-toggle { color: #EAD7AE; padding: .65rem .8rem; font-size: .72rem; flex-shrink: 0; border: 1px solid rgb(216 189 132 / 35%); }
-.about-autoplay-toggle:hover { background: rgb(216 189 132 / 10%); }
 .about-generation-details { margin-block: 2.7rem; }
 .about-generation-detail { display: grid; grid-template-columns: .85fr 1.15fr; gap: 4rem; padding-block: 1rem; }
 .about-detail-heading .about-eyebrow { font-size: .62rem; margin-bottom: 1rem; }
@@ -237,9 +235,8 @@
   .about-history.is-interactive .about-timeline-track { transform: translateX(-50%); }
   .about-history.is-interactive .about-timeline-hit { inset: -11px -21.5px; }
   .about-history.is-interactive .about-timeline-thumb { left: 50%; top: var(--history-cursor, 0%); }
-  .about-history-controls { align-items: flex-start; }
   .about-selected-count { display: block; margin: 0 0 .35rem; }
-  .about-page .about-history-controls p { max-width: 225px; font-size: .67rem; }
+  .about-page .about-history-controls p { font-size: .67rem; }
   .about-generation-details { margin-block: 2rem; }
   .about-generation-detail { grid-template-columns: 1fr; gap: 1.4rem; padding-block: 0; }
   .about-page .about-detail-heading h3 { font-size: 2.1rem; }
@@ -392,7 +389,6 @@
           </div>
           <div class="about-history-controls" hidden>
             <p id="history-help"><span class="about-selected-count" aria-hidden="true">01 / 04</span> Trascina il pallino o seleziona una generazione</p>
-            <button type="button" class="about-autoplay-toggle" aria-label="Metti in pausa il racconto automatico">Pausa <span aria-hidden="true">Ⅱ</span></button>
           </div>
           <div class="about-generation-details" id="generation-details">
             <article class="about-generation-detail" id="generation-story-0" aria-labelledby="generation-detail-title-0">
@@ -736,7 +732,6 @@
   const panels = [...history.querySelectorAll('.about-generation-detail')];
   const selectors = [...history.querySelectorAll('.about-generation-select')];
   const controls = history.querySelector('.about-history-controls');
-  const toggle = history.querySelector('.about-autoplay-toggle');
   const counter = history.querySelector('.about-selected-count');
   const labels = ['Le radici', 'La continuità', 'L’evoluzione', 'Il futuro'];
   const duration = 9000;
@@ -746,7 +741,6 @@
   let selected = 0;
   let renderedChapter = -1;
   let targetChapter = null;
-  let paused = false;
   let hasInteracted = false;
   let settleFrame = 0;
   let vertical = false;
@@ -764,13 +758,6 @@
   let previousTime = null;
   let inView = false;
   let panoramaFrame = 0;
-
-  function updateToggle() {
-    const completed = elapsed >= duration;
-    const label = completed ? 'Rivedi' : paused ? 'Riproduci' : 'Pausa';
-    toggle.textContent = `${label} ${!completed && !paused ? 'Ⅱ' : '▷'}`;
-    toggle.setAttribute('aria-label', completed ? 'Rivedi il racconto automatico' : paused ? 'Riproduci il racconto automatico' : 'Metti in pausa il racconto automatico');
-  }
 
   function animateArrival(chapter, settled = false) {
     if (motion.matches || !thumb.animate) return;
@@ -846,16 +833,16 @@
 
   function animate(time) {
     frame = 0;
-    if (!inView || document.hidden || motion.matches || paused) return;
+    if (!inView || document.hidden || motion.matches || hasInteracted) return;
     if (previousTime !== null) elapsed = Math.min(duration, elapsed + time - previousTime);
     previousTime = time;
     paint(elapsed / duration);
     if (elapsed < duration) frame = requestAnimationFrame(animate);
-    else { previousTime = null; updateToggle(); }
+    else previousTime = null;
   }
 
   function resume() {
-    if (inView && !document.hidden && !motion.matches && !paused && elapsed < duration && !frame) {
+    if (inView && !document.hidden && !motion.matches && !hasInteracted && elapsed < duration && !frame) {
       previousTime = null;
       frame = requestAnimationFrame(animate);
     }
@@ -913,7 +900,6 @@
       paint(elapsed / duration);
       panorama?.style.removeProperty('--panorama-y');
     } else resume();
-    updateToggle();
     updatePanorama();
   }
 
@@ -925,11 +911,9 @@
 
   function takeControl() {
     hasInteracted = true;
-    paused = true;
     stop();
     cancelSettle();
     thumbArrival?.cancel();
-    updateToggle();
   }
 
   function choose(index) {
@@ -941,7 +925,6 @@
       elapsed = target * duration;
       paint(target);
       animateArrival(chapter, true);
-      updateToggle();
       return;
     }
     targetChapter = chapter;
@@ -959,7 +942,6 @@
         paint(target);
         animateArrival(chapter, true);
         cancelSettle();
-        updateToggle();
       }
     }
     settleFrame = requestAnimationFrame(settle);
@@ -1022,18 +1004,6 @@
   selectors.forEach((button, index) => {
     button.addEventListener('focus', takeControl);
     button.addEventListener('click', () => choose(index));
-  });
-  toggle.addEventListener('click', () => {
-    cancelSettle();
-    if (elapsed >= duration) {
-      elapsed = 0;
-      paint(0);
-      paused = false;
-    } else paused = !paused;
-    if (motion.matches) { elapsed = duration; paint(1); }
-    if (paused) stop();
-    else resume();
-    updateToggle();
   });
 
   if ('IntersectionObserver' in window) {
