@@ -21,25 +21,48 @@
   <meta property="og:description" content="Cantina storica dei Colli Euganei, guidata dalla stessa famiglia da quattro generazioni. Rossi d'autore nati su suoli vulcanici, a Teolo.">
   <meta property="og:image" content="assets/images/hero-vineyard.jpg">
 </head>
-<body>
+<body class="home-page">
+  <script>
+    // Prima del primo disegno: prepara apertura e ingresso della hero (vedi home.js).
+    (function () {
+      var INTRO_ENABLED = true; // uguale a INTRO_ENABLED in assets/js/home.js
+      var root = document.documentElement;
+      var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (still || !('IntersectionObserver' in window)) return;
+      root.classList.add('home-hero-wait');
+      try {
+        if (INTRO_ENABLED && !sessionStorage.getItem('home-opening-seen')) root.classList.add('home-intro-pending');
+      } catch (e) {}
+      // Rete di sicurezza: se home.js non parte entro 2,5 s la pagina si vede comunque.
+      setTimeout(function () {
+        if (root.classList.contains('home-intro-pending')) root.classList.add('home-intro-timeout');
+        root.classList.remove('home-intro-pending');
+        root.classList.remove('home-hero-wait');
+      }, 2500);
+    })();
+  </script>
+  <!-- Senza JavaScript: segnale per tenere l'header crema (vedi home.css) -->
+  <noscript><span class="home-nojs"></span></noscript>
 
   <!-- Topbar Informativa -->
   <div class="topbar">
     <span>Spedizione gratuita in tutta Italia per ordini superiori a <strong>€99,00</strong> &bull; Consegna in cantinette isotermiche certificate</span>
   </div>
 
-  <!-- Header Principale -->
+  <!-- Header della Home: trasparente sulla hero, stati gestiti da home.js -->
   <header class="site-header">
     <div class="container header-inner">
+      <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Apri menu" aria-controls="mobile-nav-drawer" aria-expanded="false">
+        <span class="home-header__menu-line" aria-hidden="true"></span>
+        <span class="home-header__menu-text">Menu</span>
+      </button>
+
       <a href="index.html" class="brand-logo-link" aria-label="Tenuta Valmora Home">
-        <img src="assets/images/logo-valmora.svg" alt="Tenuta Valmora Logo" class="brand-logo-img">
-        <div class="brand-text">
-          <span class="brand-title">Tenuta Valmora</span>
-          <span class="brand-subtitle">Colli Euganei &bull; Dal 1928</span>
-        </div>
+        <img src="assets/images/logo-valmora.svg" alt="" class="brand-logo-img" width="40" height="40">
+        <span class="brand-title">Tenuta Valmora</span>
       </a>
 
-      <!-- Menu Desktop -->
+      <!-- Menu orizzontale: nascosto nella Home, si naviga dal pannello Menu -->
       <nav class="main-nav" aria-label="Navigazione Principale">
         <a href="index.html" class="nav-link active">Home</a>
         <a href="chi-siamo.html" class="nav-link">Chi siamo</a>
@@ -47,161 +70,214 @@
         <a href="contatti.html" class="nav-link">Contatti</a>
       </nav>
 
-      <!-- Azioni Header -->
       <div class="header-actions">
         <button type="button" class="cart-toggle-btn" aria-label="Visualizza carrello">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
             <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
             <line x1="3" y1="6" x2="21" y2="6"></line>
             <path d="M16 10a4 4 0 0 1-8 0"></path>
           </svg>
           <span class="cart-badge" style="display:none;">0</span>
         </button>
-
-        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Apri menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
       </div>
     </div>
   </header>
 
-  <!-- Mobile Drawer -->
+  <!-- Pannello Menu: aperto e chiuso da main.js con la classe "open" -->
   <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
-  <aside class="mobile-nav-drawer" id="mobile-nav-drawer">
-    <div class="mobile-drawer-header">
-      <a href="index.html" class="brand-logo-link">
-        <img src="assets/images/logo-valmora.svg" alt="Tenuta Valmora" style="width:36px; height:36px;">
-        <span class="brand-title" style="font-size:1.15rem;">Tenuta Valmora</span>
+  <aside class="mobile-nav-drawer" id="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="home-menu__top">
+      <button type="button" class="home-menu__close" id="mobile-drawer-close" aria-label="Chiudi menu">
+        <span class="home-menu__x" aria-hidden="true"></span>
+        <span>Chiudi</span>
+      </button>
+      <a href="index.html" class="home-menu__brand" aria-label="Tenuta Valmora Home">
+        <img src="assets/images/logo-valmora.svg" alt="" width="40" height="40">
+        <span class="home-menu__brand-name">Tenuta Valmora</span>
       </a>
-      <button type="button" class="cart-close-btn" id="mobile-drawer-close" style="color:var(--color-wine-dark);" aria-label="Chiudi menu">&times;</button>
     </div>
-    <div class="mobile-drawer-links">
-      <a href="index.html" class="mobile-drawer-link active">Home <span>&rarr;</span></a>
-      <a href="chi-siamo.html" class="mobile-drawer-link">Chi siamo <span>&rarr;</span></a>
-      <a href="shop.html" class="mobile-drawer-link">Shop Online <span>&rarr;</span></a>
-      <a href="contatti.html" class="mobile-drawer-link">Contatti <span>&rarr;</span></a>
-    </div>
-    <div style="margin-top:auto; padding-top:2rem; border-top:1px solid var(--color-border);">
-      <p style="font-size:0.8rem; color:var(--color-text-muted); margin-bottom:1rem;">Teolo, Colli Euganei (Padova)<br>Tel: +39 049 892 4110</p>
-      <a href="shop.html" class="btn btn-primary" style="width:100%;">Acquista Online</a>
+
+    <nav class="home-menu__nav" aria-label="Menu principale">
+      <ul class="home-menu__links">
+        <li><a href="index.html" class="home-menu__link" aria-current="page">Home</a></li>
+        <li><a href="chi-siamo.html" class="home-menu__link">Chi siamo</a></li>
+        <li><a href="shop.html" class="home-menu__link">Shop</a></li>
+        <li><a href="contatti.html" class="home-menu__link">Contatti</a></li>
+      </ul>
+    </nav>
+
+    <div class="home-menu__bottom">
+      <p>Teolo, Colli Euganei (Padova)</p>
+      <a href="tel:+390498924110">+39 049 892 4110</a>
+      <ul class="home-menu__social" aria-label="Social">
+        <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a></li>
+        <li><a href="https://youtube.com" target="_blank" rel="noopener">YouTube</a></li>
+      </ul>
     </div>
   </aside>
 
   <main class="home-main" id="home-main">
 
-    <!-- Simboli SVG riusati: separatore e archi decorativi -->
-    <svg class="home-sprite" aria-hidden="true" focusable="false">
-      <symbol id="home-symbol-divider" viewBox="0 0 120 44">
-        <circle cx="60" cy="7" r="5" fill="none" stroke="#B08D57" stroke-width="1"/>
-        <path d="M8 28 Q60 8 112 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-        <path d="M8 35 Q60 15 112 35" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-        <path d="M8 42 Q60 22 112 42" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
-      </symbol>
-      <symbol id="home-symbol-arcs" viewBox="0 0 600 260">
-        <circle cx="150" cy="46" r="26" fill="none" stroke="#B08D57" stroke-width="1.2"/>
-        <path d="M0 150 Q300 40 600 150" fill="none" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M0 180 Q300 70 600 180" fill="none" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M0 210 Q300 100 600 210" fill="none" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M0 240 Q300 130 600 240" fill="none" stroke="currentColor" stroke-width="1.2"/>
-        <path d="M0 270 Q300 160 600 270" fill="none" stroke="currentColor" stroke-width="1.2"/>
-      </symbol>
-    </svg>
-
     <!-- 1. Hero -->
     <section class="home-hero home-on-dark" aria-labelledby="home-hero-title">
       <div class="home-hero__media">
         <img src="assets/images/hero-vineyard.jpg" alt="Vigneti storici Tenuta Valmora sui Colli Euganei" width="1920" height="1280" fetchpriority="high">
+        <!-- Video decorativo: l'immagine sopra resta come riserva -->
+        <video class="home-hero__video" autoplay muted loop playsinline preload="metadata" poster="assets/images/hero-vineyard.jpg" aria-hidden="true" tabindex="-1">
+          <source src="assets/video/hero-valmora.mp4" type="video/mp4">
+        </video>
       </div>
+      <div class="home-hero__shade" aria-hidden="true"></div>
       <div class="home-container home-hero__content">
-        <p class="home-eyebrow">Colli Euganei &middot; dal 1928</p>
-        <h1 class="home-hero__title" id="home-hero-title">Rossi d'autore, <em>nati dal vulcano</em>.</h1>
-        <p class="home-hero__text">
-          Da quattro generazioni la famiglia Valmora coltiva a Teolo vigne
-          su pendii vulcanici di trachite e basalto.
-        </p>
-        <div class="home-actions">
-          <a href="shop.html" class="home-btn home-btn--light">Scopri i vini</a>
-          <a href="chi-siamo.html" class="home-btn home-btn--outline-light">La nostra storia</a>
+        <p class="home-hero__label"><span class="home-mask"><span class="home-mask__inner">Colli Euganei &middot; dal 1928</span></span></p>
+        <h1 class="home-hero__title home-lines" id="home-hero-title">Nati dal<br> <em>vulcano</em>.</h1>
+        <div class="home-hero__cta">
+          <span class="home-mask"><span class="home-mask__inner"><a href="shop.html" class="home-btn home-btn--outline-light">Scopri i vini</a></span></span>
         </div>
       </div>
-      <a href="#home-presentazione" class="home-scroll">Scorri</a>
+      <span class="home-hero__scroll" aria-hidden="true"></span>
     </section>
 
-    <!-- 2. Presentazione -->
-    <section class="home-section home-intro" id="home-presentazione" aria-labelledby="home-intro-title">
-      <div class="home-container home-intro__grid">
-        <div class="home-intro__body home-reveal">
-          <p class="home-eyebrow">La cantina</p>
-          <h2 class="home-title" id="home-intro-title">Una famiglia, <em>una collina</em>.</h2>
-          <p class="home-text">
-            Tenuta Valmora nasce nel 1928 a Teolo, nel cuore dei Colli Euganei, quando
-            Giovanni Valmora pianta a mano i primi ceppi di Merlot e Carmenère sulle
-            pendici del Monte Fasolo.
-          </p>
-          <p class="home-text">
-            Da allora la stessa famiglia custodisce queste vigne, una generazione dopo
-            l'altra. Oggi la tenuta è guidata da Marco e Sofia Valmora, con la
-            convinzione di sempre: la qualità del vino si decide in vigna.
-          </p>
-          <a href="chi-siamo.html" class="home-link">Leggi la storia della famiglia</a>
-        </div>
-
-        <div class="home-intro__aside home-reveal">
-          <p class="home-stat">
-            <span class="home-stat__number">1928</span>
-            <span class="home-stat__label">L'anno delle prime viti. Da allora, quattro generazioni di vignaioli.</span>
-          </p>
-          <!-- Segnaposto: sostituire il file mantenendo lo stesso nome -->
-          <figure class="home-figure home-intro__figure">
-            <img src="assets/images/home/famiglia.jpg" alt="La famiglia Valmora tra i filari della tenuta, a Teolo" width="1200" height="1500" loading="lazy">
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. Valori -->
-    <section class="home-section home-values home-on-dark" id="home-valori" aria-labelledby="home-values-title">
-      <svg class="home-values__arcs" viewBox="0 0 600 260" aria-hidden="true" focusable="false"><use href="#home-symbol-arcs"/></svg>
+    <!-- 2. Manifesto -->
+    <section class="home-manifesto" aria-label="La cantina">
       <div class="home-container">
-        <div class="home-reveal">
-          <p class="home-eyebrow">I nostri valori</p>
-          <h2 class="home-title" id="home-values-title">Tre cose in cui <em>crediamo</em>.</h2>
-        </div>
-
-        <ol class="home-values__list home-reveal">
-          <li class="home-value">
-            <span class="home-value__number" aria-hidden="true">01</span>
-            <h3 class="home-value__title">Famiglia</h3>
-            <p class="home-value__text">
-              Quattro generazioni e una sola idea di vino. Da quasi un secolo, a Teolo,
-              la tenuta passa di mano in mano senza cambiare cognome.
-            </p>
-          </li>
-          <li class="home-value">
-            <span class="home-value__number" aria-hidden="true">02</span>
-            <h3 class="home-value__title">Territorio vulcanico</h3>
-            <p class="home-value__text">
-              Trachite e basalto dei Colli Euganei danno ai nostri rossi sapidità
-              minerale, freschezza e una lunga vita in bottiglia.
-            </p>
-          </li>
-          <li class="home-value">
-            <span class="home-value__number" aria-hidden="true">03</span>
-            <h3 class="home-value__title">Artigianalità</h3>
-            <p class="home-value__text">
-              Lieviti indigeni, macerazioni lente e lunghi affinamenti in rovere.
-              Non forziamo la natura: ne rispettiamo i tempi.
-            </p>
-          </li>
-        </ol>
-
-        <a href="chi-siamo.html" class="home-link home-reveal">Scopri cosa ci guida</a>
+        <svg class="home-manifesto__mark home-draw home-observe" viewBox="0 0 72 34" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" aria-hidden="true" focusable="false">
+          <circle cx="36" cy="6" r="4.5" stroke="#B08D57" pathLength="1"/>
+          <path d="M4 22 Q36 8 68 22" pathLength="1"/>
+          <path d="M4 27 Q36 13 68 27" pathLength="1"/>
+          <path d="M4 32 Q36 18 68 32" pathLength="1"/>
+        </svg>
+        <p class="home-manifesto__text">Da quattro generazioni, una famiglia di Teolo ascolta la voce di un <em>vulcano</em> e la trasforma in vino.</p>
+        <a href="chi-siamo.html" class="home-link">La nostra storia</a>
       </div>
     </section>
 
-    <!-- 4. I vini -->
+    <!-- 3. Tre capitoli: i valori -->
+    <section class="home-chapters" aria-label="I nostri valori">
+
+      <!-- I · Radici -->
+      <article class="home-chapter home-chapter--1" aria-labelledby="home-ch1-title">
+        <div class="home-container home-chapter__grid">
+          <div class="home-chapter__media home-curtain home-observe">
+            <div class="home-curtain__inner home-photo">
+              <svg class="home-photo__motif" viewBox="0 0 600 300" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="1" aria-hidden="true" focusable="false"><circle cx="300" cy="80" r="34" stroke="#B08D57" stroke-opacity="0.8"/><path d="M-20 205 Q300 85 620 205"/><path d="M-20 230 Q300 110 620 230"/><path d="M-20 255 Q300 135 620 255"/><path d="M-20 280 Q300 160 620 280"/><path d="M-20 305 Q300 185 620 305"/></svg>
+              <span class="home-photo__label">Foto: assets/images/home/famiglia.jpg</span>
+              <img src="assets/images/home/famiglia.jpg" alt="La famiglia Valmora cammina tra i filari, con i Colli Euganei sullo sfondo" width="1200" height="1500" loading="lazy">
+            </div>
+          </div>
+          <div class="home-chapter__body home-observe">
+            <p class="home-chapter__kicker home-fade"><span class="home-chapter__num" aria-hidden="true">I</span><span class="home-chapter__label">Dal 1928</span></p>
+            <h2 class="home-chapter__title home-lines" id="home-ch1-title">Radici.</h2>
+            <p class="home-chapter__text home-fade">Giovanni Valmora pianta le prime viti sulle pendici del Monte Fasolo. Oggi le stesse vigne sono di Marco e Sofia: quattro generazioni, un solo cognome.</p>
+            <a href="chi-siamo.html#la-famiglia" class="home-link home-chapter__more home-fade">La storia della famiglia</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- II · Vulcano -->
+      <article class="home-chapter home-chapter--2" aria-labelledby="home-ch2-title">
+        <div class="home-container home-chapter__grid">
+          <div class="home-chapter__media home-curtain home-observe">
+            <div class="home-curtain__inner home-photo">
+              <svg class="home-photo__motif" viewBox="0 0 600 300" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="1" aria-hidden="true" focusable="false"><circle cx="300" cy="80" r="34" stroke="#B08D57" stroke-opacity="0.8"/><path d="M-20 205 Q300 85 620 205"/><path d="M-20 230 Q300 110 620 230"/><path d="M-20 255 Q300 135 620 255"/><path d="M-20 280 Q300 160 620 280"/><path d="M-20 305 Q300 185 620 305"/></svg>
+              <span class="home-photo__label">Foto: assets/images/home/vulcano.jpg</span>
+              <img src="assets/images/home/vulcano.jpg" alt="I coni vulcanici dei Colli Euganei coperti di vigne e boschi" width="1800" height="1200" loading="lazy">
+            </div>
+          </div>
+          <div class="home-chapter__body home-observe">
+            <p class="home-chapter__kicker home-fade"><span class="home-chapter__num" aria-hidden="true">II</span><span class="home-chapter__label">Trachite e basalto</span></p>
+            <h2 class="home-chapter__title home-lines" id="home-ch2-title">Vulcano.</h2>
+            <p class="home-chapter__text home-fade">Trentacinque milioni di anni fa, qui c'erano vulcani. Da quei suoli nascono rossi sapidi e minerali, e un vitigno raro in Italia: il Carmenère.</p>
+            <a href="chi-siamo.html" class="home-link home-chapter__more home-fade">La nostra filosofia</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- III · Tempo: foto a tutta larghezza -->
+      <article class="home-chapter home-chapter--3" aria-labelledby="home-ch3-title">
+        <div class="home-chapter__media home-curtain home-observe">
+          <div class="home-curtain__inner home-photo">
+            <svg class="home-photo__motif" viewBox="0 0 600 300" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="1" aria-hidden="true" focusable="false"><circle cx="300" cy="80" r="34" stroke="#B08D57" stroke-opacity="0.8"/><path d="M-20 205 Q300 85 620 205"/><path d="M-20 230 Q300 110 620 230"/><path d="M-20 255 Q300 135 620 255"/><path d="M-20 280 Q300 160 620 280"/><path d="M-20 305 Q300 185 620 305"/></svg>
+            <span class="home-photo__label">Foto: assets/images/home/bottaia.jpg</span>
+            <img src="assets/images/home/bottaia.jpg" alt="Le botti di rovere nella bottaia scavata nella roccia" width="2400" height="1030" loading="lazy">
+          </div>
+        </div>
+        <div class="home-container">
+          <div class="home-chapter__body home-observe">
+            <p class="home-chapter__kicker home-fade"><span class="home-chapter__num" aria-hidden="true">III</span><span class="home-chapter__label">Senza fretta</span></p>
+            <h2 class="home-chapter__title home-lines" id="home-ch3-title">Tempo.</h2>
+            <p class="home-chapter__text home-fade">Lieviti indigeni, macerazioni lente, lunghi riposi in rovere nella bottaia scavata nella roccia. È il vino a decidere quando è pronto.</p>
+            <a href="chi-siamo.html" class="home-link home-chapter__more home-fade">Chi siamo</a>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- 4. Fascia scorrevole: la prima copia è letta, le altre sono decorative -->
+    <div class="home-marquee">
+      <div class="home-marquee__track">
+        <p class="home-marquee__group">
+          <span>Merlot</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Cabernet Sauvignon</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Carmenère</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Teolo</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Monte Fasolo</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>dal 1928</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+        </p>
+        <p class="home-marquee__group" aria-hidden="true">
+          <span>Merlot</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Cabernet Sauvignon</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Carmenère</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Teolo</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Monte Fasolo</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>dal 1928</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+        </p>
+        <p class="home-marquee__group" aria-hidden="true">
+          <span>Merlot</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Cabernet Sauvignon</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Carmenère</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Teolo</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Monte Fasolo</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>dal 1928</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+        </p>
+        <p class="home-marquee__group" aria-hidden="true">
+          <span>Merlot</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Cabernet Sauvignon</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Carmenère</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Teolo</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>Monte Fasolo</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+          <span>dal 1928</span>
+          <span class="home-marquee__dot" aria-hidden="true">&middot;</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- 5. I vini (invariata) -->
     <section class="home-section home-wines" id="home-vini" aria-labelledby="home-wines-title">
       <div class="home-container">
         <div class="home-wines__head home-reveal">
@@ -287,78 +363,22 @@
       </div>
     </section>
 
-    <div class="home-divider-band" aria-hidden="true">
-      <svg class="home-divider" viewBox="0 0 120 44" focusable="false"><use href="#home-symbol-divider"/></svg>
-    </div>
-
-    <!-- 5. Filosofia e territorio -->
-    <section class="home-section home-terroir" id="home-territorio" aria-labelledby="home-terroir-title">
-      <div class="home-container home-terroir__grid">
-        <figure class="home-figure home-terroir__figure home-reveal">
-          <img src="assets/images/colli-euganei.jpg" alt="I colli vulcanici attorno a Tenuta Valmora, coperti di vigne e boschi" width="1600" height="900" loading="lazy">
-          <figcaption class="home-terroir__caption">
-            <strong>35 milioni di anni</strong>
-            <span>L'origine vulcanica dei colli, da cui i nostri vini prendono mineralità e sapidità.</span>
-          </figcaption>
-        </figure>
-
-        <div class="home-reveal">
-          <p class="home-eyebrow">Filosofia e territorio</p>
-          <h2 class="home-title" id="home-terroir-title">Nati dal fuoco, <em>coltivati con cura</em>.</h2>
-          <p class="home-text">
-            I Colli Euganei emergono dalla pianura come isole di roccia vulcanica.
-            Questo mosaico di suoli, protetto dalle Alpi e scaldato dalle brezze
-            adriatiche, è la culla ideale per le varietà a bacca rossa.
-          </p>
-          <p class="home-text">
-            In cantina la tecnologia dialoga con il sapere di chi ci ha preceduto:
-            fermentazioni spontanee, macerazioni lente e lunghi riposi nella bottaia
-            scavata nella roccia.
-          </p>
-          <div class="home-actions">
-            <a href="chi-siamo.html" class="home-btn home-btn--solid">Conosci la tenuta</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 6. Invito finale -->
+    <!-- 6. Visita in bottaia -->
     <section class="home-visit home-on-dark" id="home-visita" aria-labelledby="home-visit-title">
-      <div class="home-visit__media">
-        <img src="assets/images/cellar-vault.jpg" alt="La bottaia sotterranea di Tenuta Valmora, con le botti di rovere" width="1600" height="1067" loading="lazy">
-      </div>
-      <div class="home-container">
-        <div class="home-visit__content home-reveal">
-          <p class="home-eyebrow">Visite e degustazioni</p>
-          <h2 class="home-title" id="home-visit-title">Vieni a trovarci <em>in bottaia</em>.</h2>
-          <p class="home-text">
-            Una passeggiata tra i filari, i segreti dell'affinamento in rovere e una
-            degustazione guidata dai nostri sommelier, con vista sui colli.
-          </p>
-          <div class="home-actions">
-            <a href="contatti.html" class="home-btn home-btn--light">Prenota una degustazione</a>
-            <button type="button" class="home-btn home-btn--outline-light" onclick="window.toggleChatbot()">Chiedi al sommelier</button>
-          </div>
+      <div class="home-visit__media home-curtain home-observe">
+        <div class="home-curtain__inner home-photo">
+          <svg class="home-photo__motif" viewBox="0 0 600 300" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="1" aria-hidden="true" focusable="false"><circle cx="300" cy="80" r="34" stroke="#B08D57" stroke-opacity="0.8"/><path d="M-20 205 Q300 85 620 205"/><path d="M-20 230 Q300 110 620 230"/><path d="M-20 255 Q300 135 620 255"/><path d="M-20 280 Q300 160 620 280"/><path d="M-20 305 Q300 185 620 305"/></svg>
+          <span class="home-photo__label">Foto: assets/images/home/visita.jpg</span>
+          <img src="assets/images/home/visita.jpg" alt="Una degustazione nella bottaia di Tenuta Valmora, tra le botti di rovere" width="2400" height="1350" loading="lazy">
         </div>
       </div>
-    </section>
-
-    <!-- 7. Newsletter -->
-    <section class="home-section home-newsletter" id="home-newsletter" aria-labelledby="home-newsletter-title">
-      <div class="home-container home-newsletter__grid home-reveal">
-        <div>
-          <p class="home-eyebrow">Newsletter</p>
-          <h2 class="home-title" id="home-newsletter-title">Restiamo <em>in contatto</em>.</h2>
-          <p class="home-text">
-            Le nuove annate in anteprima e gli inviti alle degustazioni in cantina.
-          </p>
+      <div class="home-container home-visit__content home-observe">
+        <h2 class="home-visit__title home-lines" id="home-visit-title">Vieni a trovarci <em>in bottaia</em>.</h2>
+        <p class="home-visit__text home-fade">Una passeggiata tra i filari e una degustazione nella cantina scavata nella roccia, a Teolo.</p>
+        <div class="home-visit__actions home-fade">
+          <a href="contatti.html" class="home-btn home-btn--light">Prenota una visita</a>
+          <button type="button" class="home-btn home-btn--outline-light" onclick="window.toggleChatbot()">Chiedi al sommelier</button>
         </div>
-        <!-- id usato da main.js -->
-        <form id="newsletter-form" class="home-newsletter__form">
-          <label for="home-newsletter-email" class="home-hidden">Indirizzo email</label>
-          <input type="email" id="home-newsletter-email" class="home-newsletter__input" placeholder="La tua email" autocomplete="email" required>
-          <button type="submit" class="home-btn home-btn--solid">Iscriviti</button>
-        </form>
       </div>
     </section>
 
