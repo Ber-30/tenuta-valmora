@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DERHMVGMK8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-DERHMVGMK8');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tenuta Valmora | Rossi d'Autore nei Colli Euganei</title>
@@ -8,6 +15,11 @@
   <link rel="icon" type="image/svg+xml" href="assets/images/logo-valmora.svg">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/home.css">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Tenuta Valmora | Rossi d'autore nei Colli Euganei">
+  <meta property="og:description" content="Cantina storica dei Colli Euganei, guidata dalla stessa famiglia da quattro generazioni. Rossi d'autore nati su suoli vulcanici, a Teolo.">
+  <meta property="og:image" content="assets/images/hero-vineyard.jpg">
 </head>
 <body>
 
@@ -77,83 +89,134 @@
     </div>
   </aside>
 
-  <!-- Hero Section -->
-  <section class="hero-section">
-    <img src="assets/images/hero-vineyard.jpg" alt="Vigneti storici Tenuta Valmora sui Colli Euganei" class="hero-bg">
-    <div class="hero-overlay"></div>
-    <div class="container">
-      <div class="hero-content">
-        <span class="heading-eyebrow light">Quattro Generazioni di Vignaioli</span>
-        <h1 class="hero-title">L'Arte dei Rossi d'Autore nei Colli Euganei</h1>
-        <p class="hero-desc">
-          Dal 1928 custodiamo vigne secolari su pendii vulcanici di trachite e basalto. 
-          Un'eredità familiare che fonde rispetto profondo per la natura ed eleganza senza tempo.
+  <main class="home-main" id="home-main">
+
+    <!-- Simboli SVG riusati: separatore e archi decorativi -->
+    <svg class="home-sprite" aria-hidden="true" focusable="false">
+      <symbol id="home-symbol-divider" viewBox="0 0 120 44">
+        <circle cx="60" cy="7" r="5" fill="none" stroke="#B08D57" stroke-width="1"/>
+        <path d="M8 28 Q60 8 112 28" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+        <path d="M8 35 Q60 15 112 35" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+        <path d="M8 42 Q60 22 112 42" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+      </symbol>
+      <symbol id="home-symbol-arcs" viewBox="0 0 600 260">
+        <circle cx="150" cy="46" r="26" fill="none" stroke="#B08D57" stroke-width="1.2"/>
+        <path d="M0 150 Q300 40 600 150" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M0 180 Q300 70 600 180" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M0 210 Q300 100 600 210" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M0 240 Q300 130 600 240" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M0 270 Q300 160 600 270" fill="none" stroke="currentColor" stroke-width="1.2"/>
+      </symbol>
+    </svg>
+
+    <!-- 1. Hero -->
+    <section class="home-hero home-on-dark" aria-labelledby="home-hero-title">
+      <div class="home-hero__media">
+        <img src="assets/images/hero-vineyard.jpg" alt="Vigneti storici Tenuta Valmora sui Colli Euganei" width="1920" height="1280" fetchpriority="high">
+      </div>
+      <div class="home-container home-hero__content">
+        <p class="home-eyebrow">Colli Euganei &middot; dal 1928</p>
+        <h1 class="home-hero__title" id="home-hero-title">Rossi d'autore, <em>nati dal vulcano</em>.</h1>
+        <p class="home-hero__text">
+          Da quattro generazioni la famiglia Valmora coltiva a Teolo vigne
+          su pendii vulcanici di trachite e basalto.
         </p>
-        <div class="hero-actions">
-          <a href="shop.html" class="btn btn-gold">Esplora lo Shop</a>
-          <a href="chi-siamo.html" class="btn btn-outline-white">La Nostra Storia</a>
+        <div class="home-actions">
+          <a href="shop.html" class="home-btn home-btn--light">Scopri i vini</a>
+          <a href="chi-siamo.html" class="home-btn home-btn--outline-light">La nostra storia</a>
         </div>
       </div>
-    </div>
-  </section>
+      <a href="#home-presentazione" class="home-scroll">Scorri</a>
+    </section>
 
-  <!-- Striscia Valori / Pillars -->
-  <section class="trust-strip">
-    <div class="container">
-      <div class="trust-grid">
-        <div class="trust-item">
-          <div class="trust-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-          </div>
-          <div class="trust-text">
-            <h4>4 Generazioni</h4>
-            <p>Famiglia e tradizione viva da quasi un secolo a Teolo.</p>
-          </div>
+    <!-- 2. Presentazione -->
+    <section class="home-section home-intro" id="home-presentazione" aria-labelledby="home-intro-title">
+      <div class="home-container home-intro__grid">
+        <div class="home-intro__body home-reveal">
+          <p class="home-eyebrow">La cantina</p>
+          <h2 class="home-title" id="home-intro-title">Una famiglia, <em>una collina</em>.</h2>
+          <p class="home-text">
+            Tenuta Valmora nasce nel 1928 a Teolo, nel cuore dei Colli Euganei, quando
+            Giovanni Valmora pianta a mano i primi ceppi di Merlot e Carmenère sulle
+            pendici del Monte Fasolo.
+          </p>
+          <p class="home-text">
+            Da allora la stessa famiglia custodisce queste vigne, una generazione dopo
+            l'altra. Oggi la tenuta è guidata da Marco e Sofia Valmora, con la
+            convinzione di sempre: la qualità del vino si decide in vigna.
+          </p>
+          <a href="chi-siamo.html" class="home-link">Leggi la storia della famiglia</a>
         </div>
-        <div class="trust-item">
-          <div class="trust-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line x1="9" y1="9" x2="9.01" y2="9"></line><line x1="15" y1="9" x2="15.01" y2="9"></line></svg>
-          </div>
-          <div class="trust-text">
-            <h4>Terroir Vulcanico</h4>
-            <p>Suoli minerali unici al mondo nei Colli Euganei.</p>
-          </div>
-        </div>
-        <div class="trust-item">
-          <div class="trust-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
-          </div>
-          <div class="trust-text">
-            <h4>Spedizione Isotermica</h4>
-            <p>Consegna garantita in 24/48h. Gratis da €99.</p>
-          </div>
-        </div>
-        <div class="trust-item">
-          <div class="trust-icon">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-          </div>
-          <div class="trust-text">
-            <h4>Checkout Protetto</h4>
-            <p>Pagamenti certificati tramite Stripe (Test Mode).</p>
-          </div>
+
+        <div class="home-intro__aside home-reveal">
+          <p class="home-stat">
+            <span class="home-stat__number">1928</span>
+            <span class="home-stat__label">L'anno delle prime viti. Da allora, quattro generazioni di vignaioli.</span>
+          </p>
+          <!-- Segnaposto: sostituire il file mantenendo lo stesso nome -->
+          <figure class="home-figure home-intro__figure">
+            <img src="assets/images/home/famiglia.jpg" alt="La famiglia Valmora tra i filari della tenuta, a Teolo" width="1200" height="1500" loading="lazy">
+          </figure>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Sezione Sintesi Vini d'Autore -->
-  <section class="section">
-    <div class="container">
-      <div class="text-center">
-        <span class="heading-eyebrow">La Selezione Esclusiva</span>
-        <h2 class="section-title">I Grandi Rossi d'Autore</h2>
-        <p class="section-subtitle">
-          Dalle pendici vulcaniche baciate dal sole del Veneto nascono i nostri vini più rinomati, 
-          celebrati dalle migliori guide enologiche internazionali.
-        </p>
+    <!-- 3. Valori -->
+    <section class="home-section home-values home-on-dark" id="home-valori" aria-labelledby="home-values-title">
+      <svg class="home-values__arcs" viewBox="0 0 600 260" aria-hidden="true" focusable="false"><use href="#home-symbol-arcs"/></svg>
+      <div class="home-container">
+        <div class="home-reveal">
+          <p class="home-eyebrow">I nostri valori</p>
+          <h2 class="home-title" id="home-values-title">Tre cose in cui <em>crediamo</em>.</h2>
+        </div>
+
+        <ol class="home-values__list home-reveal">
+          <li class="home-value">
+            <span class="home-value__number" aria-hidden="true">01</span>
+            <h3 class="home-value__title">Famiglia</h3>
+            <p class="home-value__text">
+              Quattro generazioni e una sola idea di vino. Da quasi un secolo, a Teolo,
+              la tenuta passa di mano in mano senza cambiare cognome.
+            </p>
+          </li>
+          <li class="home-value">
+            <span class="home-value__number" aria-hidden="true">02</span>
+            <h3 class="home-value__title">Territorio vulcanico</h3>
+            <p class="home-value__text">
+              Trachite e basalto dei Colli Euganei danno ai nostri rossi sapidità
+              minerale, freschezza e una lunga vita in bottiglia.
+            </p>
+          </li>
+          <li class="home-value">
+            <span class="home-value__number" aria-hidden="true">03</span>
+            <h3 class="home-value__title">Artigianalità</h3>
+            <p class="home-value__text">
+              Lieviti indigeni, macerazioni lente e lunghi affinamenti in rovere.
+              Non forziamo la natura: ne rispettiamo i tempi.
+            </p>
+          </li>
+        </ol>
+
+        <a href="chi-siamo.html" class="home-link home-reveal">Scopri cosa ci guida</a>
       </div>
+    </section>
 
-      <div class="products-grid">
+    <!-- 4. I vini -->
+    <section class="home-section home-wines" id="home-vini" aria-labelledby="home-wines-title">
+      <div class="home-container">
+        <div class="home-wines__head home-reveal">
+          <div>
+            <p class="home-eyebrow">La selezione</p>
+            <h2 class="home-title" id="home-wines-title">I nostri <em>rossi</em>.</h2>
+          </div>
+          <p class="home-text">
+            Tre etichette che raccontano i pendii vulcanici dei Colli Euganei,
+            dalla vigna alla lunga attesa in legno.
+          </p>
+        </div>
+
+        <!-- Card prodotto: markup condiviso con lo shop, non modificare qui -->
+        <div class="products-grid home-reveal">
         <!-- Vino 1: Valmora Rosso -->
         <article class="product-card">
           <div class="product-badge">Icona di Famiglia</div>
@@ -216,84 +279,90 @@
             </div>
           </div>
         </article>
-      </div>
+        </div>
 
-      <div class="text-center" style="margin-top:3.5rem;">
-        <a href="shop.html" class="btn btn-outline" style="padding:1rem 2.5rem;">
-          Scopri l'Intero Catalogo nello Shop &rarr;
-        </a>
+        <div class="home-wines__cta home-reveal">
+          <a href="shop.html" class="home-btn home-btn--outline">Tutti i vini</a>
+        </div>
       </div>
+    </section>
+
+    <div class="home-divider-band" aria-hidden="true">
+      <svg class="home-divider" viewBox="0 0 120 44" focusable="false"><use href="#home-symbol-divider"/></svg>
     </div>
-  </section>
 
-  <!-- Sezione Split: Storia & Filosofia dei Colli Euganei -->
-  <section class="section section-sand">
-    <div class="container">
-      <div class="split-grid">
-        <div class="split-image-box">
-          <img src="assets/images/colli-euganei.jpg" alt="I colli vulcanici di Tenuta Valmora">
-          <div class="split-accent-card">
-            <h4>35 Milioni di Anni</h4>
-            <p>L'origine vulcanica sottomarina che dona ai nostri vini una mineralità e sapidità incomparabili.</p>
+    <!-- 5. Filosofia e territorio -->
+    <section class="home-section home-terroir" id="home-territorio" aria-labelledby="home-terroir-title">
+      <div class="home-container home-terroir__grid">
+        <figure class="home-figure home-terroir__figure home-reveal">
+          <img src="assets/images/colli-euganei.jpg" alt="I colli vulcanici attorno a Tenuta Valmora, coperti di vigne e boschi" width="1600" height="900" loading="lazy">
+          <figcaption class="home-terroir__caption">
+            <strong>35 milioni di anni</strong>
+            <span>L'origine vulcanica dei colli, da cui i nostri vini prendono mineralità e sapidità.</span>
+          </figcaption>
+        </figure>
+
+        <div class="home-reveal">
+          <p class="home-eyebrow">Filosofia e territorio</p>
+          <h2 class="home-title" id="home-terroir-title">Nati dal fuoco, <em>coltivati con cura</em>.</h2>
+          <p class="home-text">
+            I Colli Euganei emergono dalla pianura come isole di roccia vulcanica.
+            Questo mosaico di suoli, protetto dalle Alpi e scaldato dalle brezze
+            adriatiche, è la culla ideale per le varietà a bacca rossa.
+          </p>
+          <p class="home-text">
+            In cantina la tecnologia dialoga con il sapere di chi ci ha preceduto:
+            fermentazioni spontanee, macerazioni lente e lunghi riposi nella bottaia
+            scavata nella roccia.
+          </p>
+          <div class="home-actions">
+            <a href="chi-siamo.html" class="home-btn home-btn--solid">Conosci la tenuta</a>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="split-content">
-          <span class="heading-eyebrow">La Nostra Filosofia</span>
-          <h2 class="section-title">Nati dal Fuoco, Coltivati con Amore</h2>
-          <p>
-            I Colli Euganei emergono dalla pianura padana come isole di roccia basaltica e calcarea. 
-            Questo straordinario mosaico geologico, unito a un microclima protetto dalle Alpi e scaldato dalle brezze adriatiche, 
-            costituisce la culla ideale per la maturazione fenolica perfetta delle varietà a bacca rossa.
+    <!-- 6. Invito finale -->
+    <section class="home-visit home-on-dark" id="home-visita" aria-labelledby="home-visit-title">
+      <div class="home-visit__media">
+        <img src="assets/images/cellar-vault.jpg" alt="La bottaia sotterranea di Tenuta Valmora, con le botti di rovere" width="1600" height="1067" loading="lazy">
+      </div>
+      <div class="home-container">
+        <div class="home-visit__content home-reveal">
+          <p class="home-eyebrow">Visite e degustazioni</p>
+          <h2 class="home-title" id="home-visit-title">Vieni a trovarci <em>in bottaia</em>.</h2>
+          <p class="home-text">
+            Una passeggiata tra i filari, i segreti dell'affinamento in rovere e una
+            degustazione guidata dai nostri sommelier, con vista sui colli.
           </p>
-          <p>
-            Nella nostra cantina la tecnologia più moderna dialoga ogni giorno con la saggezza dei nostri nonni: 
-            fermentazioni spontanee con lieviti indigeni, macerazioni lente e lunghi sonni nelle bottaie sotterranee scavate nella roccia.
-          </p>
-          <div style="margin-top:2rem;">
-            <a href="chi-siamo.html" class="btn btn-primary">Approfondisci Chi Siamo</a>
+          <div class="home-actions">
+            <a href="contatti.html" class="home-btn home-btn--light">Prenota una degustazione</a>
+            <button type="button" class="home-btn home-btn--outline-light" onclick="window.toggleChatbot()">Chiedi al sommelier</button>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Banner Degustazione ed Esperienze in Cantina -->
-  <section class="section section-dark" style="position:relative; overflow:hidden;">
-    <div style="position:absolute; inset:0; opacity:0.18;">
-      <img src="assets/images/cellar-vault.jpg" alt="Bottaia sotterranea Tenuta Valmora" style="width:100%; height:100%; object-fit:cover;">
-    </div>
-    <div class="container" style="position:relative; z-index:2;">
-      <div class="text-center" style="max-width:760px; margin:0 auto;">
-        <span class="heading-eyebrow light">Vivi l'Esperienza Valmora</span>
-        <h2 class="section-title">Vieni a Trovarci in Bottaia</h2>
-        <p class="section-subtitle" style="color:#D6C2C7; margin-bottom:2.5rem;">
-          Passeggia tra i nostri filari vulcanici, scopri i segreti della vinificazione in rovere 
-          e lasciati guidare dai nostri sommelier in una degustazione esclusiva con vista panoramica sui colli.
-        </p>
-        <div style="display:flex; justify-content:center; gap:1.2rem; flex-wrap:wrap;">
-          <a href="contatti.html" class="btn btn-gold">Prenota una Degustazione</a>
-          <button type="button" class="btn btn-outline-white" onclick="window.toggleChatbot()">Chiedi Orari al Sommelier</button>
+    <!-- 7. Newsletter -->
+    <section class="home-section home-newsletter" id="home-newsletter" aria-labelledby="home-newsletter-title">
+      <div class="home-container home-newsletter__grid home-reveal">
+        <div>
+          <p class="home-eyebrow">Newsletter</p>
+          <h2 class="home-title" id="home-newsletter-title">Restiamo <em>in contatto</em>.</h2>
+          <p class="home-text">
+            Le nuove annate in anteprima e gli inviti alle degustazioni in cantina.
+          </p>
         </div>
+        <!-- id usato da main.js -->
+        <form id="newsletter-form" class="home-newsletter__form">
+          <label for="home-newsletter-email" class="home-hidden">Indirizzo email</label>
+          <input type="email" id="home-newsletter-email" class="home-newsletter__input" placeholder="La tua email" autocomplete="email" required>
+          <button type="submit" class="home-btn home-btn--solid">Iscriviti</button>
+        </form>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Newsletter Section -->
-  <section class="section" style="background-color:#FFFFFF; border-top:1px solid var(--color-border);">
-    <div class="container text-center" style="max-width:680px;">
-      <span class="heading-eyebrow">Club Esclusivo Valmora</span>
-      <h3 style="font-size:2rem; margin-bottom:0.75rem;">Unisciti agli Amanti dei Grandi Rossi</h3>
-      <p style="color:var(--color-text-muted); font-size:0.95rem; margin-bottom:1.75rem;">
-        Iscriviti per ricevere in anteprima le nuove annate numerate, inviti a degustazioni private 
-        e uno sconto speciale del 10% sul tuo primo acquisto.
-      </p>
-      <form id="newsletter-form" style="display:flex; gap:0.5rem; max-width:480px; margin:0 auto;">
-        <input type="email" placeholder="Inserisci la tua email" required class="form-input" style="flex-grow:1; border-radius:var(--radius-full);">
-        <button type="submit" class="btn btn-primary" style="border-radius:var(--radius-full); white-space:nowrap;">Iscriviti</button>
-      </form>
-    </div>
-  </section>
+  </main>
 
   <!-- Footer Istituzionale -->
   <footer class="site-footer">
@@ -669,5 +738,6 @@
   <script src="assets/js/checkout.js?v=3"></script>
   <script src="assets/js/chatbot.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/home.js"></script>
 </body>
 </html>
