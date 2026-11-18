@@ -60,8 +60,17 @@
 .about-generation-dot { display: block; position: relative; margin: 0 auto 1.3rem; width: 13px; height: 13px; border-radius: 50%; background: var(--color-wine-dark); border: 1px solid #BDA678; transition: background .25s ease, box-shadow .25s ease; }
 .about-generations h3 { font-family: var(--font-serif); font-style: italic; color: var(--color-cream); font-size: clamp(1.6rem, 2.5vw, 2.3rem); margin-bottom: .7rem; }
 .about-page .about-generations p { font-size: .83rem; line-height: 1.7; color: #E1D1D2; max-width: 235px; margin-inline: auto; }
-.about-history.has-scroll-motion li h3, .about-history.has-scroll-motion li p { opacity: .6; transition: opacity .3s ease; }
-.about-history.has-scroll-motion li.is-reached h3, .about-history.has-scroll-motion li.is-reached p { opacity: 1; }
+.about-history.has-scroll-motion .about-generations li > :is(h3, p) {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(6px);
+  transition: opacity .35s ease, transform .35s ease, visibility .35s;
+}
+.about-history.has-scroll-motion .about-generations li:is(.is-reached, .is-current) > :is(h3, p) {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
 .about-history:not(.has-scroll-motion) .about-generation-dot,
 .about-generations li.is-reached .about-generation-dot { background: #D8BD84; }
 .about-generations li.is-current .about-generation-dot { box-shadow: 0 0 0 6px rgb(216 189 132 / 14%); }
@@ -148,10 +157,19 @@
 .about-family-copy p { color: #5D5054; }
 .about-family-copy h2 { font-size: clamp(3rem, 4.6vw, 4.9rem); }
 .about-family-layout { position: relative; }
-/* The track draws the cursor; the transparent range supplies the accessible input. */
-.about-timeline-range { position: absolute; z-index: 3; margin: 0; opacity: 0; cursor: grab; touch-action: none; }
-.about-timeline-range:active { cursor: grabbing; }
-.about-history.is-interactive .about-timeline-track { transform: translateY(-50%); }
+/* Keep pointer gestures independent of the browser's native range steps. */
+.about-timeline-range { position: absolute; margin: 0; opacity: 0; pointer-events: none; }
+.about-timeline-hit { display: none; }
+.about-history.is-interactive .about-timeline-hit {
+  display: block;
+  position: absolute;
+  z-index: 3;
+  inset: -21.5px -11px;
+  cursor: grab;
+  touch-action: none;
+}
+.about-timeline-hit:active { cursor: grabbing; }
+.about-history.is-interactive .about-timeline-track { z-index: 2; transform: translateY(-50%); }
 .about-timeline-thumb { display: none; }
 .about-history.is-interactive .about-timeline-thumb {
   display: block;
@@ -204,6 +222,7 @@
   .about-family-backdrop::after { content: ''; position: absolute; inset: 0; background: linear-gradient(#FAF7F2, transparent 25%); pointer-events: none; }
   .about-history-panel { padding-block: 3.5rem; }
   .about-history.is-interactive .about-timeline-track { transform: translateX(-50%); }
+  .about-history.is-interactive .about-timeline-hit { inset: -11px -21.5px; }
   .about-history.is-interactive .about-timeline-thumb { left: 50%; top: var(--history-cursor, 0%); }
   .about-history-controls { align-items: flex-start; }
   .about-selected-count { display: block; margin: 0 0 .35rem; }
@@ -328,6 +347,7 @@
             <div class="about-timeline-track" aria-hidden="true">
               <span class="about-timeline-fill"></span>
               <span class="about-timeline-thumb"></span>
+              <span class="about-timeline-hit"></span>
             </div>
             <label for="generation-range" class="sr-only">Esplora le quattro generazioni</label>
             <input id="generation-range" class="about-timeline-range" type="range" min="0" max="3" step="1" value="0" aria-describedby="history-help" hidden>
@@ -692,6 +712,7 @@
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const range = history.querySelector('.about-timeline-range');
   const track = history.querySelector('.about-timeline-track');
+  const hit = track.querySelector('.about-timeline-hit');
   const dots = steps.map(step => step.querySelector('.about-generation-dot'));
   const panels = [...history.querySelectorAll('.about-generation-detail')];
   const selectors = [...history.querySelectorAll('.about-generation-select')];
@@ -701,7 +722,11 @@
   const labels = ['Le radici', 'La continuità', 'L’evoluzione', 'Il futuro'];
   const duration = 9000;
   let progress = 0;
-  let selected = -1;
+  const lastChapter = steps.length - 1;
+  const checkpointTolerance = 1e-7;
+  let selected = 0;
+  let renderedChapter = -1;
+  let targetChapter = null;
   let paused = false;
   let hasInteracted = false;
   let settleFrame = 0;
@@ -727,11 +752,11 @@
     toggle.setAttribute('aria-label', completed ? 'Rivedi il racconto automatico' : paused ? 'Riproduci il racconto automatico' : 'Metti in pausa il racconto automatico');
   }
 
-  function paint(value, chapter = Math.round(value * (steps.length - 1))) {
+  function paint(value) {
+    const previous = progress * lastChapter;
     progress = Math.min(1, Math.max(0, value));
-    const last = steps.length - 1;
-    const position = progress * last;
-    const segment = Math.min(last - 1, Math.floor(position));
+    const position = progress * lastChapter;
+    const segment = Math.min(lastChapter - 1, Math.floor(position));
     if (markerOffsets.length) {
       // Each chapter occupies one segment even when mobile rows wrap differently.
       const start = markerOffsets[segment];
@@ -740,14 +765,18 @@
       history.style.setProperty('--history-progress', (percent / 100).toFixed(6));
       history.style.setProperty('--history-cursor', `${percent.toFixed(4)}%`);
     }
-    const reached = Math.floor(position + .002);
+    const reached = Math.floor(position + checkpointTolerance);
+    const nextBackward = Math.ceil(position - checkpointTolerance);
+    // Keep the current story until the cursor crosses a marker in its direction of travel.
+    if (reached > previous + checkpointTolerance) selected = reached;
+    if (nextBackward < previous - checkpointTolerance) selected = nextBackward;
     if (reached !== lastReached) {
       lastReached = reached;
       steps.forEach((step, index) => step.classList.toggle('is-reached', index <= reached));
     }
-    if (chapter !== selected) {
-      const current = chapter;
-      selected = current;
+    if (selected !== renderedChapter) {
+      const current = selected;
+      renderedChapter = current;
       range.value = String(current);
       steps.forEach((step, index) => {
         step.classList.toggle('is-current', index === current);
@@ -826,14 +855,15 @@
     range.style.width = vertical ? '44px' : `${length + 22}px`;
     range.style.height = vertical ? `${length + 22}px` : '44px';
     range.setAttribute('aria-orientation', vertical ? 'vertical' : 'horizontal');
-    paint(progress, selected < 0 ? 0 : selected);
+    paint(progress);
   }
 
   function syncMotion() {
     history.classList.toggle('has-scroll-motion', !motion.matches);
     if (motion.matches) {
       stop();
-      cancelAnimationFrame(settleFrame);
+      if (targetChapter !== null) elapsed = targetChapter / lastChapter * duration;
+      cancelSettle();
       if (!hasInteracted) elapsed = duration;
       paint(elapsed / duration);
       panorama?.style.removeProperty('--panorama-y');
@@ -842,29 +872,47 @@
     updatePanorama();
   }
 
+  function cancelSettle() {
+    cancelAnimationFrame(settleFrame);
+    settleFrame = 0;
+    targetChapter = null;
+  }
+
   function takeControl() {
     hasInteracted = true;
     paused = true;
     stop();
-    cancelAnimationFrame(settleFrame);
+    cancelSettle();
     updateToggle();
   }
 
   function choose(index) {
     takeControl();
-    const chapter = Math.min(steps.length - 1, Math.max(0, index));
-    const target = chapter / (steps.length - 1);
+    const chapter = Math.min(lastChapter, Math.max(0, index));
+    const target = chapter / lastChapter;
     const start = progress;
-    elapsed = target * duration;
-    paint(start, chapter);
-    if (motion.matches) { paint(target, chapter); updateToggle(); return; }
+    if (motion.matches || start === target) {
+      elapsed = target * duration;
+      paint(target);
+      updateToggle();
+      return;
+    }
+    targetChapter = chapter;
     const began = performance.now();
     function settle(now) {
       const fraction = Math.min(1, (now - began) / 320);
-      const eased = 1 - Math.pow(1 - fraction, 3);
-      paint(start + (target - start) * eased, chapter);
-      if (fraction < 1) settleFrame = requestAnimationFrame(settle);
-      else { settleFrame = 0; updateToggle(); }
+      if (fraction < 1) {
+        const eased = 1 - Math.pow(1 - fraction, 3);
+        const value = start + (target - start) * eased;
+        elapsed = value * duration;
+        paint(value);
+        settleFrame = requestAnimationFrame(settle);
+      } else {
+        elapsed = target * duration;
+        paint(target);
+        cancelSettle();
+        updateToggle();
+      }
     }
     settleFrame = requestAnimationFrame(settle);
   }
@@ -880,40 +928,45 @@
     const next = markerOffsets.findIndex(offset => offset >= fraction && offset > 0);
     const start = markerOffsets[next - 1];
     const end = markerOffsets[next];
-    const value = (next - 1 + (fraction - start) / (end - start)) / (steps.length - 1);
+    const value = (next - 1 + (fraction - start) / (end - start)) / lastChapter;
     elapsed = value * duration;
     paint(value);
   }
 
-  range.addEventListener('pointerdown', event => {
+  hit.addEventListener('pointerdown', event => {
     if (event.button !== 0 || dragPointer !== null || !markerOffsets.length) return;
     event.preventDefault();
     range.focus({ preventScroll: true });
     takeControl();
     dragPointer = event.pointerId;
-    range.setPointerCapture(dragPointer);
+    hit.setPointerCapture(dragPointer);
     const cursor = parseFloat(history.style.getPropertyValue('--history-cursor')) / 100;
     const pressOffset = trackPosition(event) - cursor;
     const size = vertical ? track.clientHeight : track.clientWidth;
     dragOffset = Math.abs(pressOffset * size) <= 11 ? pressOffset : 0;
     scrub(event);
   });
-  range.addEventListener('pointermove', event => {
+  hit.addEventListener('pointermove', event => {
     if (event.pointerId === dragPointer) scrub(event);
   });
-  range.addEventListener('lostpointercapture', event => {
+  hit.addEventListener('lostpointercapture', event => {
     if (event.pointerId !== dragPointer) return;
     dragPointer = null;
-    choose(selected);
+    choose(Math.round(progress * lastChapter));
   });
   range.addEventListener('focus', takeControl);
-  range.addEventListener('input', () => choose(Number(range.value)));
+  range.addEventListener('input', () => {
+    const requested = Number(range.value);
+    range.value = String(selected);
+    choose(requested);
+  });
   range.addEventListener('keydown', event => {
     const backward = ['ArrowLeft', 'ArrowUp', 'PageUp'];
     const forward = ['ArrowRight', 'ArrowDown', 'PageDown'];
     if (![...backward, ...forward, 'Home', 'End'].includes(event.key)) return;
     event.preventDefault();
-    const target = event.key === 'Home' ? 0 : event.key === 'End' ? 3 : selected + (backward.includes(event.key) ? -1 : 1);
+    const from = targetChapter ?? selected;
+    const target = event.key === 'Home' ? 0 : event.key === 'End' ? lastChapter : from + (backward.includes(event.key) ? -1 : 1);
     choose(target);
   });
   selectors.forEach((button, index) => {
@@ -921,7 +974,7 @@
     button.addEventListener('click', () => choose(index));
   });
   toggle.addEventListener('click', () => {
-    cancelAnimationFrame(settleFrame);
+    cancelSettle();
     if (elapsed >= duration) {
       elapsed = 0;
       paint(0);
