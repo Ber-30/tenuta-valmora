@@ -179,11 +179,24 @@
   top: 50%;
   width: 22px;
   height: 22px;
-  transform: translate(-50%, -50%);
+  translate: -50% -50%;
   border: 2px solid #F5EAD1;
   border-radius: 50%;
   background: #D8BD84;
   box-shadow: 0 0 0 6px rgb(216 189 132 / 15%), 0 2px 12px rgb(0 0 0 / 16%);
+  pointer-events: none;
+  transition: scale .18s ease-out, box-shadow .2s ease-out;
+}
+.about-history.has-scroll-motion.is-dragging .about-timeline-thumb {
+  scale: 1.13;
+  box-shadow: 0 0 0 7px rgb(216 189 132 / 21%), 0 3px 14px rgb(0 0 0 / 24%);
+}
+.about-generation-ripple {
+  position: absolute;
+  inset: -6px;
+  border: 1px solid #EAD7AE;
+  border-radius: 50%;
+  opacity: 0;
   pointer-events: none;
 }
 .about-timeline:has(.about-timeline-range:focus-visible) .about-timeline-thumb { outline: 1px solid #E5CF9F; outline-offset: 5px; }
@@ -232,7 +245,6 @@
   .about-page .about-detail-heading h3 { font-size: 2.1rem; }
   .about-page .about-detail-copy p { font-size: .86rem; }
 }
-
   </style>
 </head>
 <body class="about-page">
@@ -714,6 +726,13 @@
   const track = history.querySelector('.about-timeline-track');
   const hit = track.querySelector('.about-timeline-hit');
   const dots = steps.map(step => step.querySelector('.about-generation-dot'));
+  const thumb = track.querySelector('.about-timeline-thumb');
+  const ripples = dots.map(dot => {
+    const ripple = document.createElement('span');
+    ripple.className = 'about-generation-ripple';
+    dot.append(ripple);
+    return ripple;
+  });
   const panels = [...history.querySelectorAll('.about-generation-detail')];
   const selectors = [...history.querySelectorAll('.about-generation-select')];
   const controls = history.querySelector('.about-history-controls');
@@ -734,6 +753,7 @@
   let markerOffsets = [];
   let dragPointer = null;
   let dragOffset = 0;
+  let thumbArrival;
   let lastReached = -1;
   history.classList.add('is-interactive');
   range.hidden = false;
@@ -750,6 +770,26 @@
     const label = completed ? 'Rivedi' : paused ? 'Riproduci' : 'Pausa';
     toggle.textContent = `${label} ${!completed && !paused ? 'Ⅱ' : '▷'}`;
     toggle.setAttribute('aria-label', completed ? 'Rivedi il racconto automatico' : paused ? 'Riproduci il racconto automatico' : 'Metti in pausa il racconto automatico');
+  }
+
+  function animateArrival(chapter, settled = false) {
+    if (motion.matches || !thumb.animate) return;
+    // Keep the wave attached to the marker if the visitor keeps dragging.
+    const ripple = ripples[chapter];
+    if (!ripple.getAnimations().length) {
+      ripple.animate([
+        { scale: 1, opacity: .8 },
+        { scale: 1.85, opacity: 0 }
+      ], { duration: 500, easing: 'cubic-bezier(.2,.65,.3,1)' });
+    }
+    if (settled) {
+      thumbArrival?.cancel();
+      thumbArrival = thumb.animate([
+        { scale: 1.12 },
+        { scale: .96, offset: .6 },
+        { scale: 1 }
+      ], { duration: 260, easing: 'ease-out' });
+    }
   }
 
   function paint(value) {
@@ -776,6 +816,9 @@
     }
     if (selected !== renderedChapter) {
       const current = selected;
+      if (renderedChapter !== -1 && targetChapter === null) {
+        animateArrival(current, Math.abs(position - current) <= checkpointTolerance && dragPointer === null);
+      }
       renderedChapter = current;
       range.value = String(current);
       steps.forEach((step, index) => {
@@ -864,6 +907,8 @@
       stop();
       if (targetChapter !== null) elapsed = targetChapter / lastChapter * duration;
       cancelSettle();
+      thumbArrival?.cancel();
+      ripples.forEach(ripple => ripple.getAnimations().forEach(animation => animation.cancel()));
       if (!hasInteracted) elapsed = duration;
       paint(elapsed / duration);
       panorama?.style.removeProperty('--panorama-y');
@@ -883,6 +928,7 @@
     paused = true;
     stop();
     cancelSettle();
+    thumbArrival?.cancel();
     updateToggle();
   }
 
@@ -894,6 +940,7 @@
     if (motion.matches || start === target) {
       elapsed = target * duration;
       paint(target);
+      animateArrival(chapter, true);
       updateToggle();
       return;
     }
@@ -910,6 +957,7 @@
       } else {
         elapsed = target * duration;
         paint(target);
+        animateArrival(chapter, true);
         cancelSettle();
         updateToggle();
       }
@@ -940,6 +988,7 @@
     takeControl();
     dragPointer = event.pointerId;
     hit.setPointerCapture(dragPointer);
+    history.classList.add('is-dragging');
     const cursor = parseFloat(history.style.getPropertyValue('--history-cursor')) / 100;
     const pressOffset = trackPosition(event) - cursor;
     const size = vertical ? track.clientHeight : track.clientWidth;
@@ -952,6 +1001,7 @@
   hit.addEventListener('lostpointercapture', event => {
     if (event.pointerId !== dragPointer) return;
     dragPointer = null;
+    history.classList.remove('is-dragging');
     choose(Math.round(progress * lastChapter));
   });
   range.addEventListener('focus', takeControl);
@@ -1029,7 +1079,6 @@
   measureTrack();
   syncMotion();
 })();
-
   </script>
   <script src="assets/js/products.js"></script>
   <script src="assets/js/cart.js"></script>
