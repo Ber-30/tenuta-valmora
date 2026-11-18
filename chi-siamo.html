@@ -53,7 +53,7 @@
 .about-page .about-history-instruction { margin-top: 1rem; color: #D8C6C7; font-size: .82rem; }
 .about-timeline { position: relative; margin-block: clamp(2rem, 4vw, 4rem); }
 .about-timeline-track { position: absolute; left: 12.5%; right: 12.5%; top: 35px; height: 1px; background: #79545A; }
-.about-timeline-track span { display: block; width: 100%; height: 100%; background: #D8BD84; transform: scaleX(var(--history-progress)); transform-origin: left; }
+.about-timeline-fill { display: block; width: 100%; height: 100%; background: #D8BD84; transform: scaleX(var(--history-progress)); transform-origin: left; }
 .about-generations { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
 .about-generations li { text-align: center; position: relative; padding-inline: 1rem; }
 .about-generation-number { display: block; height: 29px; color: #D8BD84; font-family: var(--font-serif); font-size: 1rem; letter-spacing: .08em; }
@@ -112,7 +112,7 @@
   .about-history-heading { text-align: left; }
   .about-timeline { margin-block: 1.75rem; }
   .about-timeline-track { left: 6px; top: 9px; bottom: 9px; width: 1px; height: auto; right: auto; }
-  .about-timeline-track span { transform: scaleY(var(--history-progress)); transform-origin: top; }
+  .about-timeline-fill { transform: scaleY(var(--history-progress)); transform-origin: top; }
   .about-generations { grid-template-columns: 1fr; gap: 1.3rem; }
   .about-generations li { padding-left: 2.5rem; padding-right: 0; text-align: left; }
   .about-generation-number { position: absolute; right: 0; top: -.15rem; font-size: .85rem; }
@@ -148,14 +148,27 @@
 .about-family-copy p { color: #5D5054; }
 .about-family-copy h2 { font-size: clamp(3rem, 4.6vw, 4.9rem); }
 .about-family-layout { position: relative; }
-/* Native range: mouse, touch, and keyboard all use the same state. */
-.about-timeline-range { position: absolute; z-index: 3; margin: 0; padding: 0; appearance: none; -webkit-appearance: none; border: 0; outline: 0; background: transparent; cursor: grab; touch-action: none; accent-color: #D8BD84; }
+/* The track draws the cursor; the transparent range supplies the accessible input. */
+.about-timeline-range { position: absolute; z-index: 3; margin: 0; opacity: 0; cursor: grab; touch-action: none; }
 .about-timeline-range:active { cursor: grabbing; }
-.about-timeline-range::-webkit-slider-runnable-track { background: transparent; height: 100%; }
-.about-timeline-range::-webkit-slider-thumb { appearance: none; -webkit-appearance: none; width: 22px; height: 22px; margin-top: 11px; border: 2px solid #F5EAD1; border-radius: 50%; background: #D8BD84; box-shadow: 0 0 0 6px rgb(216 189 132 / 15%), 0 2px 12px rgb(0 0 0 / 16%); }
-.about-timeline-range::-moz-range-track { background: transparent; }
-.about-timeline-range::-moz-range-thumb { width: 18px; height: 18px; border: 2px solid #F5EAD1; border-radius: 50%; background: #D8BD84; box-shadow: 0 0 0 6px rgb(216 189 132 / 15%); }
-.about-timeline-range:focus-visible { outline: 1px solid #E5CF9F; outline-offset: 7px; border-radius: 4px; }
+.about-history.is-interactive .about-timeline-track { transform: translateY(-50%); }
+.about-timeline-thumb { display: none; }
+.about-history.is-interactive .about-timeline-thumb {
+  display: block;
+  position: absolute;
+  z-index: 1;
+  left: var(--history-cursor, 0%);
+  top: 50%;
+  width: 22px;
+  height: 22px;
+  transform: translate(-50%, -50%);
+  border: 2px solid #F5EAD1;
+  border-radius: 50%;
+  background: #D8BD84;
+  box-shadow: 0 0 0 6px rgb(216 189 132 / 15%), 0 2px 12px rgb(0 0 0 / 16%);
+  pointer-events: none;
+}
+.about-timeline:has(.about-timeline-range:focus-visible) .about-timeline-thumb { outline: 1px solid #E5CF9F; outline-offset: 5px; }
 .about-generation-select { font: inherit; color: inherit; line-height: inherit; padding: .25rem .15rem; text-align: inherit; }
 .about-generation-select:hover { color: #EAD7AE; }
 .about-history.is-interactive .about-generations li.is-current h3 { color: #EAD7AE; }
@@ -190,8 +203,8 @@
   .about-family-copy h2 { font-size: clamp(2.8rem, 8vw, 3.7rem); }
   .about-family-backdrop::after { content: ''; position: absolute; inset: 0; background: linear-gradient(#FAF7F2, transparent 25%); pointer-events: none; }
   .about-history-panel { padding-block: 3.5rem; }
-  .about-timeline-range { writing-mode: vertical-lr; direction: ltr; }
-  .about-timeline-range::-webkit-slider-thumb { margin-top: 0; margin-left: 11px; }
+  .about-history.is-interactive .about-timeline-track { transform: translateX(-50%); }
+  .about-history.is-interactive .about-timeline-thumb { left: 50%; top: var(--history-cursor, 0%); }
   .about-history-controls { align-items: flex-start; }
   .about-selected-count { display: block; margin: 0 0 .35rem; }
   .about-page .about-history-controls p { max-width: 225px; font-size: .67rem; }
@@ -312,9 +325,12 @@
             <p class="about-history-instruction">Un filo che unisce il passato al futuro. Seguilo, una generazione alla volta.</p>
           </div>
           <div class="about-timeline">
-            <div class="about-timeline-track" aria-hidden="true"><span></span></div>
+            <div class="about-timeline-track" aria-hidden="true">
+              <span class="about-timeline-fill"></span>
+              <span class="about-timeline-thumb"></span>
+            </div>
             <label for="generation-range" class="sr-only">Esplora le quattro generazioni</label>
-            <input id="generation-range" class="about-timeline-range" type="range" min="0" max="1000" step="1" value="0" aria-describedby="history-help" hidden>
+            <input id="generation-range" class="about-timeline-range" type="range" min="0" max="3" step="1" value="0" aria-describedby="history-help" hidden>
             <ol class="about-generations">
               <li>
                 <span class="about-generation-number" aria-hidden="true">I</span>
@@ -675,6 +691,8 @@
   const panorama = document.querySelector('.about-panorama-frame');
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const range = history.querySelector('.about-timeline-range');
+  const track = history.querySelector('.about-timeline-track');
+  const dots = steps.map(step => step.querySelector('.about-generation-dot'));
   const panels = [...history.querySelectorAll('.about-generation-detail')];
   const selectors = [...history.querySelectorAll('.about-generation-select')];
   const controls = history.querySelector('.about-history-controls');
@@ -687,6 +705,11 @@
   let paused = false;
   let hasInteracted = false;
   let settleFrame = 0;
+  let vertical = false;
+  let markerOffsets = [];
+  let dragPointer = null;
+  let dragOffset = 0;
+  let lastReached = -1;
   history.classList.add('is-interactive');
   range.hidden = false;
   range.setAttribute('aria-controls', 'generation-details');
@@ -704,19 +727,33 @@
     toggle.setAttribute('aria-label', completed ? 'Rivedi il racconto automatico' : paused ? 'Riproduci il racconto automatico' : 'Metti in pausa il racconto automatico');
   }
 
-  function paint(value) {
+  function paint(value, chapter = Math.round(value * (steps.length - 1))) {
     progress = Math.min(1, Math.max(0, value));
-    history.style.setProperty('--history-progress', progress.toFixed(4));
-    range.value = String(Math.round(progress * 1000));
-    const current = Math.min(3, Math.round(progress * 3));
-    steps.forEach((step, index) => {
-      step.classList.toggle('is-reached', index / 3 <= progress + .002);
-      step.classList.toggle('is-current', index === current);
-      if (index === current) step.setAttribute('aria-current', 'step');
-      else step.removeAttribute('aria-current');
-    });
-    if (current !== selected) {
+    const last = steps.length - 1;
+    const position = progress * last;
+    const segment = Math.min(last - 1, Math.floor(position));
+    if (markerOffsets.length) {
+      // Each chapter occupies one segment even when mobile rows wrap differently.
+      const start = markerOffsets[segment];
+      const end = markerOffsets[segment + 1];
+      const percent = (start + (end - start) * (position - segment)) * 100;
+      history.style.setProperty('--history-progress', (percent / 100).toFixed(6));
+      history.style.setProperty('--history-cursor', `${percent.toFixed(4)}%`);
+    }
+    const reached = Math.floor(position + .002);
+    if (reached !== lastReached) {
+      lastReached = reached;
+      steps.forEach((step, index) => step.classList.toggle('is-reached', index <= reached));
+    }
+    if (chapter !== selected) {
+      const current = chapter;
       selected = current;
+      range.value = String(current);
+      steps.forEach((step, index) => {
+        step.classList.toggle('is-current', index === current);
+        if (index === current) step.setAttribute('aria-current', 'step');
+        else step.removeAttribute('aria-current');
+      });
       counter.textContent = `0${current + 1} / 04`;
       range.setAttribute('aria-valuetext', `Generazione ${current + 1} di 4: ${labels[current]}`);
       panels.forEach((panel, index) => {
@@ -762,36 +799,45 @@
     }
   }
 
-  function measure() {
-    history.classList.remove('is-pinned');
-    history.classList.toggle('has-scroll-motion', !motion.matches);
-    if (motion.matches) {
-      stop();
-      if (!hasInteracted) elapsed = duration;
-      paint(hasInteracted ? progress : 1);
-      panorama?.style.removeProperty('--panorama-y');
-    } else {
-      paint(elapsed / duration);
-      resume();
-    }
-    const track = history.querySelector('.about-timeline-track');
+  function measureTrack() {
+    vertical = matchMedia('(max-width: 760px)').matches;
     const bounds = timeline.getBoundingClientRect();
-    const first = steps[0].querySelector('.about-generation-dot').getBoundingClientRect();
-    const last = steps[3].querySelector('.about-generation-dot').getBoundingClientRect();
-    const x = first.left + first.width / 2 - bounds.left;
-    const y = first.top + first.height / 2 - bounds.top;
-    const vertical = matchMedia('(max-width: 760px)').matches;
+    const centers = dots.map(dot => {
+      const rect = dot.getBoundingClientRect();
+      return { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+    });
+    const first = centers[0];
+    const last = centers.at(-1);
+    const axis = vertical ? 'y' : 'x';
+    const length = last[axis] - first[axis];
+    if (length <= 0) return;
+    markerOffsets = centers.map(center => (center[axis] - first[axis]) / length);
+
+    const x = first.x - bounds.left;
+    const y = first.y - bounds.top;
     track.style.left = `${x}px`;
     track.style.top = `${y}px`;
     track.style.right = 'auto';
     track.style.bottom = 'auto';
-    track.style.width = vertical ? '1px' : `${last.left - first.left}px`;
-    track.style.height = vertical ? `${last.top - first.top}px` : '1px';
+    track.style.width = vertical ? '1px' : `${length}px`;
+    track.style.height = vertical ? `${length}px` : '1px';
     range.style.left = `${x - (vertical ? 22 : 11)}px`;
     range.style.top = `${y - (vertical ? 11 : 22)}px`;
-    range.style.width = vertical ? '44px' : `${last.left - first.left + 22}px`;
-    range.style.height = vertical ? `${last.top - first.top + 22}px` : '44px';
+    range.style.width = vertical ? '44px' : `${length + 22}px`;
+    range.style.height = vertical ? `${length + 22}px` : '44px';
     range.setAttribute('aria-orientation', vertical ? 'vertical' : 'horizontal');
+    paint(progress, selected < 0 ? 0 : selected);
+  }
+
+  function syncMotion() {
+    history.classList.toggle('has-scroll-motion', !motion.matches);
+    if (motion.matches) {
+      stop();
+      cancelAnimationFrame(settleFrame);
+      if (!hasInteracted) elapsed = duration;
+      paint(elapsed / duration);
+      panorama?.style.removeProperty('--panorama-y');
+    } else resume();
     updateToggle();
     updatePanorama();
   }
@@ -806,30 +852,62 @@
 
   function choose(index) {
     takeControl();
-    const target = Math.min(3, Math.max(0, index)) / 3;
+    const chapter = Math.min(steps.length - 1, Math.max(0, index));
+    const target = chapter / (steps.length - 1);
     const start = progress;
     elapsed = target * duration;
-    if (motion.matches) { paint(target); updateToggle(); return; }
+    paint(start, chapter);
+    if (motion.matches) { paint(target, chapter); updateToggle(); return; }
     const began = performance.now();
     function settle(now) {
       const fraction = Math.min(1, (now - began) / 320);
       const eased = 1 - Math.pow(1 - fraction, 3);
-      paint(start + (target - start) * eased);
+      paint(start + (target - start) * eased, chapter);
       if (fraction < 1) settleFrame = requestAnimationFrame(settle);
       else { settleFrame = 0; updateToggle(); }
     }
     settleFrame = requestAnimationFrame(settle);
   }
 
-  range.addEventListener('pointerdown', takeControl);
-  range.addEventListener('focus', takeControl);
-  range.addEventListener('input', () => {
-    takeControl();
-    const value = Number(range.value) / 1000;
+  function trackPosition(event) {
+    const rect = track.getBoundingClientRect();
+    if (vertical) return (event.clientY - rect.top) / rect.height;
+    return (event.clientX - rect.left) / rect.width;
+  }
+
+  function scrub(event) {
+    const fraction = Math.min(1, Math.max(0, trackPosition(event) - dragOffset));
+    const next = markerOffsets.findIndex(offset => offset >= fraction && offset > 0);
+    const start = markerOffsets[next - 1];
+    const end = markerOffsets[next];
+    const value = (next - 1 + (fraction - start) / (end - start)) / (steps.length - 1);
     elapsed = value * duration;
     paint(value);
+  }
+
+  range.addEventListener('pointerdown', event => {
+    if (event.button !== 0 || dragPointer !== null || !markerOffsets.length) return;
+    event.preventDefault();
+    range.focus({ preventScroll: true });
+    takeControl();
+    dragPointer = event.pointerId;
+    range.setPointerCapture(dragPointer);
+    const cursor = parseFloat(history.style.getPropertyValue('--history-cursor')) / 100;
+    const pressOffset = trackPosition(event) - cursor;
+    const size = vertical ? track.clientHeight : track.clientWidth;
+    dragOffset = Math.abs(pressOffset * size) <= 11 ? pressOffset : 0;
+    scrub(event);
   });
-  range.addEventListener('change', () => choose(Math.round(Number(range.value) / 1000 * 3)));
+  range.addEventListener('pointermove', event => {
+    if (event.pointerId === dragPointer) scrub(event);
+  });
+  range.addEventListener('lostpointercapture', event => {
+    if (event.pointerId !== dragPointer) return;
+    dragPointer = null;
+    choose(selected);
+  });
+  range.addEventListener('focus', takeControl);
+  range.addEventListener('input', () => choose(Number(range.value)));
   range.addEventListener('keydown', event => {
     const backward = ['ArrowLeft', 'ArrowUp', 'PageUp'];
     const forward = ['ArrowRight', 'ArrowDown', 'PageDown'];
@@ -883,15 +961,20 @@
   addEventListener('scroll', () => {
     if (!panoramaFrame && !motion.matches) panoramaFrame = requestAnimationFrame(updatePanorama);
   }, { passive: true });
-  addEventListener('resize', measure);
-  addEventListener('pageshow', measure);
+  addEventListener('resize', measureTrack);
+  addEventListener('pageshow', measureTrack);
+  if ('ResizeObserver' in window) {
+    const resizeObserver = new ResizeObserver(measureTrack);
+    steps.forEach(step => resizeObserver.observe(step));
+  }
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) stop();
     else resume();
   });
-  motion.addEventListener('change', measure);
-  if (document.fonts) document.fonts.ready.then(measure);
-  measure();
+  motion.addEventListener('change', syncMotion);
+  if (document.fonts) document.fonts.ready.then(measureTrack);
+  measureTrack();
+  syncMotion();
 })();
 
   </script>
