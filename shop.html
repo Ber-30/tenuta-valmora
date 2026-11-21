@@ -144,7 +144,7 @@
       <!-- Barra Filtri e Ordinamento -->
       <div class="filter-bar">
         <div class="filter-pills" id="category-filters">
-          <button type="button" class="filter-pill active" data-filter="all">Tutti i Vini (6)</button>
+          <button type="button" class="filter-pill active" data-filter="all">Tutti i Vini (8)</button>
           <button type="button" class="filter-pill" data-filter="rossi">Rossi Classici</button>
           <button type="button" class="filter-pill" data-filter="riserve">Grandi Riserve</button>
           <button type="button" class="filter-pill" data-filter="dolci">Passito DOCG</button>
@@ -156,7 +156,6 @@
             <option value="default">Consigliati da Tenuta Valmora</option>
             <option value="price-asc">Prezzo: dal più basso</option>
             <option value="price-desc">Prezzo: dal più alto</option>
-            <option value="rating">Punteggio della critica</option>
           </select>
         </div>
       </div>
@@ -258,7 +257,7 @@
           </p>
           <p style="font-size:0.85rem; color:#D6C2C7;">
             Tel: +39 049 892 4110<br>
-            Mail: <a href="mailto:info@tenutavalmora.it" style="color:var(--color-gold);">info@tenutavalmora.it</a>
+            Mail: <a href="mailto:tenutavalmora@gmail.com" style="color:var(--color-gold);">tenutavalmora@gmail.com</a>
           </p>
         </div>
       </div>
@@ -547,8 +546,6 @@
           filtered.sort((a, b) => a.price - b.price);
         } else if (currentSort === 'price-desc') {
           filtered.sort((a, b) => b.price - a.price);
-        } else if (currentSort === 'rating') {
-          filtered.sort((a, b) => b.rating - a.rating);
         }
 
         grid.innerHTML = filtered.map(product => `

@@ -13,7 +13,7 @@ const PRODUCTS = [
     format: "750 ml",
     image: "assets/images/bottle-rosso.jpg",
     shortDescription: "Il nostro rosso d'autore simbolo: equilibrio magistrale tra Merlot e Cabernet sui suoli vulcanici.",
-    description: "Espressione fedele della nostra collina, Valmora Rosso unisce la setosità del Merlot alla struttura minerale del Cabernet Franc e Sauvignon. Fermentato in tini di rovere e affinato 14 mesi in tonneaux, sprigiona un profilo aromatico profondo e inconfondibile.",
+    description: "Espressione fedele della nostra collina, Valmora Rosso unisce la setosità del Merlot alla struttura minerale del Cabernet Sauvignon e alla nota speziata del Carmenère. Fermentato in tini di rovere e affinato 14 mesi in tonneaux, sprigiona un profilo aromatico profondo e inconfondibile.",
     grapes: "60% Merlot, 30% Cabernet Sauvignon, 10% Carmenère",
     terroir: "Pendici vulcaniche dei Colli Euganei, suoli ricchi di marna e basalto a 240m s.l.m.",
     tastingNotes: {
@@ -128,15 +128,61 @@ const PRODUCTS = [
     format: "500 ml",
     image: "assets/images/bottle-passito.jpg",
     shortDescription: "Nettare prezioso dei Colli Euganei: uve Moscato Giallo appassite sui graticci per 4 mesi.",
-    description: "Il vitigno autoctono più celebre del nostro territorio interpretato nella sua veste più sublime. I grappoli dorati riposano nel fruttaio fino a inizio inverno prima della pigiatura soffice e del lungo affinamento in piccole botti di ciliegio.",
+    description: "Il vitigno autoctono più celebre del nostro territorio interpretato nella sua veste più sublime. I grappoli dorati riposano nel fruttaio fino a inizio inverno prima della pigiatura soffice e del lungo affinamento in piccole botti di ciliegio, che gli regala il caldo colore ramato.",
     grapes: "100% Moscato Giallo dei Colli Euganei",
     terroir: "Pendii soleggiati e ben arieggiati con suoli calcareo-vulcanici.",
     tastingNotes: {
-      visual: "Giallo dorato lucente con caldi riflessi ambrati.",
-      olfactory: "Fiori d'arancio, scorza di mandarino candita, miele d'acacia, albicocca disidratata e zafferano.",
+      visual: "Rosso ramato brillante, dal rubino chiaro all'ambra sull'unghia del vino.",
+      olfactory: "Fiori d'arancio, scorza di mandarino candita, ciliegia candita, miele d'acacia e albicocca disidratata.",
       taste: "Dolcezza sontuosa bilanciata da una vivacissima scia agrumata e minerale che ne evita ogni stucchevolezza."
     },
     pairing: "Pasticceria secca tradizionale veneta (zaeti, fregolotta), foie gras, e formaggi erborinati tipo Gorgonzola naturale."
+  },
+  {
+    id: "pietra-viva-cabernet-franc",
+    name: "Pietra Viva",
+    appellation: "Colli Euganei Cabernet Franc DOC",
+    vintage: "2022",
+    category: "rossi",
+    price: 32.00,
+    badge: "Nuova Annata",
+    rating: 92,
+    alcohol: "13.5% Vol.",
+    format: "750 ml",
+    image: "assets/images/bottle-cabernet-franc.jpg",
+    shortDescription: "Cabernet Franc in purezza dalle note erbacee e speziate, tipico carattere dei colli vulcanici.",
+    description: "Il Cabernet Franc è tra i vitigni a bacca rossa più radicati nei Colli Euganei, dove le escursioni termiche e i suoli di origine vulcanica ne esaltano freschezza e profumi. Pietra Viva è un rosso schietto e territoriale, fermentato in acciaio e affinato 12 mesi in botti grandi di rovere.",
+    grapes: "100% Cabernet Franc",
+    terroir: "Pendii vulcanici con suoli di trachite e marna a 200m s.l.m., esposizione sud-est.",
+    tastingNotes: {
+      visual: "Rosso rubino vivace con riflessi violacei.",
+      olfactory: "Lampone, ribes nero, peperone verde dolce, violetta e una nota di pepe bianco.",
+      taste: "Fresco, succoso e di buon equilibrio. Tannini fini, sapidità minerale e finale pulito di piccoli frutti rossi."
+    },
+    pairing: "Salumi dei Colli Euganei, bigoli al ragù d'anatra, carni bianche arrosto e formaggi semistagionati."
+  },
+  {
+    id: "monte-alto-rosso-riserva",
+    name: "Monte Alto",
+    appellation: "Colli Euganei Rosso Riserva DOC",
+    vintage: "2020",
+    category: "riserve",
+    price: 42.00,
+    badge: "Riserva della Tenuta",
+    rating: 93,
+    alcohol: "14.0% Vol.",
+    format: "750 ml",
+    image: "assets/images/bottle-rosso-riserva.jpg",
+    shortDescription: "Il Rosso Riserva dei Colli Euganei: un taglio bordolese strutturato, elegante e pronto a evolvere.",
+    description: "Monte Alto nasce dalle migliori parcelle collinari della tenuta, vendemmiate a piena maturazione. Merlot, Cabernet Franc e Cabernet Sauvignon fermentano separatamente e si uniscono dopo 18 mesi di affinamento in botti di rovere, per un rosso di grande equilibrio e tipicità.",
+    grapes: "50% Merlot, 30% Cabernet Franc, 20% Cabernet Sauvignon",
+    terroir: "Versanti vulcanici esposti a sud con suoli di trachite e marna a 220m s.l.m.",
+    tastingNotes: {
+      visual: "Rosso rubino intenso con riflessi granati.",
+      olfactory: "Prugna, mora, ribes nero, tabacco dolce, spezie e una leggera nota balsamica.",
+      taste: "Pieno e armonico, con tannini levigati, buona freschezza e un finale lungo e speziato."
+    },
+    pairing: "Carni rosse alla griglia, brasati, anatra arrosto e formaggi stagionati del territorio."
   }
 ];
 
