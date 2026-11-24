@@ -51,6 +51,16 @@
   font-weight: 600;
 }
 
+/* Testo breve sotto i 768px, completo da 768px */
+.topbar__text--long {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .topbar__text--short { display: none; }
+  .topbar__text--long { display: inline; }
+}
+
 /* ==========================================================================
    Header
    Neutralizza da style.css: sfondo semitrasparente, sfocatura, ombra di
@@ -100,23 +110,30 @@
   transform: translate3d(0, -100%, 0);
 }
 
+/* Menu e carrello negli angoli della finestra (stesso margine del "Chiudi" del pannello) */
 .site-header .header-inner {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
+  width: 100%;
   height: var(--header-h);
+  padding: 0 1.5rem;
 }
 
-.site-header__side {
-  display: flex;
+.site-header .mobile-menu-btn { justify-self: start; }
+.site-header .header-actions { justify-self: end; }
+
+/* Gruppo centrale: voci ai lati del logo, simmetriche rispetto al logo */
+.site-header__center {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 2rem;
-  min-width: 0;
+  justify-self: center;
 }
 
-.site-header__side--right {
-  justify-content: flex-end;
-}
+.site-header__center .brand-logo-link { grid-column: 2; }
+.site-header__nav--left { grid-column: 1; justify-content: flex-end; }
+.site-header__nav--right { grid-column: 3; justify-content: flex-start; }
 
 /* Voci di navigazione: solo da 1024px */
 .site-header__nav {
@@ -181,15 +198,30 @@
   transition: none;
 }
 
-.site-header .mobile-menu-btn .site-header__menu-line {
-  width: 1.6rem;
-  height: 1px;
-  background-color: currentColor;
-  transition: width 0.9s var(--vm-ease);
+/* Due lineette impilate: una lunga e una corta */
+.site-header .mobile-menu-btn .site-header__menu-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  width: 24px;
 }
 
-.site-header .mobile-menu-btn:hover .site-header__menu-line {
-  width: 2.4rem;
+.site-header .mobile-menu-btn .site-header__menu-line {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.4s var(--vm-ease);
+}
+
+.site-header .mobile-menu-btn .site-header__menu-line--short {
+  width: 14px;
+}
+
+.site-header .mobile-menu-btn:hover .site-header__menu-line--short,
+.site-header .mobile-menu-btn:focus-visible .site-header__menu-line--short {
+  width: 24px;
 }
 
 /* Senza transizione di colore propria: seguono quella dell'header */
@@ -224,46 +256,55 @@
   gap: 0;
 }
 
+/* Carrello: solo icona su tutte le larghezze */
 .site-header .cart-toggle-btn {
-  gap: 0.5rem;
   width: 44px;
   height: 44px;
   border-radius: 0;
   background-color: transparent;
   color: inherit;
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
 }
 
 .site-header .cart-toggle-btn:hover {
   background-color: transparent;
   color: inherit;
-  opacity: 0.7;
 }
 
-.site-header__cart-text {
-  display: none;
+.site-header .cart-toggle-btn svg {
+  transition: transform 0.4s var(--vm-ease);
 }
 
-/* display del badge gestito da cart.js */
+.site-header .cart-toggle-btn:hover svg,
+.site-header .cart-toggle-btn:focus-visible svg {
+  transform: translate3d(0, -2px, 0);
+}
+
+/* Numero piccolo in alto a destra dell'icona; display gestito da cart.js */
 .site-header .cart-badge {
-  top: 5px;
-  right: 1px;
-  width: 18px;
-  height: 18px;
+  top: 7px;
+  right: 3px;
+  width: auto;
+  height: auto;
   border: 0;
-  background-color: var(--vm-bordeaux);
-  color: var(--vm-crema);
-  font-size: 0.6rem;
+  border-radius: 0;
+  background-color: transparent;
+  color: inherit;
+  font-family: var(--font-sans);
+  font-size: 0.62rem;
+  font-weight: 700;
+  line-height: 1;
   font-variant-numeric: lining-nums;
 }
 
-.site-header--overlay:not(.site-header--solid) .cart-badge {
-  background-color: var(--vm-crema);
-  color: var(--vm-bordeaux);
+/* "Battito" quando cambia il numero (classe da layout.js) */
+.site-header .cart-badge.site-header__badge--pulse {
+  animation: site-badge-pulse 0.4s var(--vm-ease);
+}
+
+@keyframes site-badge-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
 }
 
 .site-header a:focus-visible,
@@ -276,38 +317,14 @@
   .site-header .brand-title { display: block; }
 }
 
+@media (min-width: 768px) {
+  .site-header .header-inner { padding: 0 2.5rem; }
+}
+
 @media (min-width: 1024px) {
   .site-header__nav { display: flex; }
 
-  /* "Carrello (n)" in testo */
-  .site-header .cart-toggle-btn {
-    width: auto;
-    padding: 0;
-  }
-
-  .site-header .cart-toggle-btn svg {
-    display: none;
-  }
-
-  .site-header__cart-text {
-    display: inline;
-  }
-
-  .site-header .cart-badge,
-  .site-header--overlay:not(.site-header--solid) .cart-badge {
-    position: static;
-    width: auto;
-    height: auto;
-    border-radius: 0;
-    background-color: transparent;
-    color: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    letter-spacing: 0.1em;
-  }
-
-  .site-header .cart-badge::before { content: '('; }
-  .site-header .cart-badge::after { content: ')'; }
+  .site-header__center { column-gap: 2.5rem; }
 }
 
 /* ==========================================================================
@@ -587,35 +604,61 @@
   .site-menu__brand-name { display: block; }
 }
 
-/* Da 768px: colonne affiancate, sottovoci sempre visibili */
+/* Da 768px: margini come la barra; email a sinistra e social a destra */
 @media (min-width: 768px) {
   .site-menu__top { padding: 0 2.5rem; }
 
+  .site-menu__nav { padding: 2rem 2.5rem 3rem; }
+
+  .site-menu__bottom {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2rem 2.5rem;
+  }
+}
+
+/* Da 1024px (come l'header): 5 colonne uguali, testo centrato */
+@media (min-width: 1024px) {
   .site-menu__nav {
-    align-items: center;
-    padding: 3rem 2.5rem;
+    padding-top: 14vh;
   }
 
   .site-menu__cols {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 3rem 2.5rem;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2.5rem;
+    max-width: 1240px;
+    margin: 0 auto;
   }
 
   .site-menu__col {
     border-bottom: 0;
+    text-align: center;
+  }
+
+  .site-menu__head {
+    justify-content: center;
   }
 
   .site-menu__toggle {
     display: none;
   }
 
+  /* Titoli su una riga, stessa linea di base; sotto una lineetta oro fissa */
   .site-menu__title {
-    display: inline-block;
-    margin-bottom: 1rem;
-    padding: 0 0 0.75rem;
-    font-size: clamp(2rem, 3vw, 2.75rem);
-    border-bottom: 1px solid var(--vm-linea-chiara);
+    display: block;
+    padding: 0;
+    font-size: clamp(1.6rem, 2.2vw, 2.4rem);
+    white-space: nowrap;
+  }
+
+  .site-menu__title::after {
+    content: '';
+    display: block;
+    width: 28px;
+    height: 1px;
+    margin: 1rem auto 1.25rem;
+    background-color: var(--vm-oro);
   }
 
   .site-menu__list {
@@ -626,20 +669,6 @@
   .site-menu__link {
     padding: 0.35rem 0;
     font-size: 0.88rem;
-  }
-
-  .site-menu__bottom {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 2rem 2.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .site-menu__cols {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    max-width: 1240px;
-    margin: 0 auto;
   }
 }
 
@@ -777,19 +806,6 @@
   }
 }
 
-.footer-test-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: rgba(176, 141, 87, 0.15);
-  border: 1px solid var(--color-gold);
-  padding: 0.35rem 0.85rem;
-  border-radius: var(--radius-full);
-  color: var(--color-gold);
-  font-size: 0.75rem;
-  font-weight: 600;
-}
-
 /* ==========================================================================
    Movimento ridotto: solo cambio di stato, senza transizioni
    ========================================================================== */
@@ -805,7 +821,17 @@
   .site-menu__plus::after,
   .site-menu__title,
   .site-menu__link,
-  .site-menu__close {
+  .site-menu__close,
+  .site-header .cart-toggle-btn svg {
     transition: none;
+  }
+
+  .site-header .cart-toggle-btn:hover svg,
+  .site-header .cart-toggle-btn:focus-visible svg {
+    transform: none;
+  }
+
+  .site-header .cart-badge.site-header__badge--pulse {
+    animation: none;
   }
 }
