@@ -1,4 +1,5 @@
-// Home: apertura, header, pannello Menu, video e animazioni allo scorrimento.
+// Home: apertura, video e animazioni allo scorrimento.
+// Header e pannello Menu sono gestiti da assets/js/layout.js.
 
 // Apertura con il logo alla prima visita della sessione.
 // Se lo cambi, cambia anche INTRO_ENABLED nello script in cima al <body> di index.html.
@@ -20,7 +21,6 @@ const REPLAY = true;
   var animated = !reduceMotion && canObserve;
   var wide = window.matchMedia ? window.matchMedia('(min-width: 1024px)') : { matches: false };
 
-  var header = document.querySelector('.site-header');
   var hero = document.querySelector('.home-hero');
   var heroContent = document.querySelector('.home-hero__content');
   var heroShade = document.querySelector('.home-hero__shade');
@@ -28,9 +28,6 @@ const REPLAY = true;
   var manifesto = document.querySelector('.home-manifesto__text');
   var visit = document.querySelector('.home-visit');
   var visitMedia = document.querySelector('.home-visit__media');
-  var drawer = document.getElementById('mobile-nav-drawer');
-  var menuBtn = document.getElementById('mobile-menu-btn');
-  var closeBtn = document.getElementById('mobile-drawer-close');
 
   // Stessa chiave usata dallo script in cima al <body>.
   var OPENING_KEY = 'home-opening-seen';
@@ -47,13 +44,9 @@ const REPLAY = true;
     Array.prototype.forEach.call(list, fn);
   }
 
-  function menuOpen() {
-    return !!(drawer && drawer.classList.contains('open'));
-  }
-
   // --- Posizioni delle sezioni (misurate al ridimensionamento, non a ogni frame)
 
-  var geo = { vh: window.innerHeight, heroTop: 0, heroH: 1, headerH: 0, manTop: 0, manH: 1, visitTop: 0, visitH: 1 };
+  var geo = { vh: window.innerHeight, heroTop: 0, heroH: 1, manTop: 0, manH: 1, visitTop: 0, visitH: 1 };
 
   function measure() {
     var sy = window.scrollY;
@@ -66,7 +59,6 @@ const REPLAY = true;
       geo.heroTop = h.top + sy;
       geo.heroH = h.height || 1;
     }
-    if (header) geo.headerH = header.offsetHeight;
     if (manifesto) {
       var m = manifesto.getBoundingClientRect();
       geo.manTop = m.top + sy;
@@ -90,98 +82,6 @@ const REPLAY = true;
     window.requestAnimationFrame(function () {
       measureQueued = false;
       measure();
-    });
-  }
-
-  // --- Header: barra crema dopo la hero, nascosto scorrendo verso il basso --
-
-  var headerSolid = false;
-  var headerHidden = false;
-
-  function setHeaderHidden(hide) {
-    if (!header || hide === headerHidden) return;
-    headerHidden = hide;
-    header.classList.toggle('home-header--hidden', hide);
-  }
-
-  function updateHeader(y, dy) {
-    if (!header) return;
-    var heroBottom = geo.heroTop + geo.heroH;
-    var solid = y > heroBottom - geo.headerH;
-
-    if (solid !== headerSolid) {
-      headerSolid = solid;
-      header.classList.toggle('home-header--solid', solid);
-    }
-
-    if (reduceMotion || menuOpen()) return;
-
-    if (y < heroBottom) setHeaderHidden(false);
-    else if (dy > 6 && !header.contains(document.activeElement)) setHeaderHidden(true);
-    else if (dy < -6) setHeaderHidden(false);
-  }
-
-  function initHeader() {
-    if (!header) return;
-    header.classList.add('home-header--managed');
-    // Con la tastiera l'header torna visibile.
-    header.addEventListener('focusin', function () {
-      setHeaderHidden(false);
-    });
-  }
-
-  // --- Pannello Menu: accessibilità (apertura e chiusura restano a main.js) --
-
-  function initMenu() {
-    if (!drawer || !menuBtn) return;
-    var wasOpen = false;
-
-    function sync() {
-      var open = menuOpen();
-      if (open === wasOpen) return;
-      wasOpen = open;
-      menuBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-
-      if (open) {
-        setHeaderHidden(false);
-        setTimeout(function () {
-          if (closeBtn && menuOpen()) closeBtn.focus();
-        }, 60);
-      } else if (drawer.contains(document.activeElement) || document.activeElement === document.body) {
-        menuBtn.focus();
-      }
-    }
-
-    if ('MutationObserver' in window) {
-      new MutationObserver(sync).observe(drawer, { attributes: true, attributeFilter: ['class'] });
-    }
-
-    document.addEventListener('keydown', function (e) {
-      if (!menuOpen()) return;
-
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        if (closeBtn) closeBtn.click();
-        return;
-      }
-      if (e.key !== 'Tab') return;
-
-      // Il tasto Tab resta dentro il pannello.
-      var items = drawer.querySelectorAll('a[href], button:not([disabled])');
-      if (!items.length) return;
-      var first = items[0];
-      var last = items[items.length - 1];
-
-      if (!drawer.contains(document.activeElement)) {
-        e.preventDefault();
-        first.focus();
-      } else if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
     });
   }
 
@@ -465,7 +365,6 @@ const REPLAY = true;
     var dy = y - lastY;
     lastY = y;
 
-    updateHeader(y, dy);
     if (!animated) return;
     updateHero(y);
     updateManifesto(y);
@@ -597,8 +496,6 @@ const REPLAY = true;
 
   // --- Avvio ----------------------------------------------------------------
 
-  initHeader();
-  initMenu();
   initVideo();
   initPhotos();
 
