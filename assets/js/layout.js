@@ -14,7 +14,11 @@
   // ==========================================================================
 
   var CONFIG = {
-    topbar: 'Spedizione gratuita in tutta Italia per ordini superiori a <strong>€99,00</strong> &bull; Consegna in cantinette isotermiche certificate',
+    // Testo breve sotto i 768px, testo completo da 768px (scelta fatta in layout.css).
+    topbar: {
+      short: 'Spedizione gratuita sopra i 99 €',
+      long: 'Spedizione gratuita in tutta Italia per ordini superiori a <strong>€99,00</strong> &bull; Consegna in cantinette isotermiche certificate'
+    },
 
     pages: {
       'home': { label: 'Home', href: 'index.html' },
@@ -28,15 +32,9 @@
     headerLeft: ['home', 'chi-siamo'],
     headerRight: ['shop', 'contatti'],
 
-    // Pannello Menu: una colonna per pagina.
+    // Pannello Menu: una colonna per pagina (senza link: solo il titolo).
     menu: [
-      { page: 'home', links: [
-        { label: 'Radici', href: 'index.html#radici' },
-        { label: 'Vulcano', href: 'index.html#vulcano' },
-        { label: 'Tempo', href: 'index.html#tempo' },
-        { label: 'I nostri vini', href: 'index.html#home-vini' },
-        { label: 'La visita', href: 'index.html#home-visita' }
-      ] },
+      { page: 'home', links: [] },
       { page: 'chi-siamo', links: [
         { label: 'La famiglia', href: 'chi-siamo.html#la-famiglia' },
         { label: 'Le quattro generazioni', href: 'chi-siamo.html#generazioni' },
@@ -75,19 +73,13 @@
       { label: 'Instagram', href: 'https://instagram.com',
         icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>' },
       { label: 'Facebook', href: 'https://facebook.com',
-        icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>' },
-      { label: 'YouTube', href: 'https://youtube.com',
-        icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>' }
+        icon: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>' }
     ],
 
     footer: {
       about: 'Cantina storica dei Colli Euganei guidata dalla stessa famiglia da quattro generazioni. \n            Produzione artigianale di vini rossi d\'autore su suoli vulcanici d\'eccellenza.',
-      navigation: [
-        { label: 'Home', href: 'index.html' },
-        { label: 'La Cantina & Chi siamo', href: 'chi-siamo.html' },
-        { label: 'Shop Vini d\'Autore', href: 'shop.html' },
-        { label: 'Contatti & Prenotazioni', href: 'contatti.html' }
-      ],
+      // Stesse etichette dell'header.
+      navigation: ['home', 'chi-siamo', 'shop', 'contatti'],
       information: [
         { label: 'Condizioni di Vendita', href: 'informazioni.html#condizioni' },
         { label: 'Spedizioni & Imballaggi', href: 'informazioni.html#spedizioni' },
@@ -95,8 +87,7 @@
         { label: 'Privacy Policy', href: 'informazioni.html#privacy' },
         { label: 'Cookie Policy', href: 'informazioni.html#cookie' }
       ],
-      copyright: '&copy; 2026 Tenuta Valmora S.S. Tutti i diritti riservati. P.IVA 03498120284.',
-      badge: 'Sito dimostrativo sviluppato via Vibe Coding &bull; Stripe Test Mode attivo'
+      copyright: '&copy; 2026 Tenuta Valmora &middot; Società Agricola &middot; Teolo (PD)'
     }
   };
 
@@ -125,8 +116,8 @@
 
   // --- Markup ---------------------------------------------------------------
 
-  function headerNav(keys, label) {
-    var html = '<nav class="site-header__nav" aria-label="' + label + '">';
+  function headerNav(keys, label, side) {
+    var html = '<nav class="site-header__nav site-header__nav--' + side + '" aria-label="' + label + '">';
     keys.forEach(function (key) {
       var page = CONFIG.pages[key];
       var current = key === currentPage ? ' aria-current="page"' : '';
@@ -139,27 +130,26 @@
     var overlay = currentPage === 'home' ? ' site-header--overlay' : '';
     return '' +
       '<div class="topbar">\n' +
-      '    <span>' + CONFIG.topbar + '</span>\n' +
+      '    <span class="topbar__text topbar__text--short">' + CONFIG.topbar.short + '</span>' +
+           '<span class="topbar__text topbar__text--long">' + CONFIG.topbar.long + '</span>\n' +
       '  </div>\n' +
       '  <header class="site-header' + overlay + '">\n' +
-      '    <div class="container header-inner">\n' +
-      '      <div class="site-header__side site-header__side--left">\n' +
-      '        <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Apri menu" aria-controls="mobile-nav-drawer" aria-expanded="false">' +
-                 '<span class="site-header__menu-line" aria-hidden="true"></span><span class="site-header__menu-text">Menu</span></button>\n' +
-      '        ' + headerNav(CONFIG.headerLeft, 'Navigazione principale') + '\n' +
+      '    <div class="header-inner">\n' +
+      '      <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Apri menu" aria-controls="mobile-nav-drawer" aria-expanded="false">' +
+               '<span class="site-header__menu-lines" aria-hidden="true"><span class="site-header__menu-line"></span><span class="site-header__menu-line site-header__menu-line--short"></span></span>' +
+               '<span class="site-header__menu-text">Menu</span></button>\n' +
+      '      <div class="site-header__center">\n' +
+      '        ' + headerNav(CONFIG.headerLeft, 'Navigazione principale', 'left') + '\n' +
+      '        <a href="index.html" class="brand-logo-link" aria-label="Tenuta Valmora Home">' +
+                 '<img src="assets/images/logo-valmora.svg" alt="" class="brand-logo-img" width="40" height="40">' +
+                 '<span class="brand-title">Tenuta Valmora</span></a>\n' +
+      '        ' + headerNav(CONFIG.headerRight, 'Shop e contatti', 'right') + '\n' +
       '      </div>\n' +
-      '      <a href="index.html" class="brand-logo-link" aria-label="Tenuta Valmora Home">' +
-               '<img src="assets/images/logo-valmora.svg" alt="" class="brand-logo-img" width="40" height="40">' +
-               '<span class="brand-title">Tenuta Valmora</span></a>\n' +
-      '      <div class="site-header__side site-header__side--right">\n' +
-      '        ' + headerNav(CONFIG.headerRight, 'Shop e contatti') + '\n' +
-      '        <div class="header-actions">\n' +
-      '          <button type="button" class="cart-toggle-btn" aria-label="Visualizza carrello">' +
-                   '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
-                   '<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>' +
-                   '<span class="site-header__cart-text">Carrello</span>' +
-                   '<span class="cart-badge" style="display:none;">0</span></button>\n' +
-      '        </div>\n' +
+      '      <div class="header-actions">\n' +
+      '        <button type="button" class="cart-toggle-btn" aria-label="Carrello">' +
+                 '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">' +
+                 '<path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>' +
+                 '<span class="cart-badge" style="display:none;" aria-hidden="true">0</span></button>\n' +
       '      </div>\n' +
       '    </div>\n' +
       '  </header>\n' +
@@ -171,16 +161,20 @@
       var page = CONFIG.pages[col.page];
       var id = 'site-menu-list-' + col.page;
       var current = col.page === currentPage;
+      var hasLinks = col.links.length > 0;
       var items = col.links.map(function (item) {
         return '<li>' + link(item, 'site-menu__link') + '</li>';
       }).join('');
+      // Colonna senza sottovoci (Home): solo il titolo, niente "+" né elenco.
       return '<li class="site-menu__col' + (current ? ' site-menu__col--current' : '') + '">' +
           '<div class="site-menu__head">' +
             '<a href="' + page.href + '" class="site-menu__title"' + (current ? ' aria-current="page"' : '') + '>' + page.label + '</a>' +
-            '<button type="button" class="site-menu__toggle" aria-expanded="false" aria-controls="' + id + '" aria-label="Voci di ' + page.label + '">' +
-              '<span class="site-menu__plus" aria-hidden="true"></span></button>' +
+            (hasLinks
+              ? '<button type="button" class="site-menu__toggle" aria-expanded="false" aria-controls="' + id + '" aria-label="Voci di ' + page.label + '">' +
+                  '<span class="site-menu__plus" aria-hidden="true"></span></button>'
+              : '') +
           '</div>' +
-          '<ul class="site-menu__list" id="' + id + '">' + items + '</ul>' +
+          (hasLinks ? '<ul class="site-menu__list" id="' + id + '">' + items + '</ul>' : '') +
         '</li>';
     }).join('');
 
@@ -201,7 +195,6 @@
         '<nav class="site-menu__nav" aria-label="Menu principale"><ul class="site-menu__cols">' + cols + '</ul></nav>' +
         '<div class="site-menu__bottom">' +
           '<a href="mailto:' + CONFIG.contacts.email + '">' + CONFIG.contacts.email + '</a>' +
-          '<a href="' + CONFIG.contacts.phoneHref + '">' + CONFIG.contacts.phone + '</a>' +
           '<ul class="site-menu__social" aria-label="Social">' + social + '</ul>' +
         '</div>' +
       '</aside>';
@@ -209,6 +202,7 @@
 
   function footerList(items) {
     return items.map(function (item) {
+      if (typeof item === 'string') item = CONFIG.pages[item];
       return '            <li>' + link(item) + '</li>';
     }).join('\n');
   }
@@ -265,10 +259,6 @@
       '        <div>\n' +
       '          ' + f.copyright + '\n' +
       '        </div>\n' +
-      '        <div class="footer-test-badge">\n' +
-      '          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h2v2h-2zm0-10h2v8h-2z"/></svg>\n' +
-      '          ' + f.badge + '\n' +
-      '        </div>\n' +
       '      </div>\n' +
       '    </div>\n' +
       '  </footer>\n';
@@ -289,7 +279,7 @@
 
     var isOverlay = header.classList.contains('site-header--overlay');
     var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
-    var mobile = window.matchMedia ? window.matchMedia('(max-width: 767px)') : { matches: false };
+    var mobile = window.matchMedia ? window.matchMedia('(max-width: 1023px)') : { matches: false };
 
     function menuOpen() {
       return drawer.classList.contains('open');
@@ -388,6 +378,41 @@
       });
     }
 
+    // --- Carrello: etichetta con il numero e "battito" quando cambia --------
+    // cart.js aggiorna il testo del badge: qui lo si osserva senza modificarlo.
+
+    function bindCartBadge() {
+      var cartBtn = header.querySelector('.cart-toggle-btn');
+      var badge = header.querySelector('.cart-badge');
+      if (!cartBtn || !badge || !('MutationObserver' in window)) return;
+      var last = badge.textContent.trim();
+      // Il primo aggiornamento di cart.js (al caricamento) non deve far "battere" il numero.
+      var ready = false;
+      document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(function () { ready = true; }, 0);
+      });
+
+      function label(count) {
+        if (!count) return 'Carrello';
+        return 'Carrello, ' + count + (count === 1 ? ' prodotto' : ' prodotti');
+      }
+
+      new MutationObserver(function () {
+        var value = badge.textContent.trim();
+        if (value === last) return;
+        last = value;
+        cartBtn.setAttribute('aria-label', label(parseInt(value, 10) || 0));
+        if (!ready || reduceMotion) return;
+        badge.classList.remove('site-header__badge--pulse');
+        void badge.offsetWidth; // riavvia l'animazione
+        badge.classList.add('site-header__badge--pulse');
+      }).observe(badge, { childList: true, characterData: true, subtree: true });
+
+      badge.addEventListener('animationend', function () {
+        badge.classList.remove('site-header__badge--pulse');
+      });
+    }
+
     // --- Pannello: accessibilità (vale anche quando lo apre main.js) --------
 
     var wasOpen = false;
@@ -443,7 +468,7 @@
       }
     });
 
-    // --- Fisarmonica (sotto 768px): una sezione aperta alla volta ----------
+    // --- Fisarmonica (sotto 1024px): una sezione aperta alla volta ---------
 
     var toggles = drawer.querySelectorAll('.site-menu__toggle');
     Array.prototype.forEach.call(toggles, function (toggle) {
@@ -481,6 +506,8 @@
         });
       });
     }
+
+    bindCartBadge();
 
     document.addEventListener('DOMContentLoaded', function () {
       bindOwnToggle();
