@@ -15,6 +15,7 @@
   <link rel="icon" type="image/svg+xml" href="assets/images/logo-valmora.svg">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
   <style>
     .confirmation-hero {
       background: var(--color-wine-deep);
@@ -130,45 +131,19 @@
     }
   </style>
 </head>
-<body>
+<body data-page="ordine-confermato">
 
-  <!-- Topbar Informativa -->
-  <div class="topbar">
-    <span>Spedizione gratuita in tutta Italia per ordini superiori a <strong>€99,00</strong></span>
-  </div>
-
-  <!-- Header Principale -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="index.html" class="brand-logo-link" aria-label="Tenuta Valmora Home">
-        <img src="assets/images/logo-valmora.svg" alt="Tenuta Valmora Logo" class="brand-logo-img">
-        <div class="brand-text">
-          <span class="brand-title">Tenuta Valmora</span>
-          <span class="brand-subtitle">Colli Euganei &bull; Dal 1928</span>
-        </div>
-      </a>
-
-      <!-- Menu Desktop -->
-      <nav class="main-nav" aria-label="Navigazione Principale">
-        <a href="index.html" class="nav-link">Home</a>
-        <a href="chi-siamo.html" class="nav-link">Chi siamo</a>
-        <a href="shop.html" class="nav-link">Shop</a>
-        <a href="contatti.html" class="nav-link">Contatti</a>
-      </nav>
-
-      <!-- Azioni Header -->
-      <div class="header-actions">
-        <button type="button" class="cart-toggle-btn" aria-label="Visualizza carrello">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <path d="M16 10a4 4 0 0 1-8 0"></path>
-          </svg>
-          <span class="cart-badge" style="display:none;">0</span>
-        </button>
-      </div>
-    </div>
-  </header>
+  <!-- Topbar, header e pannello Menu: generati da assets/js/layout.js -->
+  <script src="assets/js/layout.js" data-part="header"></script>
+  <noscript>
+    <nav class="site-noscript-nav" aria-label="Navigazione principale">
+      <a href="index.html">Home</a>
+      <a href="chi-siamo.html">Chi siamo</a>
+      <a href="shop.html">Shop</a>
+      <a href="contatti.html">Contatti</a>
+      <a href="informazioni.html">Informazioni</a>
+    </nav>
+  </noscript>
 
   <!-- Banner di Ringraziamento -->
   <section class="confirmation-hero">
@@ -293,21 +268,14 @@
     </div>
   </main>
 
-  <!-- Footer Istituzionale -->
-  <footer class="site-footer">
-    <div class="container text-center" style="padding-bottom:3rem;">
-      <div style="display:flex; align-items:center; justify-content:center; gap:0.75rem; margin-bottom:1rem;">
-        <img src="assets/images/logo-valmora.svg" alt="Tenuta Valmora" style="width:36px; height:36px;">
-        <span style="font-family:var(--font-serif); font-size:1.3rem; color:#FFFFFF; font-weight:700;">TENUTA VALMORA</span>
-      </div>
-      <p style="color:#D6C2C7; font-size:0.9rem; max-width:600px; margin:0 auto 1.5rem;">
-        Hai bisogno di assistenza sul tuo ordine? Contattaci a <a href="mailto:ordini@tenutavalmora.it" style="color:var(--color-gold);">ordini@tenutavalmora.it</a> o chiamaci al +39 049 892 4110.
-      </p>
-      <div style="font-size:0.8rem; color:#A38C93;">
-        &copy; 2026 Tenuta Valmora S.S. Agricola &bull; Teolo (Padova) &bull; Stripe Test Environment
-      </div>
+  <!-- Footer: generato da assets/js/layout.js -->
+  <script src="assets/js/layout.js" data-part="footer"></script>
+  <noscript>
+    <div class="site-noscript-footer">
+      <p><strong>Tenuta Valmora</strong> &middot; Via dei Colli Euganei 42, 35037 Teolo (Padova)</p>
+      <p><a href="mailto:tenutavalmora@gmail.com">tenutavalmora@gmail.com</a> &middot; <a href="informazioni.html">Informazioni</a></p>
     </div>
-  </footer>
+  </noscript>
 
   <!-- Script di Popolamento Dinamico della Conferma -->
   <script>
