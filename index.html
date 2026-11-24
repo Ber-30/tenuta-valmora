@@ -16,12 +16,13 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/components.css">
   <link rel="stylesheet" href="assets/css/home.css">
+  <link rel="stylesheet" href="assets/css/layout.css">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Tenuta Valmora | Rossi d'autore nei Colli Euganei">
   <meta property="og:description" content="Cantina storica dei Colli Euganei, guidata dalla stessa famiglia da quattro generazioni. Rossi d'autore nati su suoli vulcanici, a Teolo.">
   <meta property="og:image" content="assets/images/hero-vineyard.jpg">
 </head>
-<body class="home-page">
+<body class="home-page" data-page="home">
   <script>
     // Prima del primo disegno: prepara apertura e ingresso della hero (vedi home.js).
     (function () {
@@ -44,78 +45,17 @@
   <!-- Senza JavaScript: segnale per tenere l'header crema (vedi home.css) -->
   <noscript><span class="home-nojs"></span></noscript>
 
-  <!-- Topbar Informativa -->
-  <div class="topbar">
-    <span>Spedizione gratuita in tutta Italia per ordini superiori a <strong>€99,00</strong> &bull; Consegna in cantinette isotermiche certificate</span>
-  </div>
-
-  <!-- Header della Home: trasparente sulla hero, stati gestiti da home.js -->
-  <header class="site-header">
-    <div class="container header-inner">
-      <button type="button" class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Apri menu" aria-controls="mobile-nav-drawer" aria-expanded="false">
-        <span class="home-header__menu-line" aria-hidden="true"></span>
-        <span class="home-header__menu-text">Menu</span>
-      </button>
-
-      <a href="index.html" class="brand-logo-link" aria-label="Tenuta Valmora Home">
-        <img src="assets/images/logo-valmora.svg" alt="" class="brand-logo-img" width="40" height="40">
-        <span class="brand-title">Tenuta Valmora</span>
-      </a>
-
-      <!-- Menu orizzontale: nascosto nella Home, si naviga dal pannello Menu -->
-      <nav class="main-nav" aria-label="Navigazione Principale">
-        <a href="index.html" class="nav-link active">Home</a>
-        <a href="chi-siamo.html" class="nav-link">Chi siamo</a>
-        <a href="shop.html" class="nav-link">Shop</a>
-        <a href="contatti.html" class="nav-link">Contatti</a>
-      </nav>
-
-      <div class="header-actions">
-        <button type="button" class="cart-toggle-btn" aria-label="Visualizza carrello">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-            <line x1="3" y1="6" x2="21" y2="6"></line>
-            <path d="M16 10a4 4 0 0 1-8 0"></path>
-          </svg>
-          <span class="cart-badge" style="display:none;">0</span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- Pannello Menu: aperto e chiuso da main.js con la classe "open" -->
-  <div class="mobile-nav-overlay" id="mobile-nav-overlay"></div>
-  <aside class="mobile-nav-drawer" id="mobile-nav-drawer" role="dialog" aria-modal="true" aria-label="Menu">
-    <div class="home-menu__top">
-      <button type="button" class="home-menu__close" id="mobile-drawer-close" aria-label="Chiudi menu">
-        <span class="home-menu__x" aria-hidden="true"></span>
-        <span>Chiudi</span>
-      </button>
-      <a href="index.html" class="home-menu__brand" aria-label="Tenuta Valmora Home">
-        <img src="assets/images/logo-valmora.svg" alt="" width="40" height="40">
-        <span class="home-menu__brand-name">Tenuta Valmora</span>
-      </a>
-    </div>
-
-    <nav class="home-menu__nav" aria-label="Menu principale">
-      <ul class="home-menu__links">
-        <li><a href="index.html" class="home-menu__link" aria-current="page">Home</a></li>
-        <li><a href="chi-siamo.html" class="home-menu__link">Chi siamo</a></li>
-        <li><a href="shop.html" class="home-menu__link">Shop</a></li>
-        <li><a href="contatti.html" class="home-menu__link">Contatti</a></li>
-      </ul>
+  <!-- Topbar, header e pannello Menu: generati da assets/js/layout.js -->
+  <script src="assets/js/layout.js" data-part="header"></script>
+  <noscript>
+    <nav class="site-noscript-nav" aria-label="Navigazione principale">
+      <a href="index.html">Home</a>
+      <a href="chi-siamo.html">Chi siamo</a>
+      <a href="shop.html">Shop</a>
+      <a href="contatti.html">Contatti</a>
+      <a href="informazioni.html">Informazioni</a>
     </nav>
-
-    <div class="home-menu__bottom">
-      <p>Teolo, Colli Euganei (Padova)</p>
-      <a href="tel:+390498924110">+39 049 892 4110</a>
-      <ul class="home-menu__social" aria-label="Social">
-        <li><a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a></li>
-        <li><a href="https://youtube.com" target="_blank" rel="noopener">YouTube</a></li>
-      </ul>
-    </div>
-  </aside>
+  </noscript>
 
   <main class="home-main" id="home-main">
 
@@ -157,7 +97,7 @@
     <section class="home-chapters" aria-label="I nostri valori">
 
       <!-- I · Radici -->
-      <article class="home-chapter home-chapter--1" aria-labelledby="home-ch1-title">
+      <article class="home-chapter home-chapter--1" id="radici" aria-labelledby="home-ch1-title">
         <div class="home-container home-chapter__grid">
           <div class="home-chapter__media home-curtain home-observe">
             <div class="home-curtain__inner home-photo">
@@ -176,7 +116,7 @@
       </article>
 
       <!-- II · Vulcano -->
-      <article class="home-chapter home-chapter--2" aria-labelledby="home-ch2-title">
+      <article class="home-chapter home-chapter--2" id="vulcano" aria-labelledby="home-ch2-title">
         <div class="home-container home-chapter__grid">
           <div class="home-chapter__media home-curtain home-observe">
             <div class="home-curtain__inner home-photo">
@@ -195,7 +135,7 @@
       </article>
 
       <!-- III · Tempo: foto a tutta larghezza -->
-      <article class="home-chapter home-chapter--3" aria-labelledby="home-ch3-title">
+      <article class="home-chapter home-chapter--3" id="tempo" aria-labelledby="home-ch3-title">
         <div class="home-chapter__media home-curtain home-observe">
           <div class="home-curtain__inner home-photo">
             <svg class="home-photo__motif" viewBox="0 0 600 300" fill="none" stroke="currentColor" stroke-opacity="0.3" stroke-width="1" aria-hidden="true" focusable="false"><circle cx="300" cy="80" r="34" stroke="#B08D57" stroke-opacity="0.8"/><path d="M-20 205 Q300 85 620 205"/><path d="M-20 230 Q300 110 620 230"/><path d="M-20 255 Q300 135 620 255"/><path d="M-20 280 Q300 160 620 280"/><path d="M-20 305 Q300 185 620 305"/></svg>
@@ -384,77 +324,14 @@
 
   </main>
 
-  <!-- Footer Istituzionale -->
-  <footer class="site-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-col footer-about">
-          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:1rem;">
-            <img src="assets/images/logo-valmora.svg" alt="Tenuta Valmora" style="width:38px; height:38px;">
-            <span style="font-family:var(--font-serif); font-size:1.3rem; color:#FFFFFF; font-weight:700;">TENUTA VALMORA</span>
-          </div>
-          <p>
-            Cantina storica dei Colli Euganei guidata dalla stessa famiglia da quattro generazioni. 
-            Produzione artigianale di vini rossi d'autore su suoli vulcanici d'eccellenza.
-          </p>
-          <div class="footer-social">
-            <a href="https://instagram.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Instagram">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-            </a>
-            <a href="https://facebook.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="Facebook">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-            </a>
-            <a href="https://youtube.com" target="_blank" rel="noopener" class="social-icon-btn" aria-label="YouTube">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-            </a>
-          </div>
-        </div>
-
-        <div class="footer-col">
-          <h4>Navigazione</h4>
-          <ul class="footer-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="chi-siamo.html">La Cantina & Chi siamo</a></li>
-            <li><a href="shop.html">Shop Vini d'Autore</a></li>
-            <li><a href="contatti.html">Contatti & Prenotazioni</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Informazioni</h4>
-          <ul class="footer-links">
-            <li><a href="shop.html">Condizioni di Vendita</a></li>
-            <li><a href="contatti.html">Spedizioni & Imballaggi</a></li>
-            <li><a href="contatti.html">Diritto di Recesso</a></li>
-            <li><a href="contatti.html">Privacy & Cookie Policy</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Sede & Contatti</h4>
-          <p style="font-size:0.88rem; line-height:1.7; color:#D6C2C7; margin-bottom:0.75rem;">
-            <strong>Tenuta Valmora S.S. Agricola</strong><br>
-            Via dei Colli Euganei 42<br>
-            35037 Teolo (Padova) - Italia
-          </p>
-          <p style="font-size:0.85rem; color:#D6C2C7;">
-            Tel: +39 049 892 4110<br>
-            Mail: <a href="mailto:info@tenutavalmora.it" style="color:var(--color-gold);">info@tenutavalmora.it</a>
-          </p>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>
-          &copy; 2026 Tenuta Valmora S.S. Tutti i diritti riservati. P.IVA 03498120284.
-        </div>
-        <div class="footer-test-badge">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h2v2h-2zm0-10h2v8h-2z"/></svg>
-          Sito dimostrativo sviluppato via Vibe Coding &bull; Stripe Test Mode attivo
-        </div>
-      </div>
+  <!-- Footer: generato da assets/js/layout.js -->
+  <script src="assets/js/layout.js" data-part="footer"></script>
+  <noscript>
+    <div class="site-noscript-footer">
+      <p><strong>Tenuta Valmora</strong> &middot; Via dei Colli Euganei 42, 35037 Teolo (Padova)</p>
+      <p><a href="mailto:tenutavalmora@gmail.com">tenutavalmora@gmail.com</a> &middot; <a href="informazioni.html">Informazioni</a></p>
     </div>
-  </footer>
+  </noscript>
 
   <!-- ========================================================================
        MODALI E COMPONENTI INTERATTIVI GLOBALI
