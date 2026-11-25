@@ -192,5 +192,11 @@ function getProductById(id) {
 }
 
 // Esporta globalmente per uso in browser
-window.PRODUCTS = PRODUCTS;
-window.getProductById = getProductById;
+if (typeof window !== 'undefined') {
+  window.PRODUCTS = PRODUCTS;
+  window.getProductById = getProductById;
+}
+
+if (typeof module !== 'undefined') {
+  module.exports = PRODUCTS;
+}
