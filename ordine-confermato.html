@@ -14,7 +14,7 @@
   <meta name="description" content="Conferma dell'ordine completato con successo su Tenuta Valmora.">
   <link rel="icon" type="image/svg+xml" href="assets/images/logo-valmora.svg">
   <link rel="stylesheet" href="assets/css/style.css">
-  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/components.css?v=sommelier-3">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
     .confirmation-hero {
@@ -372,6 +372,9 @@
       document.getElementById('order-total').textContent = `€${order.totals.total.toFixed(2)}`;
     });
   </script>
+  <div class="chatbot-wrapper"></div>
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/chatbot.js?v=sommelier-3"></script>
   <script src="assets/js/analytics-events.js"></script>
 </body>
 </html>

@@ -59,13 +59,9 @@ Ispirato al prestigio visivo, all'eleganza classica e allo storytelling cinemato
 - Transizione automatica alla pagina di conferma d'ordine.
 
 ### 3. Chatbot Sommelier Virtuale Integrato
-- Assistente virtuale fluttuante presente su tutte le pagine del sito.
-- Risponde con precisione alle domande fondamentali:
-  - **Orari:** orari di apertura, orari e modalità per le visite guidate e le degustazioni.
-  - **Spedizioni:** corrieri refrigerati, imballaggi isotermici anti-urto, costi e tempi (24/48h).
-  - **Resi:** politica di recesso entro 14 giorni e garanzia "bottiglia perfetta" (sostituzione gratuita immediata per bottiglie difettose o con sentore di tappo).
-  - **Vini & Abbinamenti:** consigli personalizzati sui vini della cantina in base al menu o all'occasione, con **scheda vino e pulsante "Aggiungi al carrello" direttamente all'interno della chat!**
-- Supporta sia chip a risposta rapida sia domande in linguaggio naturale con comprensione semantica degli intenti.
+- Sei domande rapide, comprese le quattro aree richieste dal brief: orari, spedizioni, resi e prodotti.
+- Chat libera con un modello IA, il catalogo dello shop e le informazioni su storia, visite e assistenza.
+- Schede dei vini suggeriti con aggiunta al carrello dove disponibile. Recapiti del servizio clienti per i casi che richiedono assistenza sull'ordine.
 
 ---
 
@@ -99,3 +95,13 @@ Se hai installato Node.js / Vercel CLI:
 npx vercel
 ```
 Segui i 3 semplici passaggi a video e il tuo sito sarà immediatamente online in tutto il mondo!
+
+## Sommelier Virtuale
+
+La chat usa le risposte rapide per orari, spedizioni, resi, vini, storia e contatti. Le domande libere vengono gestite dalla funzione Vercel `/api/sommelier`, che interroga OpenAI con le informazioni della tenuta e il catalogo di `assets/js/products.js`. La conversazione rimane nella scheda e le ultime cinque coppie di messaggi vengono incluse nelle domande libere successive.
+
+1. In Vercel, aprire **Project Settings → Environment Variables** e impostare `OPENAI_API_KEY` con una chiave API del progetto OpenAI dotato di credito. La chiave va inserita solo su Vercel, mai nel repository o nel codice del browser.
+2. Scegliere gli ambienti **Preview** e **Production** dove abilitare la chat e avviare un nuovo deploy. `OPENAI_SOMMELIER_MODEL` è opzionale e il valore predefinito è `gpt-4.1-mini`.
+3. In anteprima, provare tutte le domande rapide e una conversazione libera, per esempio «Consigliami un rosso sotto i 40 euro per un arrosto» seguita da «Che vitigni contiene?». Provare anche la richiesta «Dov'è il mio ordine?», che deve rimandare al servizio clienti.
+
+Le domande rapide funzionano anche senza chiave, dopo il deploy su Vercel. Per provare anche la funzione in locale usare `vercel dev`, perché un server statico serve solo l'interfaccia. La funzione non accede a ordini, pagamenti o prenotazioni. Il limite per IP è per singola istanza, quindi per una pubblicazione con traffico esterno è utile impostare anche limiti di utilizzo nel progetto OpenAI e nel firewall Vercel. Prima di attivare la chat pubblica, aggiornare l'informativa per indicare che le domande libere sono inviate al fornitore IA.
