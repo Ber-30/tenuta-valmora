@@ -236,63 +236,78 @@
         <!-- Card prodotto: markup condiviso con lo shop, non modificare qui -->
         <div class="products-grid home-reveal">
         <!-- Vino 1: Valmora Rosso -->
-        <article class="product-card">
-          <div class="product-badge">Icona di Famiglia</div>
-          <div class="product-image-wrapper">
-            <img src="assets/images/bottle-rosso.jpg" alt="Valmora Rosso Colli Euganei DOC" class="product-image">
-          </div>
-          <div class="product-info">
-            <span class="product-appellation">Colli Euganei Rosso DOC</span>
-            <h3 class="product-name">Valmora Rosso</h3>
-            <div class="product-vintage">Annata 2021 &bull; 750 ml &bull; 94 Punti</div>
-            <p class="product-desc">Il nostro rosso d'autore simbolo: equilibrio magistrale tra Merlot e Cabernet sui suoli vulcanici. Affinato 14 mesi in tonneaux.</p>
-            <div class="product-bottom">
-              <div class="product-price">€28.00</div>
-              <div style="display:flex; gap:0.5rem;">
-                <button type="button" class="btn btn-outline btn-sm" onclick="openProductModal('valmora-rosso-doc')">Dettagli</button>
-                <button type="button" class="btn btn-primary btn-sm" onclick="addToCart('valmora-rosso-doc', 1)">Acquista</button>
+        <article class="product-card wine-card">
+          <div class="wine-card__inner">
+            <div class="wine-card__media">
+              <button type="button" class="wine-card__image-btn" onclick="openProductModal('valmora-rosso-doc')" aria-label="Dettagli di Valmora Rosso">
+                <img src="assets/images/bottle-rosso.jpg" alt="Bottiglia di Valmora Rosso 2021" class="wine-card__img" width="1000" height="1241" loading="lazy">
+              </button>
+              <span class="wine-card__badge">Icona di Famiglia</span>
+            </div>
+            <div class="wine-card__body">
+              <p class="wine-card__appellation">Colli Euganei Rosso DOC</p>
+              <h3 class="wine-card__name"><button type="button" class="wine-card__name-btn" onclick="openProductModal('valmora-rosso-doc')">Valmora Rosso <span class="wine-card__vintage">2021</span></button></h3>
+              <p class="wine-card__desc">Il nostro rosso d'autore simbolo: equilibrio magistrale tra Merlot e Cabernet sui suoli vulcanici.</p>
+              <div class="wine-card__bottom">
+                <p class="wine-card__price">28,00&nbsp;€</p>
+                <div class="wine-card__actions">
+                  <button type="button" class="wine-card__details" onclick="openProductModal('valmora-rosso-doc')">Dettagli</button>
+                  <button type="button" class="wine-card__add" onclick="addToCart('valmora-rosso-doc', 1)" aria-label="Aggiungi Valmora Rosso al carrello">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </article>
 
         <!-- Vino 2: Eremo di San Giorgio -->
-        <article class="product-card">
-          <div class="product-badge">Tre Bicchieri Gambero Rosso</div>
-          <div class="product-image-wrapper">
-            <img src="assets/images/bottle-cabernet.jpg" alt="Eremo di San Giorgio Cabernet Sauvignon Riserva" class="product-image">
-          </div>
-          <div class="product-info">
-            <span class="product-appellation">Colli Euganei Cabernet Sauvignon Riserva DOC</span>
-            <h3 class="product-name">Eremo di San Giorgio</h3>
-            <div class="product-vintage">Annata 2019 &bull; 750 ml &bull; 96 Punti</div>
-            <p class="product-desc">Riserva solenne da singola vigna storica esposta a mezzogiorno, elevata 24 mesi in barrique di rovere francese.</p>
-            <div class="product-bottom">
-              <div class="product-price">€45.00</div>
-              <div style="display:flex; gap:0.5rem;">
-                <button type="button" class="btn btn-outline btn-sm" onclick="openProductModal('eremo-san-giorgio-cabernet')">Dettagli</button>
-                <button type="button" class="btn btn-primary btn-sm" onclick="addToCart('eremo-san-giorgio-cabernet', 1)">Acquista</button>
+        <article class="product-card wine-card">
+          <div class="wine-card__inner">
+            <div class="wine-card__media">
+              <button type="button" class="wine-card__image-btn" onclick="openProductModal('eremo-san-giorgio-cabernet')" aria-label="Dettagli di Eremo di San Giorgio">
+                <img src="assets/images/bottle-cabernet.jpg" alt="Bottiglia di Eremo di San Giorgio 2019" class="wine-card__img" width="1000" height="1241" loading="lazy">
+              </button>
+              <span class="wine-card__badge">Selezione della famiglia</span>
+            </div>
+            <div class="wine-card__body">
+              <p class="wine-card__appellation">Colli Euganei Cabernet Sauvignon Riserva DOC</p>
+              <h3 class="wine-card__name"><button type="button" class="wine-card__name-btn" onclick="openProductModal('eremo-san-giorgio-cabernet')">Eremo di San Giorgio <span class="wine-card__vintage">2019</span></button></h3>
+              <p class="wine-card__desc">Riserva solenne da singola vigna storica esposta a mezzogiorno, elevata 24 mesi in barrique.</p>
+              <div class="wine-card__bottom">
+                <p class="wine-card__price">45,00&nbsp;€</p>
+                <div class="wine-card__actions">
+                  <button type="button" class="wine-card__details" onclick="openProductModal('eremo-san-giorgio-cabernet')">Dettagli</button>
+                  <button type="button" class="wine-card__add" onclick="addToCart('eremo-san-giorgio-cabernet', 1)" aria-label="Aggiungi Eremo di San Giorgio al carrello">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </article>
 
         <!-- Vino 3: Vulcano Nero -->
-        <article class="product-card">
-          <div class="product-badge">Tiratura Limitata</div>
-          <div class="product-image-wrapper">
-            <img src="assets/images/bottle-carmenere.jpg" alt="Vulcano Nero Carmenère Riserva DOC" class="product-image">
-          </div>
-          <div class="product-info">
-            <span class="product-appellation">Colli Euganei Carmenère Riserva DOC</span>
-            <h3 class="product-name">Vulcano Nero</h3>
-            <div class="product-vintage">Annata 2020 &bull; 750 ml &bull; 97 Punti</div>
-            <p class="product-desc">La rarità vulcanica: Carmenère in purezza con profumi balsamici, cardamomo e mirtillo nero. Sapido e minerale.</p>
-            <div class="product-bottom">
-              <div class="product-price">€52.00</div>
-              <div style="display:flex; gap:0.5rem;">
-                <button type="button" class="btn btn-outline btn-sm" onclick="openProductModal('vulcano-nero-carmenere')">Dettagli</button>
-                <button type="button" class="btn btn-primary btn-sm" onclick="addToCart('vulcano-nero-carmenere', 1)">Acquista</button>
+        <article class="product-card wine-card">
+          <div class="wine-card__inner">
+            <div class="wine-card__media">
+              <button type="button" class="wine-card__image-btn" onclick="openProductModal('vulcano-nero-carmenere')" aria-label="Dettagli di Vulcano Nero">
+                <img src="assets/images/bottle-carmenere.jpg" alt="Bottiglia di Vulcano Nero 2020" class="wine-card__img" width="1000" height="1241" loading="lazy">
+              </button>
+              <span class="wine-card__badge">Edizione Limitata - 2.800 bottiglie</span>
+            </div>
+            <div class="wine-card__body">
+              <p class="wine-card__appellation">Colli Euganei Carmenère Riserva DOC</p>
+              <h3 class="wine-card__name"><button type="button" class="wine-card__name-btn" onclick="openProductModal('vulcano-nero-carmenere')">Vulcano Nero <span class="wine-card__vintage">2020</span></button></h3>
+              <p class="wine-card__desc">La rarità vulcanica: un Carmenère in purezza dalle note speziate e balsamiche straordinarie.</p>
+              <div class="wine-card__bottom">
+                <p class="wine-card__price">52,00&nbsp;€</p>
+                <div class="wine-card__actions">
+                  <button type="button" class="wine-card__details" onclick="openProductModal('vulcano-nero-carmenere')">Dettagli</button>
+                  <button type="button" class="wine-card__add" onclick="addToCart('vulcano-nero-carmenere', 1)" aria-label="Aggiungi Vulcano Nero al carrello">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
