@@ -83,9 +83,15 @@ function openProductModal(productId) {
   document.getElementById('modal-product-img').src = product.image;
   document.getElementById('modal-product-img').alt = product.name;
   document.getElementById('modal-product-appellation').textContent = product.appellation;
-  document.getElementById('modal-product-name').textContent = `${product.name} ${product.vintage}`;
+  // Nome in serif, annata in corsivo (stile in layout.css)
+  const nameEl = document.getElementById('modal-product-name');
+  nameEl.textContent = product.name + ' ';
+  const vintageEl = document.createElement('span');
+  vintageEl.className = 'product-modal-vintage';
+  vintageEl.textContent = product.vintage;
+  nameEl.appendChild(vintageEl);
   document.getElementById('modal-product-badge').textContent = product.badge;
-  document.getElementById('modal-product-price').textContent = `€${product.price.toFixed(2)}`;
+  document.getElementById('modal-product-price').textContent = window.formatPrice ? window.formatPrice(product.price) : `€${product.price.toFixed(2)}`;
   document.getElementById('modal-product-desc').textContent = product.description;
   document.getElementById('modal-product-grapes').textContent = product.grapes;
   document.getElementById('modal-product-terroir').textContent = product.terroir;
