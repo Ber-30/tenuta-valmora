@@ -17,46 +17,525 @@
   <link rel="stylesheet" href="assets/css/components.css?v=sommelier-3">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
-    .contact-card-box {
-      background: #FFFFFF;
-      padding: 2.5rem;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--color-border);
-      box-shadow: var(--shadow-sm);
+    /* Contatti: stessa impostazione di Chi siamo, Home e Shop */
+    .contact-shell {
+      width: min(100% - 6rem, 1320px);
+      margin-inline: auto;
     }
-    .contact-info-item {
-      display: flex;
-      gap: 1.25rem;
-      margin-bottom: 2rem;
-      align-items: flex-start;
-    }
-    .contact-info-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--color-sand);
-      color: var(--color-wine);
+    .contact-eyebrow {
       display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      flex-shrink: 0;
+      gap: 0.9rem;
+      margin: 0 0 1.3rem;
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #8E4553;
+    }
+    .contact-eyebrow::before {
+      content: '';
+      flex: 0 0 2rem;
+      height: 1px;
+      background-color: #B08D57;
+    }
+    .contact-page-title,
+    .contact-title {
+      margin: 0;
+      font-family: var(--font-serif);
+      font-weight: 400;
+      color: #5E1A28;
+    }
+    .contact-page-title {
+      font-size: clamp(3.8rem, 6.5vw, 7rem);
+      line-height: 0.96;
+      letter-spacing: -0.035em;
+    }
+    .contact-title {
+      font-size: clamp(2.6rem, 4.2vw, 4.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+    }
+    .contact-page-title em,
+    .contact-title em {
+      font-style: italic;
+    }
+    .contact-lead {
+      margin: 0.9rem 0 0;
+      font-family: var(--font-serif);
+      font-size: clamp(1.15rem, 1.5vw, 1.35rem);
+      font-style: italic;
+      line-height: 1.4;
+      color: #8E4553;
+    }
+
+    /* Link testuale sottolineato con freccia, come nella Home */
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.35rem 0 0.5rem;
+      border: 0;
+      border-bottom: 1px solid currentColor;
+      background: none;
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #5E1A28;
+      cursor: pointer;
+      transition: color 0.4s ease;
+    }
+    .contact-link::after {
+      content: '\2192';
+      letter-spacing: 0;
+      transition: transform 0.9s cubic-bezier(0.2, 0.6, 0.2, 1);
+    }
+    .contact-link:hover {
+      color: #8E4553;
+    }
+    .contact-link:hover::after {
+      transform: translateX(6px);
+    }
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 2rem;
+    }
+
+    /* Apertura: come Chi siamo */
+    .contact-intro {
+      padding-top: clamp(3rem, 6vw, 6rem);
+    }
+    .contact-intro-heading {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr;
+      align-items: center;
+      gap: 5rem;
+      margin-bottom: 3.5rem;
+    }
+    .contact-intro-copy {
+      max-width: 370px;
+      margin: 0;
+      padding-left: 2.5rem;
+      border-left: 1px solid #B08D57;
+      font-size: clamp(1rem, 1.5vw, 1.3rem);
+      line-height: 1.6;
+      color: #5E1A28;
+    }
+    .contact-panorama {
+      margin: 0 1.5rem;
+    }
+    .contact-panorama-frame {
+      height: clamp(320px, 39vw, 580px);
+      overflow: hidden;
+      background-color: #F0E7D6;
+    }
+    .contact-panorama-frame img {
+      width: 100%;
+      height: 112%;
+      object-fit: cover;
+      object-position: center 65%;
+      transform: translateY(var(--panorama-y, -5%));
+    }
+    .contact-panorama figcaption {
+      padding-top: 1.1rem;
+      font-size: 0.63rem;
+      letter-spacing: 0.19em;
+      text-transform: uppercase;
+      color: #5E1A28;
+    }
+
+    /* Recapiti e modulo */
+    .contact-main {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      align-items: start;
+      gap: clamp(3rem, 6vw, 6rem);
+      padding-block: clamp(5rem, 9vw, 9rem);
+    }
+    .contact-details-list {
+      margin: 2.5rem 0 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid rgba(205, 170, 176, 0.6);
+    }
+    .contact-detail {
+      display: grid;
+      grid-template-columns: 7.5rem 1fr;
+      gap: 0.5rem 1.5rem;
+      padding: 1.35rem 0;
+      border-bottom: 1px solid rgba(205, 170, 176, 0.6);
+    }
+    .contact-detail-label {
+      padding-top: 0.2rem;
+      font-family: var(--font-sans);
+      font-size: 0.64rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8E4553;
+    }
+    .contact-detail-value {
+      margin: 0;
+      font-size: 0.98rem;
+      line-height: 1.7;
+      color: #2A1A1D;
+    }
+    .contact-detail-value a {
+      color: #5E1A28;
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+    .contact-detail-note {
+      display: block;
+      font-size: 0.85rem;
+      color: #5B4A4E;
+    }
+    .contact-social {
+      margin-top: 2.5rem;
+    }
+    .contact-social .contact-eyebrow {
+      margin-bottom: 0.75rem;
+    }
+
+    /* Modulo su fondo crema scuro, come il riquadro delle card dello Shop */
+    .contact-form-block {
+      padding: clamp(2rem, 4vw, 3.5rem);
+      background-color: #F0E7D6;
+    }
+    .contact-form-block .contact-lead {
+      margin-bottom: 2.25rem;
+    }
+    .contact-form-block .form-group {
+      margin-bottom: 1.5rem;
+    }
+    .contact-form-block .form-label {
+      display: block;
+      margin-bottom: 0.55rem;
+      font-family: var(--font-sans);
+      font-size: 0.64rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #5E1A28;
+    }
+    .contact-form-block .form-input,
+    .contact-form-block .form-textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid rgba(94, 26, 40, 0.28);
+      border-radius: 0;
+      background-color: #FAF7F2;
+      box-shadow: none;
+      font-family: var(--font-sans);
+      font-size: 0.98rem;
+      color: #2A1A1D;
+      transition: border-color 0.4s ease;
+    }
+    .contact-form-block .form-textarea {
+      resize: vertical;
+      min-height: 9rem;
+    }
+    .contact-form-block .form-input::placeholder,
+    .contact-form-block .form-textarea::placeholder {
+      color: #8A7A7E;
+      opacity: 1;
+    }
+    .contact-form-block .form-input:focus,
+    .contact-form-block .form-textarea:focus {
+      border-color: #5E1A28;
+      outline: none;
+      box-shadow: none;
+    }
+    .contact-form-block .form-input:focus-visible,
+    .contact-form-block .form-textarea:focus-visible {
+      outline: 1px solid #5E1A28;
+      outline-offset: 0;
     }
     .error-feedback {
-      color: #C0392B;
-      font-size: 0.78rem;
-      margin-top: 0.35rem;
       display: none;
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
       font-weight: 500;
+      line-height: 1.5;
+      color: #5E1A28;
     }
+    .error-feedback::before {
+      content: '';
+      display: inline-block;
+      width: 0.9rem;
+      height: 1px;
+      margin-right: 0.55rem;
+      vertical-align: middle;
+      background-color: currentColor;
+    }
+    .contact-form-note {
+      margin: 0 0 1.75rem;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: #5B4A4E;
+    }
+    .contact-form-note a {
+      color: #5E1A28;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    .contact-submit {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      min-height: 3.25rem;
+      padding: 0.75rem 2rem;
+      border: 1px solid #5E1A28;
+      border-radius: 0;
+      background-color: #5E1A28;
+      font-family: var(--font-sans);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      line-height: 1.3;
+      text-transform: uppercase;
+      color: #F6F1E7;
+      cursor: pointer;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+    .contact-submit:hover {
+      background-color: #2E0C14;
+      border-color: #2E0C14;
+    }
+    .contact-submit:disabled {
+      cursor: wait;
+      opacity: 0.8;
+    }
+    [data-page="contatti"] a:focus-visible,
+    [data-page="contatti"] button:focus-visible {
+      outline: 2px solid #5E1A28;
+      outline-offset: 3px;
+    }
+
+    /* Conferma dopo l'invio (display gestito da contact.js) */
     .success-confirmation-card {
-      background: #FAF7F2;
-      border: 2px solid var(--color-gold);
-      padding: 2.5rem;
-      border-radius: var(--radius-md);
-      text-align: center;
       display: none;
-      animation: toastIn 0.4s ease forwards;
+      padding: 0.5rem 0 0;
+      animation: contact-fade 0.9s cubic-bezier(0.2, 0.6, 0.2, 1) both;
+    }
+    .success-confirmation-mark {
+      display: block;
+      width: 2.75rem;
+      height: 2.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .success-confirmation-card .contact-title {
+      margin-bottom: 1rem;
+      font-size: clamp(2.2rem, 3.4vw, 3.2rem);
+    }
+    .success-confirmation-card strong {
+      font-weight: inherit;
+    }
+    .success-confirmation-card p {
+      margin: 0 0 2rem;
+      font-size: 1rem;
+      line-height: 1.7;
+      color: #2A1A1D;
+    }
+    @keyframes contact-fade {
+      from { opacity: 0; transform: translate3d(0, 0.75rem, 0); }
+      to { opacity: 1; transform: none; }
+    }
+
+    /* Come raggiungerci */
+    .contact-directions {
+      background-color: #F6F1E7;
+      border-top: 1px solid rgba(205, 170, 176, 0.6);
+    }
+    .contact-directions-grid {
+      display: grid;
+      grid-template-columns: 5fr 7fr;
+      align-items: center;
+      gap: clamp(3rem, 6vw, 6rem);
+      padding-block: clamp(5rem, 8vw, 8rem);
+    }
+    .contact-steps {
+      margin: 2.25rem 0 2.25rem;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid rgba(205, 170, 176, 0.6);
+    }
+    .contact-steps .contact-detail {
+      grid-template-columns: 7.5rem 1fr;
+    }
+
+    /* Mappa illustrata */
+    .contact-map {
+      margin: 0;
+    }
+    .contact-map svg {
+      display: block;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+    .contact-map .map-line {
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+    .contact-map .map-hill {
+      fill: #F6F1E7;
+      stroke-width: 1.2;
+    }
+    /* Estremità piatte: con il disegno a tratteggio quelle tonde lasciano dei puntini */
+    .contact-map .map-draw {
+      stroke-linecap: butt;
+    }
+    .contact-map .map-label {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      fill: #5E1A28;
+      paint-order: stroke;
+      stroke: #F6F1E7;
+      stroke-width: 5px;
+      stroke-linejoin: round;
+    }
+    .contact-map .map-label--soft {
+      font-weight: 500;
+      fill: #8E4553;
+    }
+    .contact-map .map-time {
+      font-family: var(--font-serif);
+      font-size: 17px;
+      font-style: italic;
+      fill: #8E4553;
+      paint-order: stroke;
+      stroke: #F6F1E7;
+      stroke-width: 5px;
+    }
+
+    /* Invito finale: crema con linea rosa in alto */
+    .contact-invitation {
+      border-top: 1px solid rgba(205, 170, 176, 0.6);
+    }
+    .contact-invitation-inner {
+      padding-block: clamp(4.5rem, 7vw, 7rem);
+      text-align: center;
+    }
+    .contact-invitation .contact-eyebrow {
+      justify-content: center;
+    }
+    .contact-invitation .contact-title {
+      margin-bottom: 2rem;
+    }
+
+    /* Comparse e righe dei titoli: stessi valori di Chi siamo (solo con lo script attivo) */
+    [data-page="contatti"].has-reveals [data-contact-reveal] {
+      opacity: 0;
+      transform: translate3d(0, 1.25rem, 0);
+      transition: opacity 1s cubic-bezier(0.2, 0.6, 0.2, 1), transform 1s cubic-bezier(0.2, 0.6, 0.2, 1);
+      transition-delay: calc(var(--contact-step, 0) * 0.08s);
+    }
+    [data-page="contatti"].has-reveals [data-contact-reveal].is-visible {
+      opacity: 1;
+      transform: none;
+    }
+    .contact-line {
+      display: block;
+      overflow: hidden;
+      padding: 0.04em 0.08em 0.14em;
+      margin: -0.04em -0.08em -0.14em;
+    }
+    .contact-line__inner {
+      display: block;
+    }
+    [data-page="contatti"].has-reveals .contact-line__inner {
+      transform: translate3d(0, 110%, 0);
+      transition: transform 1.2s cubic-bezier(0.2, 0.6, 0.2, 1);
+      transition-delay: calc(var(--contact-i, 0) * 0.12s);
+    }
+    [data-page="contatti"].has-reveals .is-visible .contact-line__inner {
+      transform: none;
+    }
+    /* Mappa: le linee si disegnano, poi compaiono cerchio, tratteggio e scritte */
+    [data-page="contatti"].has-reveals .contact-map .map-draw {
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      transition: stroke-dashoffset 1.4s cubic-bezier(0.2, 0.6, 0.2, 1);
+      transition-delay: calc(var(--contact-d, 0) * 0.12s);
+    }
+    [data-page="contatti"].has-reveals .contact-map.is-visible .map-draw {
+      stroke-dashoffset: 0;
+    }
+    [data-page="contatti"].has-reveals .contact-map .map-after {
+      opacity: 0;
+      transition: opacity 0.9s cubic-bezier(0.2, 0.6, 0.2, 1) 1.2s;
+    }
+    [data-page="contatti"].has-reveals .contact-map.is-visible .map-after {
+      opacity: 1;
+    }
+
+    /* Comparsa in sequenza delle voci degli elenchi */
+    .contact-details-list .contact-detail:nth-child(2),
+    .contact-steps .contact-detail:nth-child(2) { --contact-step: 1; }
+    .contact-details-list .contact-detail:nth-child(3),
+    .contact-steps .contact-detail:nth-child(3) { --contact-step: 2; }
+    .contact-details-list .contact-detail:nth-child(4) { --contact-step: 3; }
+    /* Ordine di disegno delle linee della mappa */
+    .contact-map .map-d1 { --contact-d: 1; }
+    .contact-map .map-d2 { --contact-d: 2; }
+    .contact-map .map-d3 { --contact-d: 3; }
+    .contact-map .map-d4 { --contact-d: 4; }
+    .contact-map .map-d5 { --contact-d: 5; }
+    .contact-map .map-d6 { --contact-d: 6; }
+    .contact-map .map-d7 { --contact-d: 7; }
+    @media (max-width: 1100px) {
+      .contact-shell { width: calc(100% - 4rem); }
+      .contact-intro-heading { gap: 2.5rem; }
+    }
+    @media (max-width: 900px) {
+      .contact-main,
+      .contact-directions-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 760px) {
+      .contact-shell { width: calc(100% - 3rem); }
+      .contact-intro-heading { grid-template-columns: 1fr; gap: 1.75rem; margin-bottom: 2.5rem; }
+      .contact-page-title { font-size: clamp(3.3rem, 10.2vw, 5rem); }
+      .contact-intro-copy { max-width: 400px; padding-left: 1.2rem; }
+      .contact-panorama { margin-inline: 0.75rem; }
+      .contact-panorama-frame { height: 340px; }
+      .contact-panorama figcaption { padding-inline: 0.75rem; font-size: 0.52rem; letter-spacing: 0.09em; }
+      .contact-title { font-size: clamp(2.5rem, 8vw, 3.4rem); }
+      .contact-submit { width: 100%; }
+    }
+    @media (max-width: 600px) {
+      .contact-detail,
+      .contact-steps .contact-detail {
+        grid-template-columns: 1fr;
+      }
+      /* Su schermi stretti le scritte della mappa crescono (l'SVG si rimpicciolisce) */
+      .contact-map .map-label { font-size: 19px; stroke-width: 7px; }
+      .contact-map .map-time { font-size: 25px; stroke-width: 7px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      [data-page="contatti"].has-reveals [data-contact-reveal],
+      [data-page="contatti"].has-reveals .contact-line__inner {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      [data-page="contatti"].has-reveals .contact-map .map-draw { stroke-dashoffset: 0; transition: none; }
+      [data-page="contatti"].has-reveals .contact-map .map-after { opacity: 1; transition: none; }
+      .success-confirmation-card { animation: none; }
+      .contact-panorama-frame img { transform: none; }
+      .contact-link::after { transition: none; }
     }
   </style>
 </head>
@@ -75,193 +554,235 @@
   </noscript>
 
   <!-- Intestazione Pagina Contatti -->
-  <section class="section section-dark" style="position:relative; padding:5rem 0; overflow:hidden;">
-    <div style="position:absolute; inset:0; opacity:0.35;">
-      <img src="assets/images/tasting-room.jpg" alt="Sala degustazione e accoglienza Tenuta Valmora" style="width:100%; height:100%; object-fit:cover;">
+  <section class="contact-intro" aria-labelledby="contact-page-title">
+    <div class="contact-shell contact-intro-heading">
+      <div data-contact-reveal>
+        <p class="contact-eyebrow">Contatti</p>
+        <h1 class="contact-page-title" id="contact-page-title">Vieni a <em>trovarci</em>.</h1>
+      </div>
+      <p class="contact-intro-copy" data-contact-reveal>Una passeggiata tra i filari, una degustazione in bottaia o una domanda sui nostri vini: scrivici, ti rispondiamo noi.</p>
     </div>
-    <div class="container text-center" style="position:relative; z-index:2; max-width:800px;">
-      <span class="heading-eyebrow light">Entra in Contatto</span>
-      <h1 class="hero-title" style="font-size:3.5rem; margin-bottom:1rem;">Siamo al Tuo Fianco</h1>
-      <p class="section-subtitle" style="color:#D6C2C7;">
-        Che tu voglia prenotare una degustazione guidata in bottaia, richiedere informazioni su un ordine 
-        o porci una domanda sui nostri vini, la famiglia Valmora ti risponderà con piacere.
-      </p>
-    </div>
+    <figure class="contact-panorama" data-contact-reveal>
+      <div class="contact-panorama-frame">
+        <img src="assets/images/contatti/degustazione.jpg" alt="La sala degustazione scavata nella roccia, con un tavolo apparecchiato per l'assaggio" width="2400" height="1000" fetchpriority="high">
+      </div>
+      <figcaption class="contact-shell">Tenuta Valmora — La sala degustazione</figcaption>
+    </figure>
   </section>
 
-  <!-- Sezione Form e Recapiti -->
-  <section class="section">
-    <div class="container">
-      <div class="split-grid" style="align-items:flex-start;">
-        
-        <!-- Colonna Sinistra: Recapiti e Link Utili -->
-        <div id="recapiti">
-          <span class="heading-eyebrow">Recapiti Ufficiali</span>
-          <h2 class="section-title" style="font-size:2.4rem;">Vieni a Trovarci nei Colli Euganei</h2>
-          <p style="color:var(--color-text-muted); margin-bottom:2.5rem; font-size:1.05rem; line-height:1.7;">
-            La nostra tenuta si trova a Teolo, a pochi chilometri da Padova e dalle rinomate Terme di Abano e Montegrotto, 
-            immersa in un paesaggio vulcanico di straordinaria bellezza.
+  <!-- Recapiti e modulo -->
+  <section class="contact-shell contact-main" aria-label="Recapiti e modulo di contatto">
+
+    <!-- Recapiti e link utili -->
+    <div id="recapiti">
+      <div data-contact-reveal>
+        <p class="contact-eyebrow">Recapiti</p>
+        <h2 class="contact-title">La tenuta.</h2>
+      </div>
+      <ul class="contact-details-list">
+        <li class="contact-detail" data-contact-reveal>
+          <span class="contact-detail-label">Indirizzo</span>
+          <p class="contact-detail-value">Tenuta Valmora S.S. Agricola<br>Via dei Colli Euganei 42<br>35037 Teolo (Padova)</p>
+        </li>
+        <li class="contact-detail" data-contact-reveal>
+          <span class="contact-detail-label">Telefono</span>
+          <p class="contact-detail-value">
+            <span class="contact-detail-note">Cantina e degustazioni</span>
+            <a href="tel:+390498924110">+39 049 892 4110</a>
+            <span class="contact-detail-note">Servizio clienti shop</span>
+            <a href="tel:+393487654321">+39 348 765 4321</a>
           </p>
+        </li>
+        <li class="contact-detail" data-contact-reveal>
+          <span class="contact-detail-label">Email</span>
+          <p class="contact-detail-value"><a href="mailto:tenutavalmora@gmail.com">tenutavalmora@gmail.com</a></p>
+        </li>
+        <li class="contact-detail" data-contact-reveal>
+          <span class="contact-detail-label">Orari</span>
+          <p class="contact-detail-value">Lunedì–Sabato 9:30–19:00<br>Domenica 10:00–18:00 su prenotazione<br><span class="contact-detail-note">Degustazioni guidate alle 11:00 e alle 16:30</span></p>
+        </li>
+      </ul>
 
-          <div class="contact-info-item">
-            <div class="contact-info-icon">📍</div>
-            <div>
-              <h4 style="font-size:1.1rem; color:var(--color-wine-dark); margin-bottom:0.25rem;">Sede e Vigne</h4>
-              <p style="color:var(--color-text-muted); font-size:0.95rem;">
-                <strong>Tenuta Valmora S.S. Agricola</strong><br>
-                Via dei Colli Euganei 42<br>
-                35037 Teolo (Padova) &bull; Veneto, Italia
-              </p>
-            </div>
-          </div>
-
-          <div class="contact-info-item">
-            <div class="contact-info-icon">📞</div>
-            <div>
-              <h4 style="font-size:1.1rem; color:var(--color-wine-dark); margin-bottom:0.25rem;">Telefono & WhatsApp</h4>
-              <p style="color:var(--color-text-muted); font-size:0.95rem;">
-                Cantina & Degustazioni: <strong>+39 049 892 4110</strong><br>
-                Servizio Clienti Shop: <strong>+39 348 765 4321</strong>
-              </p>
-            </div>
-          </div>
-
-          <div class="contact-info-item">
-            <div class="contact-info-icon">✉️</div>
-            <div>
-              <h4 style="font-size:1.1rem; color:var(--color-wine-dark); margin-bottom:0.25rem;">Posta Elettronica</h4>
-              <p style="color:var(--color-text-muted); font-size:0.95rem;">
-                Informazioni generali: <a href="mailto:info@tenutavalmora.it" style="color:var(--color-wine); font-weight:600;">info@tenutavalmora.it</a><br>
-                Assistenza ordini e spedizioni: <a href="mailto:ordini@tenutavalmora.it" style="color:var(--color-wine); font-weight:600;">ordini@tenutavalmora.it</a>
-              </p>
-            </div>
-          </div>
-
-          <div class="contact-info-item">
-            <div class="contact-info-icon">⏰</div>
-            <div>
-              <h4 style="font-size:1.1rem; color:var(--color-wine-dark); margin-bottom:0.25rem;">Orari di Accoglienza</h4>
-              <p style="color:var(--color-text-muted); font-size:0.95rem;">
-                <strong>Lunedì – Sabato:</strong> 09:30 – 19:00 (orario continuato)<br>
-                <strong>Domenica:</strong> 10:00 – 18:00 (su prenotazione)<br>
-                <em>Degustazioni guidate alle 11:00 e alle 16:30.</em>
-              </p>
-            </div>
-          </div>
-
-          <!-- Link Utili e Social Media -->
-          <div style="margin-top:2.5rem; padding-top:2rem; border-top:1px solid var(--color-border);">
-            <h4 style="font-size:0.85rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--color-gold); margin-bottom:1rem;">Seguici sui Canali Social</h4>
-            <div style="display:flex; gap:0.75rem;">
-              <a href="https://instagram.com" target="_blank" rel="noopener" class="btn btn-outline btn-sm" style="border-radius:var(--radius-full);">
-                Instagram
-              </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener" class="btn btn-outline btn-sm" style="border-radius:var(--radius-full);">
-                Facebook
-              </a>
-            </div>
-          </div>
+      <!-- Link utili: social (stessi indirizzi del footer) -->
+      <div class="contact-social" data-contact-reveal>
+        <p class="contact-eyebrow">Seguici</p>
+        <div class="contact-links">
+          <a href="https://instagram.com" target="_blank" rel="noopener" class="contact-link">Instagram</a>
+          <a href="https://facebook.com" target="_blank" rel="noopener" class="contact-link">Facebook</a>
         </div>
-
-        <!-- Colonna Destra: Modulo di Contatto -->
-        <div>
-          <div class="contact-card-box" id="scrivici">
-            <span class="heading-eyebrow">Scrivici Direttamente</span>
-            <h3 style="font-size:2rem; margin-bottom:0.5rem; color:var(--color-wine-dark);">Modulo di Contatto</h3>
-            <p style="color:var(--color-text-muted); font-size:0.9rem; margin-bottom:2rem;">
-              Compila il form sottostante. Ti risponderemo entro poche ore lavorative.
-            </p>
-
-            <!-- Card di Successo a invio completato -->
-            <div id="contact-success-box" class="success-confirmation-card">
-              <div style="font-size:3rem; margin-bottom:1rem;">🍷</div>
-              <h3 style="font-size:1.8rem; color:var(--color-wine-dark); margin-bottom:0.5rem;">Messaggio Inviato con Successo!</h3>
-              <p style="color:var(--color-text-muted); font-size:0.95rem; margin-bottom:1.5rem; line-height:1.7;">
-                Grazie <strong id="success-client-name" style="color:var(--color-wine-dark);"></strong> per averci contattato.<br>
-                Abbiamo preso in carico la tua richiesta e ti risponderemo all'indirizzo <strong id="success-client-email" style="color:var(--color-wine-dark);"></strong> nel più breve tempo possibile.
-              </p>
-              <button type="button" class="btn btn-primary btn-sm" onclick="location.reload()">Invia un altro messaggio</button>
-            </div>
-
-            <!-- Form di Contatto con i 3 campi specificati dalla task:
-                 - "Nome"
-                 - "La tua mail"
-                 - "Messaggio (facoltativo)"
-                 e la regola: non inviabile se non compilati almeno Nome e La tua mail -->
-            <form id="contact-form" novalidate>
-              
-              <!-- Campo 1: Nome -->
-              <div class="form-group" style="margin-bottom:1.25rem;">
-                <label class="form-label" for="contact-name">Nome *</label>
-                <input 
-                  type="text" 
-                  id="contact-name" 
-                  name="nome" 
-                  class="form-input" 
-                  placeholder="Il tuo nome e cognome"
-                  required
-                >
-                <div id="contact-name-error" class="error-feedback"></div>
-              </div>
-
-              <!-- Campo 2: La tua mail -->
-              <div class="form-group" style="margin-bottom:1.25rem;">
-                <label class="form-label" for="contact-email">La tua mail *</label>
-                <input 
-                  type="email" 
-                  id="contact-email" 
-                  name="la-tua-mail" 
-                  class="form-input" 
-                  placeholder="latuamail@example.com"
-                  required
-                >
-                <div id="contact-email-error" class="error-feedback"></div>
-              </div>
-
-              <!-- Campo 3: Messaggio (facoltativo) -->
-              <div class="form-group" style="margin-bottom:1.5rem;">
-                <label class="form-label" for="contact-message">Messaggio (facoltativo)</label>
-                <textarea 
-                  id="contact-message" 
-                  name="messaggio" 
-                  class="form-textarea" 
-                  rows="5" 
-                  placeholder="Scrivi qui la tua richiesta, domande su degustazioni, abbinamenti o ordini..."
-                ></textarea>
-              </div>
-
-              <div style="font-size:0.75rem; color:var(--color-text-muted); margin-bottom:1.25rem;">
-                * Campi obbligatori per l'invio del messaggio. I tuoi dati saranno trattati nel rispetto della normativa sulla privacy.
-              </div>
-
-              <button type="submit" class="btn btn-primary" id="contact-submit-btn" style="width:100%; padding:0.95rem;">
-                Invia Messaggio &rarr;
-              </button>
-            </form>
-          </div>
-        </div>
-
       </div>
+    </div>
+
+    <!-- Modulo di contatto -->
+    <div class="contact-form-block" id="scrivici" data-contact-reveal>
+      <p class="contact-eyebrow">Scrivici</p>
+      <h2 class="contact-title">Un messaggio alla cantina.</h2>
+      <p class="contact-lead">Ti rispondiamo entro un giorno lavorativo.</p>
+
+      <!-- Conferma a invio completato (mostrata da contact.js) -->
+      <div id="contact-success-box" class="success-confirmation-card">
+        <svg class="success-confirmation-mark" viewBox="0 0 44 44" fill="none" aria-hidden="true" focusable="false"><circle cx="22" cy="22" r="20" stroke="#B08D57" stroke-width="1"/><circle cx="22" cy="22" r="3" fill="#5E1A28"/></svg>
+        <h3 class="contact-title">Grazie, <strong id="success-client-name"></strong>.</h3>
+        <p>Abbiamo ricevuto il tuo messaggio: ti risponderemo a <strong id="success-client-email"></strong>.</p>
+        <button type="button" class="contact-link" onclick="location.reload()">Invia un altro messaggio</button>
+      </div>
+
+      <!-- Form di Contatto con i 3 campi specificati dalla task:
+           - "Nome"
+           - "La tua mail"
+           - "Messaggio (facoltativo)"
+           e la regola: non inviabile se non compilati almeno Nome e La tua mail -->
+      <form id="contact-form" novalidate>
+
+        <!-- Campo 1: Nome -->
+        <div class="form-group">
+          <label class="form-label" for="contact-name">Nome *</label>
+          <input
+            type="text"
+            id="contact-name"
+            name="nome"
+            class="form-input"
+            placeholder="Il tuo nome"
+            autocomplete="name"
+            aria-describedby="contact-name-error"
+            required
+          >
+          <div id="contact-name-error" class="error-feedback" role="alert"></div>
+        </div>
+
+        <!-- Campo 2: La tua mail -->
+        <div class="form-group">
+          <label class="form-label" for="contact-email">La tua mail *</label>
+          <input
+            type="email"
+            id="contact-email"
+            name="la-tua-mail"
+            class="form-input"
+            placeholder="nome@esempio.it"
+            autocomplete="email"
+            aria-describedby="contact-email-error"
+            required
+          >
+          <div id="contact-email-error" class="error-feedback" role="alert"></div>
+        </div>
+
+        <!-- Campo 3: Messaggio (facoltativo) -->
+        <div class="form-group">
+          <label class="form-label" for="contact-message">Messaggio (facoltativo)</label>
+          <textarea
+            id="contact-message"
+            name="messaggio"
+            class="form-textarea"
+            rows="5"
+            placeholder="Una domanda sui vini, una visita, un ordine…"
+          ></textarea>
+        </div>
+
+        <p class="contact-form-note">* Campi obbligatori. I tuoi dati sono usati solo per risponderti. <a href="informazioni.html#privacy">Privacy</a></p>
+
+        <button type="submit" class="contact-submit" id="contact-submit-btn">
+          Invia messaggio &rarr;
+        </button>
+      </form>
+    </div>
+
+  </section>
+
+  <!-- Come raggiungerci, con mappa illustrata -->
+  <section class="contact-directions" id="come-raggiungerci" aria-labelledby="contact-directions-title">
+    <div class="contact-shell contact-directions-grid">
+      <div>
+        <div data-contact-reveal>
+          <p class="contact-eyebrow">Come raggiungerci</p>
+          <h2 class="contact-title" id="contact-directions-title">Nel cuore dei Colli Euganei.</h2>
+        </div>
+        <ul class="contact-steps">
+          <li class="contact-detail" data-contact-reveal>
+            <span class="contact-detail-label">In auto</span>
+            <p class="contact-detail-value">Autostrada A13 Bologna–Padova, uscita Terme Euganee: 12 minuti.</p>
+          </li>
+          <li class="contact-detail" data-contact-reveal>
+            <span class="contact-detail-label">Da Padova</span>
+            <p class="contact-detail-value">Circa 20 minuti in auto o taxi dalla stazione.</p>
+          </li>
+          <li class="contact-detail" data-contact-reveal>
+            <span class="contact-detail-label">Parcheggio</span>
+            <p class="contact-detail-value">Riservato agli ospiti della cantina.</p>
+          </li>
+        </ul>
+        <div class="contact-links" data-contact-reveal>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=Teolo%2C%20Padova" target="_blank" rel="noopener" class="contact-link">Apri in Google Maps</a>
+          <!-- Il nuovo chatbot non espone più window.toggleChatbot: in sua assenza si apre con il suo bottone -->
+          <button type="button" class="contact-link" onclick="window.toggleChatbot ? window.toggleChatbot() : document.getElementById('chatbot-trigger-btn').click()">Chiedi al Sommelier</button>
+        </div>
+      </div>
+
+      <!-- Mappa illustrata: schema, non in scala -->
+      <figure class="contact-map" data-contact-reveal>
+        <svg viewBox="0 0 640 440" role="img" aria-labelledby="contact-map-title contact-map-desc" focusable="false">
+          <title id="contact-map-title">Come arrivare a Tenuta Valmora</title>
+          <desc id="contact-map-desc">Schema della zona: Tenuta Valmora si trova a Teolo, tra i colli a cono dei Colli Euganei. Padova è a nord-est, a circa 20 minuti in auto; l'uscita Terme Euganee dell'autostrada A13 è a circa 12 minuti.</desc>
+
+          <!-- Rosa dei venti -->
+          <g class="map-line" stroke="#8E4553" stroke-width="1">
+            <path class="map-draw map-d0" pathLength="1" d="M44 74 L44 40"/>
+          </g>
+          <text class="map-label map-label--soft map-after" x="44" y="30" text-anchor="middle">N</text>
+
+          <!-- Colli a cono, dal più lontano al più vicino -->
+          <g class="map-line">
+            <path class="map-hill map-draw map-d1" pathLength="1" stroke="#CDAAB0" d="M150 360 C205 290 225 200 245 196 C265 200 285 290 340 360"/>
+            <path class="map-hill map-draw map-d2" pathLength="1" stroke="#8E4553" d="M40 360 C85 310 105 250 120 248 C135 250 155 310 200 360"/>
+            <path class="map-hill map-draw map-d3" pathLength="1" stroke="#CDAAB0" d="M262 360 C302 300 320 236 335 234 C350 236 368 300 408 360"/>
+            <path class="map-hill map-draw map-d4" pathLength="1" stroke="#8E4553" d="M0 360 C30 330 45 300 55 298 C65 300 80 330 110 360"/>
+            <path class="map-hill map-draw map-d5" pathLength="1" stroke="#8E4553" d="M362 360 C394 324 407 286 420 284 C433 286 446 324 478 360"/>
+            <path class="map-hill map-draw map-d6" pathLength="1" stroke="#8E4553" d="M178 360 C208 330 220 304 232 302 C244 304 256 330 286 360"/>
+          </g>
+
+          <!-- Filari alla base -->
+          <g class="map-line" stroke="#CDAAB0" stroke-width="1">
+            <path class="map-draw map-d5" pathLength="1" d="M10 370 Q240 350 480 370"/>
+            <path class="map-draw map-d6" pathLength="1" d="M10 380 Q240 360 480 380"/>
+            <path class="map-draw map-d7" pathLength="1" d="M10 390 Q240 370 480 390"/>
+          </g>
+
+          <!-- A13 e uscita Terme Euganee -->
+          <g class="map-line" stroke="#8E4553" stroke-width="1">
+            <path class="map-draw map-d2" pathLength="1" d="M612 14 C600 150 608 300 598 432"/>
+            <path class="map-draw map-d6" pathLength="1" d="M592 250 L616 250"/>
+          </g>
+          <g class="map-after">
+            <text class="map-label" x="582" y="232" text-anchor="end">A13</text>
+            <text class="map-label map-label--soft" x="582" y="254" text-anchor="end">Uscita Terme Euganee</text>
+            <text class="map-time" x="582" y="280" text-anchor="end">12 min</text>
+          </g>
+
+          <!-- Padova e collegamento con Teolo -->
+          <g class="map-after">
+            <path class="map-line" stroke="#8E4553" stroke-width="1" stroke-dasharray="3 5" d="M553 88 C480 140 330 222 246 306"/>
+            <circle cx="558" cy="82" r="4" fill="#5E1A28"/>
+            <text class="map-label" x="558" y="62" text-anchor="middle">Padova</text>
+            <text class="map-time" x="468" y="198">20 min</text>
+          </g>
+
+          <!-- Tenuta Valmora: cerchio oro del logo -->
+          <g class="map-after">
+            <circle cx="232" cy="318" r="14" fill="#F6F1E7" stroke="#B08D57" stroke-width="1.2"/>
+            <circle cx="232" cy="318" r="3.5" fill="#5E1A28"/>
+            <path class="map-line" stroke="#B08D57" stroke-width="0.8" d="M232 333 L232 398"/>
+            <text class="map-label" x="232" y="420" text-anchor="middle">Tenuta Valmora · Teolo</text>
+          </g>
+        </svg>
+      </figure>
     </div>
   </section>
 
-  <!-- Mappa o Indicazioni Stradali -->
-  <section class="section section-sand" id="come-raggiungerci" style="padding-top:4rem; padding-bottom:4rem;">
-    <div class="container text-center" style="max-width:840px;">
-      <span class="heading-eyebrow">Come Raggiungerci</span>
-      <h3 style="font-size:2rem; margin-bottom:1rem;">Nel Cuore del Parco Regionale dei Colli Euganei</h3>
-      <p style="color:var(--color-text-muted); font-size:0.95rem; line-height:1.8; margin-bottom:2rem;">
-        Autostrada A13 Bologna-Padova &bull; Uscita Terme Euganee (a soli 12 minuti dalla cantina).<br>
-        Dalla stazione di Padova: circa 20 minuti in auto o taxi. Disponibile parcheggio privato per gli ospiti della cantina.
-      </p>
-      <div style="display:flex; justify-content:center; gap:1rem; flex-wrap:wrap;">
-        <a href="https://maps.google.com" target="_blank" rel="noopener" class="btn btn-outline">
-          Apri su Google Maps &rarr;
-        </a>
-        <button type="button" class="btn btn-gold" onclick="window.toggleChatbot()">
-          Chiedi indicazioni al Chatbot
-        </button>
-      </div>
+  <!-- Invito finale -->
+  <section class="contact-invitation" aria-labelledby="contact-invitation-title">
+    <div class="contact-shell contact-invitation-inner" data-contact-reveal>
+      <p class="contact-eyebrow">Dalla cantina a casa tua</p>
+      <h2 class="contact-title" id="contact-invitation-title">I nostri vini ti aspettano.</h2>
+      <a href="shop.html" class="contact-link">Scopri lo shop</a>
     </div>
   </section>
 
@@ -434,6 +955,108 @@
 
   <!-- Chatbot Widget -->
   <div class="chatbot-wrapper"></div>
+
+  <!-- Animazioni della pagina Contatti -->
+  <script>
+  // Titoli riga per riga, comparse ripetute e parallasse della foto: stessa logica
+  // dello script di chi-siamo.html (a sua volta uguale a splitLines() di assets/js/home.js).
+  // Da unificare in un file condiviso in un giro successivo.
+  (() => {
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    const panorama = document.querySelector('.contact-panorama-frame');
+    let panoramaFrame = 0;
+
+    function updatePanorama() {
+      panoramaFrame = 0;
+      if (!panorama || motion.matches) return;
+      const rect = panorama.getBoundingClientRect();
+      if (rect.bottom > 0 && rect.top < innerHeight) {
+        const offset = Math.min(1, Math.max(0, (innerHeight - rect.top) / (innerHeight + rect.height)));
+        panorama.style.setProperty('--panorama-y', `${-8 + offset * 6}%`);
+      }
+    }
+    addEventListener('scroll', () => {
+      if (!panoramaFrame && !motion.matches) panoramaFrame = requestAnimationFrame(updatePanorama);
+    }, { passive: true });
+    updatePanorama();
+
+    if (motion.matches || !('IntersectionObserver' in window)) return;
+
+    const lineTitles = [...document.querySelectorAll('.contact-page-title, .contact-title')]
+      .filter(title => !title.closest('.success-confirmation-card'));
+    const escapeHtml = text => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    const splitLines = title => {
+      if (title.contactSource === undefined) title.contactSource = title.innerHTML;
+      title.innerHTML = title.contactSource;
+      const words = [];
+      let spaceBefore = false;
+      [...title.childNodes].forEach(node => {
+        if (node.nodeType === 1 && node.tagName === 'BR') { spaceBefore = true; return; }
+        if (node.nodeType !== 1 && node.nodeType !== 3) return;
+        const italic = node.nodeType === 1 && node.tagName === 'EM';
+        const holder = document.createDocumentFragment();
+        node.textContent.split(/(\s+)/).forEach(part => {
+          if (!part) return;
+          if (/^\s+$/.test(part)) { spaceBefore = true; holder.appendChild(document.createTextNode(' ')); return; }
+          const span = document.createElement('span');
+          span.textContent = part;
+          holder.appendChild(span);
+          words.push({ el: span, text: part, italic, space: spaceBefore });
+          spaceBefore = false;
+        });
+        if (italic) { node.textContent = ''; node.appendChild(holder); }
+        else title.replaceChild(holder, node);
+      });
+      const lines = [];
+      let lastTop = null;
+      words.forEach(word => {
+        const top = word.el.offsetTop;
+        if (lastTop === null || Math.abs(top - lastTop) > 4) { lines.push([]); lastTop = top; }
+        lines[lines.length - 1].push(word);
+      });
+      title.innerHTML = lines.map((line, index) => {
+        let html = '';
+        let open = false;
+        line.forEach((word, i) => {
+          if (open && !word.italic) { html += '</em>'; open = false; }
+          if (i > 0 && word.space) html += ' ';
+          if (!open && word.italic) { html += '<em>'; open = true; }
+          html += escapeHtml(word.text);
+        });
+        if (open) html += '</em>';
+        return `<span class="contact-line"><span class="contact-line__inner" style="--contact-i:${index}">${html}</span></span>`;
+      }).join(' ');
+    };
+    const splitAllTitles = () => lineTitles.forEach(splitLines);
+    splitAllTitles();
+    let lastWidth = innerWidth;
+    let splitTimer;
+    addEventListener('resize', () => {
+      if (innerWidth === lastWidth) return;
+      lastWidth = innerWidth;
+      clearTimeout(splitTimer);
+      splitTimer = setTimeout(splitAllTitles, 150);
+    });
+    if (document.fonts) document.fonts.ready.then(splitAllTitles);
+
+    // Come in Chi siamo: entra quando è nello schermo, si azzera quando ne è uscito del tutto.
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('is-visible');
+      });
+    }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+    const resetObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) entry.target.classList.remove('is-visible');
+      });
+    }, { threshold: 0 });
+    document.querySelectorAll('[data-contact-reveal]').forEach(el => {
+      revealObserver.observe(el);
+      resetObserver.observe(el);
+    });
+    document.body.classList.add('has-reveals');
+  })();
+  </script>
 
   <!-- Script JS -->
   <script src="assets/js/products.js"></script>
