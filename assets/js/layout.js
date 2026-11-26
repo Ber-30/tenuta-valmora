@@ -38,7 +38,7 @@
       { page: 'chi-siamo', links: [
         { label: 'La famiglia', href: 'chi-siamo.html#la-famiglia' },
         { label: 'Le quattro generazioni', href: 'chi-siamo.html#generazioni' },
-        { label: 'La nostra filosofia', href: 'chi-siamo.html#filosofia' }
+        { label: 'Missione e valori', href: 'chi-siamo.html#missione' }
       ] },
       { page: 'shop', links: [
         { label: 'Tutti i vini', href: 'shop.html' },
@@ -50,12 +50,6 @@
         { label: 'Scrivici', href: 'contatti.html#scrivici' },
         { label: 'Orari e indirizzo', href: 'contatti.html#recapiti' },
         { label: 'Come raggiungerci', href: 'contatti.html#come-raggiungerci' }
-      ] },
-      { page: 'informazioni', links: [
-        { label: 'Condizioni di vendita', href: 'informazioni.html#condizioni' },
-        { label: 'Spedizioni', href: 'informazioni.html#spedizioni' },
-        { label: 'Diritto di recesso', href: 'informazioni.html#recesso' },
-        { label: 'Privacy e cookie', href: 'informazioni.html#privacy' }
       ] }
     ],
 
@@ -81,11 +75,11 @@
       // Stesse etichette dell'header.
       navigation: ['home', 'chi-siamo', 'shop', 'contatti'],
       information: [
-        { label: 'Condizioni di Vendita', href: 'informazioni.html#condizioni' },
-        { label: 'Spedizioni & Imballaggi', href: 'informazioni.html#spedizioni' },
-        { label: 'Diritto di Recesso', href: 'informazioni.html#recesso' },
-        { label: 'Privacy Policy', href: 'informazioni.html#privacy' },
-        { label: 'Cookie Policy', href: 'informazioni.html#cookie' }
+        { label: 'Condizioni di vendita', href: 'informazioni.html#condizioni' },
+        { label: 'Spedizioni', href: 'informazioni.html#spedizioni' },
+        { label: 'Diritto di recesso', href: 'informazioni.html#recesso' },
+        { label: 'Privacy', href: 'informazioni.html#privacy' },
+        { label: 'Cookie', href: 'informazioni.html#cookie' }
       ],
       copyright: '&copy; 2026 Tenuta Valmora &middot; Società Agricola &middot; Teolo (PD)'
     }
@@ -105,7 +99,7 @@
     return '<a href="' + escapeAttr(item.href) + '"' + (className ? ' class="' + className + '"' : '') + '>' + item.label + '</a>';
   }
 
-  // Chiave di pagina di un link interno ("index.html#radici" -> "home").
+  // Chiave di pagina di un link interno ("chi-siamo.html#missione" -> "chi-siamo").
   function pageOf(href) {
     var file = href.split('#')[0].split('?')[0];
     for (var key in CONFIG.pages) {
@@ -417,6 +411,19 @@
 
     var wasOpen = false;
 
+    // Il focus torna su Menu da script: alcuni browser (es. Safari) lo considerano
+    // "da tastiera" anche dopo un clic e mostrano il riquadro. Dopo un clic lo si
+    // nasconde con una classe, tolta al primo tasto o quando il bottone perde il focus.
+    var pointerUsed = false;
+    document.addEventListener('pointerdown', function () { pointerUsed = true; }, true);
+    document.addEventListener('keydown', function () {
+      pointerUsed = false;
+      menuBtn.classList.remove('site-header__menu-btn--quiet');
+    }, true);
+    menuBtn.addEventListener('blur', function () {
+      menuBtn.classList.remove('site-header__menu-btn--quiet');
+    });
+
     function syncOpen() {
       var open = menuOpen();
       if (open === wasOpen) return;
@@ -428,7 +435,8 @@
           if (menuOpen()) closeBtn.focus();
         }, 60);
       } else if (drawer.contains(document.activeElement) || document.activeElement === document.body) {
-        menuBtn.focus();
+        if (pointerUsed) menuBtn.classList.add('site-header__menu-btn--quiet');
+        menuBtn.focus({ focusVisible: !pointerUsed });
       }
     }
 
