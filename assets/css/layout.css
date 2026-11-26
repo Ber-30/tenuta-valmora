@@ -25,8 +25,8 @@
 }
 
 /* Ancore del menu: la sezione non finisce sotto l'header */
-#radici, #vulcano, #tempo, #home-vini, #home-visita,
-#la-famiglia, #generazioni, #filosofia,
+#tradizione, #territorio, #cura, #home-vini, #home-visita,
+#la-famiglia, #generazioni, #missione, #valori,
 #scrivici, #recapiti, #come-raggiungerci,
 #condizioni, #spedizioni, #recesso, #privacy, #cookie {
   scroll-margin-top: calc(var(--header-h) + 16px);
@@ -281,8 +281,8 @@
 
 /* Numero piccolo in alto a destra dell'icona; display gestito da cart.js */
 .site-header .cart-badge {
-  top: 7px;
-  right: 3px;
+  top: 9px;
+  right: 6px;
   width: auto;
   height: auto;
   border: 0;
@@ -311,6 +311,15 @@
 .site-header button:focus-visible {
   outline: 2px solid currentColor;
   outline-offset: 4px;
+}
+
+/* Menu richiuso col mouse: niente riquadro finché non si usa la tastiera (classe da layout.js) */
+.site-header .mobile-menu-btn.site-header__menu-btn--quiet:focus-visible {
+  outline: none;
+}
+
+.site-header .mobile-menu-btn.site-header__menu-btn--quiet:focus-visible .site-header__menu-line--short {
+  width: 14px;
 }
 
 @media (min-width: 600px) {
@@ -598,7 +607,6 @@
 .site-menu.open .site-menu__col:nth-child(2) { transition-delay: 0.37s; }
 .site-menu.open .site-menu__col:nth-child(3) { transition-delay: 0.44s; }
 .site-menu.open .site-menu__col:nth-child(4) { transition-delay: 0.51s; }
-.site-menu.open .site-menu__col:nth-child(5) { transition-delay: 0.58s; }
 
 @media (min-width: 600px) {
   .site-menu__brand-name { display: block; }
@@ -617,7 +625,7 @@
   }
 }
 
-/* Da 1024px (come l'header): 5 colonne uguali, testo centrato */
+/* Da 1024px (come l'header): 4 colonne uguali, testo centrato */
 @media (min-width: 1024px) {
   .site-menu__nav {
     padding-top: 14vh;
@@ -625,9 +633,9 @@
 
   .site-menu__cols {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 2.5rem;
-    max-width: 1240px;
+    max-width: 1040px;
     margin: 0 auto;
   }
 
@@ -803,6 +811,13 @@
 @media (min-width: 768px) {
   .footer-bottom {
     flex-direction: row;
+  }
+}
+
+/* Su mobile il bottone del chatbot sta in basso: spazio sotto il copyright */
+@media (max-width: 767px) {
+  .footer-bottom {
+    padding-bottom: 6rem;
   }
 }
 
