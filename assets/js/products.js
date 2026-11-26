@@ -30,7 +30,7 @@ const PRODUCTS = [
     vintage: "2019",
     category: "riserve",
     price: 45.00,
-    badge: "Tre Bicchieri Gambero Rosso",
+    badge: "Selezione della famiglia",
     rating: 96,
     alcohol: "15.0% Vol.",
     format: "750 ml",
@@ -76,7 +76,7 @@ const PRODUCTS = [
     vintage: "2020",
     category: "rossi",
     price: 38.00,
-    badge: "95 Punti Falstaff",
+    badge: "Riserva storica",
     rating: 95,
     alcohol: "14.5% Vol.",
     format: "750 ml",
@@ -191,10 +191,17 @@ function getProductById(id) {
   return PRODUCTS.find(p => p.id === id);
 }
 
+// Prezzo all'italiana: 28,00 € (virgola decimale, simbolo dopo, spazio non separabile)
+const priceFormatter = new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' });
+function formatPrice(valore) {
+  return priceFormatter.format(Number(valore) || 0);
+}
+
 // Esporta globalmente per uso in browser
 if (typeof window !== 'undefined') {
   window.PRODUCTS = PRODUCTS;
   window.getProductById = getProductById;
+  window.formatPrice = formatPrice;
 }
 
 if (typeof module !== 'undefined') {
