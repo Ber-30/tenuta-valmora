@@ -591,131 +591,12 @@ html.home-hero-wait .home-hero__content {
   margin-top: 3.5rem;
 }
 
-/* Le card arrivano dallo shop: qui se ne cambia solo l'aspetto */
+/* Griglia delle 3 card (la card è condivisa con lo Shop: stili in layout.css) */
 .home-wines .products-grid {
   grid-template-columns: 1fr;
-  gap: 1.5rem;
-  margin-top: 3rem;
-}
-
-.home-wines .product-card {
-  background-color: #FBF8F1;
-  border: 1px solid var(--home-linea);
-  border-radius: 0;
-  transition: border-color 0.4s ease;
-}
-
-.home-wines .product-card:hover {
-  transform: none;
-  box-shadow: none;
-  border-color: var(--home-oro);
-}
-
-.home-wines .product-badge {
-  top: 0;
-  left: 0;
-  padding: 0.5rem 0.9rem;
-  border-radius: 0;
-  box-shadow: none;
-  background-color: var(--home-bordeaux);
-  color: var(--home-crema);
-  font-size: 0.62rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-}
-
-.home-wines .product-image-wrapper {
-  height: 20rem;
-  padding: 0;
-  background-color: #EFE8DB;
-}
-
-.home-wines .product-image {
-  width: 100%;
-  height: 100%;
-  max-height: none;
-  object-fit: cover;
-  transition: transform 1.2s var(--home-ease);
-}
-
-.home-wines .product-card:hover .product-image {
-  transform: scale(1.03);
-}
-
-.home-wines .product-info {
-  padding: 1.75rem 1.5rem 1.5rem;
-}
-
-.home-wines .product-appellation {
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  line-height: 1.6;
-  color: var(--home-vinaccia);
-}
-
-.home-wines .product-name {
-  font-size: 2rem;
-  font-weight: 500;
-  line-height: 1.1;
-  color: var(--home-bordeaux);
-}
-
-.home-wines .product-vintage,
-.home-wines .product-desc {
-  color: var(--home-testo-tenue);
-}
-
-.home-wines .product-bottom {
-  flex-direction: column;
-  align-items: stretch;
-  gap: 1rem;
-  padding-top: 1.25rem;
-  border-top-color: var(--home-linea);
-}
-
-.home-wines .product-price {
-  font-weight: 500;
-  font-variant-numeric: lining-nums;
-  color: var(--home-bordeaux);
-}
-
-.home-wines .product-card .btn {
-  flex: 1 1 0;
-  padding: 0.9rem 0.5rem;
-  border-radius: 0;
-  font-size: 0.7rem;
-  letter-spacing: 0.18em;
-}
-
-.home-wines .product-card .btn:hover {
-  transform: none;
-  box-shadow: none;
-}
-
-.home-wines .product-card .btn-primary {
-  background-color: var(--home-bordeaux);
-  border-color: var(--home-bordeaux);
-  color: var(--home-crema);
-}
-
-.home-wines .product-card .btn-primary:hover {
-  background-color: var(--home-bordeaux-scuro);
-  border-color: var(--home-bordeaux-scuro);
-}
-
-.home-wines .product-card .btn-outline {
-  border-color: var(--home-bordeaux);
-  color: var(--home-bordeaux);
-}
-
-.home-wines .product-card .btn-outline:hover {
-  background-color: var(--home-bordeaux);
-  color: var(--home-crema);
-}
-
-.home-wines .product-card .btn:focus-visible {
-  outline: 2px solid var(--home-bordeaux);
-  outline-offset: 3px;
+  gap: 3rem;
+  max-width: 26rem;
+  margin: 3rem auto 0;
 }
 
 /* ==========================================================================
@@ -1005,30 +886,14 @@ html.home-hero-wait .home-hero__content {
     padding: 10rem 0 8rem;
   }
 
-  /* Card in orizzontale: immagine a sinistra, testo a destra */
-  .home-wines .product-card { flex-direction: row; }
+}
 
-  .home-wines .product-image-wrapper {
-    flex: 0 0 42%;
-    height: auto;
-    min-height: 21rem;
-  }
-
-  .home-wines .product-image {
-    position: absolute;
-    inset: 0;
-  }
-
-  .home-wines .product-info { padding: 2.5rem 2rem 2rem; }
-
-  .home-wines .product-bottom {
-    flex-direction: row;
-    align-items: center;
-  }
-
-  .home-wines .product-card .btn {
-    flex: 0 0 auto;
-    padding: 0.9rem 1.5rem;
+/* Tre card affiancate da 900px (sotto la card sarebbe troppo stretta) */
+@media (min-width: 900px) {
+  .home-wines .products-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+    max-width: none;
   }
 }
 
@@ -1081,31 +946,9 @@ html.home-hero-wait .home-hero__content {
   .home-wines__head .home-title { margin-bottom: 0; }
   .home-wines__head .home-text { justify-self: end; padding-bottom: 0.6rem; }
 
-  /* Tre colonne: le card tornano verticali */
   .home-wines .products-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    gap: 2.5rem;
     margin-top: 4.5rem;
-  }
-
-  .home-wines .product-card { flex-direction: column; }
-
-  .home-wines .product-image-wrapper {
-    flex: 0 0 auto;
-    height: 23rem;
-    min-height: 0;
-  }
-
-  .home-wines .product-info { padding: 2rem 1.75rem 1.75rem; }
-
-  .home-wines .product-bottom {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .home-wines .product-card .btn {
-    flex: 1 1 0;
-    padding: 0.9rem 0.5rem;
   }
 }
 
@@ -1124,11 +967,7 @@ html.home-hero-wait .home-hero__content {
   }
 
   .home-btn,
-  .home-link::after,
-  .home-wines .product-card,
-  .home-wines .product-image {
+  .home-link::after {
     transition: none;
   }
-
-  .home-wines .product-card:hover .product-image { transform: none; }
 }
