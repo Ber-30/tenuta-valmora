@@ -822,6 +822,401 @@
 }
 
 /* ==========================================================================
+   Card vino (condivisa Shop/Home)
+   Markup: article.product-card.wine-card > .wine-card__inner > media + corpo.
+   Neutralizza da style.css: fondo bianco, bordo, angoli e ombra di .product-card.
+   ========================================================================== */
+
+.product-card.wine-card {
+  display: block;
+  position: relative;
+  overflow: visible;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.product-card.wine-card:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Il sollevamento sta sul contenitore interno: l'articolo resta libero
+   per le animazioni di entrata delle pagine. */
+.wine-card__inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: transform 0.6s var(--vm-ease);
+}
+
+/* Immagine 4:5 su fondo uniforme: #F0E7D6 è la media dei fondi delle foto */
+.wine-card__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background-color: #F0E7D6;
+}
+
+.wine-card__image-btn {
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  cursor: pointer;
+  transition: none;
+}
+
+.wine-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s var(--vm-ease);
+}
+
+.wine-card__badge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 0.45rem 0.7rem;
+  background-color: var(--vm-crema);
+  color: var(--vm-bordeaux);
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  pointer-events: none;
+}
+
+/* Testi */
+.wine-card__body {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  padding-top: 1.4rem;
+}
+
+.wine-card__appellation {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  line-height: 1.6;
+  text-transform: uppercase;
+  color: var(--vm-vinaccia);
+}
+
+.wine-card__name {
+  margin: 0 0 0.6rem;
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--vm-bordeaux);
+}
+
+.wine-card__name-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.4s ease;
+}
+
+.wine-card__name-btn:hover {
+  color: var(--vm-vinaccia);
+}
+
+.wine-card__vintage {
+  font-style: italic;
+  color: var(--vm-vinaccia);
+}
+
+/* Descrizione breve: massimo due righe */
+.wine-card__desc {
+  display: -webkit-box;
+  margin: 0 0 1.25rem;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #5B4A4E;
+}
+
+/* Riga finale: prezzo e azioni (va a capo solo se la card è stretta) */
+.wine-card__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--vm-linea);
+}
+
+.wine-card__price {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 400;
+  font-variant-numeric: lining-nums;
+  white-space: nowrap;
+  color: var(--vm-bordeaux);
+}
+
+.wine-card__actions {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+/* "Dettagli": link testuale come quelli della Home */
+.wine-card__details {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0 0.4rem;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  border-radius: 0;
+  background: none;
+  font-family: var(--font-sans);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--vm-bordeaux);
+  cursor: pointer;
+  transition: color 0.4s ease;
+}
+
+.wine-card__details::after {
+  content: '\2192';
+  letter-spacing: 0;
+  transition: transform 0.6s var(--vm-ease);
+}
+
+.wine-card__details:hover {
+  color: var(--vm-vinaccia);
+}
+
+.wine-card__details:hover::after {
+  transform: translateX(4px);
+}
+
+/* Bottone carrello: sacchetto in un quadrato con bordo sottile */
+.wine-card__add {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--vm-bordeaux);
+  border-radius: 0;
+  background-color: transparent;
+  color: var(--vm-bordeaux);
+  cursor: pointer;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+.wine-card__add:hover {
+  background-color: var(--vm-bordeaux);
+  color: var(--vm-crema);
+}
+
+.wine-card button:focus-visible {
+  outline: 2px solid var(--vm-bordeaux);
+  outline-offset: 3px;
+}
+
+/* Sollevamento: con il mouse e con il focus da tastiera dentro la card */
+@media (hover: hover) {
+  .wine-card:hover .wine-card__inner {
+    transform: translate3d(0, -6px, 0);
+  }
+
+  .wine-card:hover .wine-card__img {
+    transform: scale(1.03);
+  }
+}
+
+.wine-card:focus-within .wine-card__inner {
+  transform: translate3d(0, -6px, 0);
+}
+
+.wine-card:focus-within .wine-card__img {
+  transform: scale(1.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wine-card__inner,
+  .wine-card__img,
+  .wine-card__details::after {
+    transition: none;
+  }
+
+  .wine-card:hover .wine-card__inner,
+  .wine-card:focus-within .wine-card__inner,
+  .wine-card:hover .wine-card__img,
+  .wine-card:focus-within .wine-card__img,
+  .wine-card__details:hover::after {
+    transform: none;
+  }
+}
+
+/* ==========================================================================
+   Finestra "Dettagli" (markup nelle pagine, riempita da main.js)
+   Neutralizza da components.css: angoli arrotondati, ombre, fondo bianco.
+   ========================================================================== */
+
+.product-modal-backdrop {
+  background: rgba(46, 12, 20, 0.82);
+}
+
+.product-modal-backdrop .product-modal {
+  border-radius: 0;
+  background-color: var(--vm-crema);
+  box-shadow: none;
+}
+
+.product-modal-backdrop .product-modal-close {
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 0;
+  background: transparent;
+  color: var(--vm-bordeaux);
+}
+
+.product-modal-backdrop .product-modal-close:hover {
+  background: var(--vm-bordeaux);
+  color: var(--vm-crema);
+}
+
+/* Foto come nella card: 4:5 su fondo uniforme */
+.product-modal-backdrop .product-modal-visual {
+  padding: 0;
+  background-color: #F0E7D6;
+}
+
+.product-modal-backdrop .product-modal-visual img {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+}
+
+.product-modal-backdrop #modal-product-appellation {
+  font-size: 0.64rem;
+  letter-spacing: 0.2em;
+  color: var(--vm-vinaccia);
+}
+
+.product-modal-backdrop #modal-product-name {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  line-height: 1.1;
+  color: var(--vm-bordeaux);
+}
+
+.product-modal-vintage {
+  font-style: italic;
+  color: var(--vm-vinaccia);
+}
+
+.product-modal-backdrop .product-badge {
+  padding: 0.45rem 0.7rem;
+  border-radius: 0;
+  box-shadow: none;
+  background-color: #F0E7D6;
+  color: var(--vm-bordeaux);
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.product-modal-backdrop #modal-product-price {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-variant-numeric: lining-nums;
+  color: var(--vm-bordeaux);
+}
+
+/* Note di degustazione: solo un bordo sinistro sottile */
+.product-modal-backdrop .tasting-notes-box {
+  padding: 0.25rem 0 0.25rem 1.25rem;
+  border-left: 1px solid var(--vm-rosa);
+  border-radius: 0;
+  background: transparent;
+}
+
+.product-modal-backdrop .tasting-notes-box h5 {
+  font-family: var(--font-sans);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--vm-vinaccia);
+}
+
+/* Quantità: l'arrotondamento è scritto nel markup, serve !important */
+.product-modal-backdrop .product-modal-content div:has(> #modal-qty-input) {
+  border-radius: 0 !important;
+  border-color: var(--vm-bordeaux) !important;
+}
+
+.product-modal-backdrop #modal-qty-input {
+  background: transparent;
+  color: var(--vm-bordeaux);
+}
+
+/* Aggiungi al carrello: rettangolare, pieno bordeaux */
+.product-modal-backdrop #modal-add-cart-btn {
+  min-height: 3.25rem;
+  border: 1px solid var(--vm-bordeaux);
+  border-radius: 0;
+  background-color: var(--vm-bordeaux);
+  color: var(--vm-crema);
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.product-modal-backdrop #modal-add-cart-btn:hover {
+  transform: none;
+  box-shadow: none;
+  background-color: var(--vm-bordeaux-scuro);
+  border-color: var(--vm-bordeaux-scuro);
+}
+
+.product-modal-backdrop button:focus-visible,
+.product-modal-backdrop input:focus-visible {
+  outline: 2px solid var(--vm-bordeaux);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
    Movimento ridotto: solo cambio di stato, senza transizioni
    ========================================================================== */
 
