@@ -85,17 +85,24 @@
 .about-page .about-values p { font-size: .84rem; line-height: 1.7; border-left: 1px solid var(--color-gold); padding-left: 1.5rem; }
 .about-invitation { position: relative; isolation: isolate; min-height: 480px; display: flex; align-items: center; overflow: hidden; }
 .about-invitation > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
-.about-invitation::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(24 17 19 / 85%), rgb(24 17 19 / 20%)); z-index: -1; }
+.about-invitation::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(46 12 20 / 88%), rgb(46 12 20 / 25%)); z-index: -1; }
 .about-invitation-content { padding-block: 4rem; }
-.about-invitation .about-eyebrow { color: #D8BD84; }
+.about-invitation .about-eyebrow { color: #CDAAB0; }
 .about-page .about-invitation h2 { color: var(--color-cream); }
 .about-invitation-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 2rem; margin-top: 2rem; }
-.about-shop-link { display: inline-flex; gap: 1.5rem; align-items: center; background: var(--color-cream); color: var(--color-wine-dark); padding: .9rem 1.4rem; font-size: .8rem; }
-.about-shop-link:hover { background: var(--color-gold-light); }
-.about-contact-link { color: var(--color-cream); font-size: .8rem; border-bottom: 1px solid #CBB383; padding-block: .4rem; }
+.about-shop-link { display: inline-flex; align-items: center; justify-content: center; gap: .75rem; min-height: 3.25rem; padding: .75rem 2rem; border: 1px solid #F6F1E7; border-radius: 0; background: #F6F1E7; color: #5E1A28; font-family: var(--font-sans); font-size: .75rem; font-weight: 600; letter-spacing: .2em; line-height: 1.3; text-transform: uppercase; transition: background-color .3s ease, color .3s ease, border-color .3s ease; }
+.about-shop-link:hover { background: transparent; color: #F6F1E7; }
+.about-contact-link { display: inline-flex; align-items: center; gap: .75rem; padding: .35rem 0 .5rem; border-bottom: 1px solid currentColor; color: #F6F1E7; font-family: var(--font-sans); font-size: .7rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; }
+.about-contact-link::after { content: '\2192'; letter-spacing: 0; transition: transform .9s cubic-bezier(0.2, 0.6, 0.2, 1); }
+.about-contact-link:hover::after { transform: translateX(6px); }
 /* Only hide reveals after JS has installed an observer. No-JS stays readable. */
-.about-page.has-reveals [data-about-reveal] { opacity: 0; transform: translateY(24px); transition: opacity .85s ease, transform .85s cubic-bezier(.2,.7,.2,1); }
+.about-page.has-reveals [data-about-reveal] { opacity: 0; transform: translate3d(0, 1.25rem, 0); transition: opacity 1s cubic-bezier(0.2, 0.6, 0.2, 1), transform 1s cubic-bezier(0.2, 0.6, 0.2, 1); }
 .about-page.has-reveals [data-about-reveal].is-visible { opacity: 1; transform: none; }
+/* Titoli riga per riga, stessi tempi dei titoli .home-lines della Home (righe create dallo script). */
+.about-line { display: block; overflow: hidden; padding: .04em .08em .14em; margin: -.04em -.08em -.14em; }
+.about-line__inner { display: block; }
+.about-page.has-reveals .about-line__inner { transform: translate3d(0, 110%, 0); transition: transform 1.2s cubic-bezier(0.2, 0.6, 0.2, 1); transition-delay: calc(var(--about-i, 0) * .12s); }
+.about-page.has-reveals .is-visible .about-line__inner { transform: none; }
 @media (max-width: 1100px) {
   .about-shell { width: calc(100% - 4rem); }
   .about-intro-heading { gap: 2.5rem; }
@@ -153,9 +160,9 @@
 .about-family { display: flex; position: relative; isolation: isolate; min-height: 740px; padding-block: 6rem; margin-top: 3rem; }
 .about-family-backdrop { position: absolute; inset: 0 0 0 32%; z-index: -2; overflow: hidden; }
 .about-family-backdrop img { width: 100%; height: 100%; object-fit: cover; object-position: 52% center; }
-.about-family::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #FAF7F2 0%, #FAF7F2 34%, rgb(250 247 242 / 98%) 44%, rgb(250 247 242 / 74%) 53%, rgb(250 247 242 / 8%) 70%, transparent 85%); }
+.about-family::after { content: ''; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, var(--color-cream) 0%, var(--color-cream) 34%, rgb(250 247 242 / 98%) 44%, rgb(250 247 242 / 74%) 53%, rgb(250 247 242 / 8%) 70%, transparent 85%); }
 .about-family-copy { width: 46%; max-width: 535px; min-width: 0; }
-.about-family-copy p { color: #5D5054; }
+.about-family-copy p { color: var(--color-text-muted); }
 .about-family-copy h2 { font-size: clamp(3rem, 4.6vw, 4.9rem); }
 .about-family-layout { position: relative; }
 /* Keep pointer gestures independent of the browser's native range steps. */
@@ -222,7 +229,7 @@
 @media (max-width: 1100px) and (min-width: 761px) {
   .about-family { min-height: 700px; }
   .about-family-copy { width: 50%; }
-  .about-family::after { background: linear-gradient(90deg, #FAF7F2 0%, #FAF7F2 35%, rgb(250 247 242 / 96%) 49%, rgb(250 247 242 / 55%) 63%, transparent 85%); }
+  .about-family::after { background: linear-gradient(90deg, var(--color-cream) 0%, var(--color-cream) 35%, rgb(250 247 242 / 96%) 49%, rgb(250 247 242 / 55%) 63%, transparent 85%); }
 }
 @media (max-width: 760px) {
   .about-family { display: flex; flex-direction: column; min-height: 0; gap: 0; padding-block: 0; margin-top: 4rem; }
@@ -231,7 +238,7 @@
   .about-family::after { display: none; }
   .about-family-copy { width: 100%; max-width: 550px; }
   .about-family-copy h2 { font-size: clamp(2.8rem, 8vw, 3.7rem); }
-  .about-family-backdrop::after { content: ''; position: absolute; inset: 0; background: linear-gradient(#FAF7F2, transparent 25%); pointer-events: none; }
+  .about-family-backdrop::after { content: ''; position: absolute; inset: 0; background: linear-gradient(var(--color-cream), transparent 25%); pointer-events: none; }
   .about-history-panel { padding-block: 3.5rem; }
   .about-history.is-interactive .about-timeline-track { transform: translateX(-50%); }
   .about-history.is-interactive .about-timeline-hit { inset: -11px -21.5px; }
@@ -271,22 +278,21 @@
       </div>
       <figure class="about-panorama" data-about-reveal>
         <div class="about-panorama-frame">
-          <img src="assets/images/winemaker-hands.jpg" alt="Filari di vite nella luce calda del tramonto" width="1200" height="899" fetchpriority="high">
+          <img src="assets/images/chi-siamo/panorama.jpg" alt="Le colline coniche dei Colli Euganei con i filari e un muretto a secco in primo piano" width="2400" height="1000" fetchpriority="high">
         </div>
         <figcaption class="about-shell">
           <span>Tenuta Valmora — Colli Euganei</span>
-          <a href="#la-famiglia">Scorri per scoprire <span aria-hidden="true">↓</span></a>
         </figcaption>
       </figure>
     </section>
 
     <section id="la-famiglia" class="about-family" aria-labelledby="family-title">
       <div class="about-family-backdrop" aria-hidden="true">
-        <img src="assets/images/about-hands.png?v=2" alt="" width="1536" height="1024" loading="lazy">
+        <img src="assets/images/chi-siamo/famiglia.jpg" alt="" width="1800" height="1200" loading="lazy">
       </div>
       <div class="about-shell about-family-layout">
         <div class="about-family-copy" data-about-reveal>
-          <span class="about-eyebrow">01 / La famiglia</span>
+          <span class="about-eyebrow">La famiglia</span>
           <h2 id="family-title">Un sapere che<br>si tramanda.</h2>
           <p>Da quattro generazioni, la stessa famiglia guida Tenuta Valmora. Una storia fatta di esperienza, passione e gesti quotidiani, nel cuore dei Colli Euganei.</p>
           <p>Il nostro sguardo si rivolge al futuro, senza perdere il legame con le nostre radici. È da questo incontro che nascono i nostri rossi d’autore.</p>
@@ -364,21 +370,24 @@
       </div>
     </section>
 
-    <section class="about-shell about-philosophy" id="filosofia" aria-labelledby="mission-title">
+    <section class="about-shell about-philosophy" id="missione" aria-labelledby="mission-title">
       <div data-about-reveal>
-        <span class="about-eyebrow">02 / La nostra filosofia</span>
+        <span class="about-eyebrow">La nostra missione</span>
         <h2 id="mission-title">Custodire la terra.<br>Dare voce al vino.</h2>
         <p>La nostra missione è creare rossi d’autore che raccontino l’incontro tra la nostra famiglia e i Colli Euganei.</p>
       </div>
+      <div class="about-values-block" id="valori">
+        <span class="about-eyebrow" data-about-reveal>I nostri valori</span>
       <ol class="about-values">
         <li data-about-reveal><span aria-hidden="true">01</span><h3>Tradizione</h3><p>L’esperienza di chi ci ha preceduto.</p></li>
         <li data-about-reveal><span aria-hidden="true">02</span><h3>Territorio</h3><p>L’identità dei Colli Euganei in ogni scelta.</p></li>
         <li data-about-reveal><span aria-hidden="true">03</span><h3>Cura</h3><p>Attenzione, dalla vigna alla cantina.</p></li>
       </ol>
+      </div>
     </section>
 
     <section class="about-invitation" aria-labelledby="invitation-title">
-      <img src="assets/images/about-cellar.png?v=2" alt="Botti di rovere in una cantina dalle volte in pietra" width="1536" height="1024" loading="lazy">
+      <img src="assets/images/chi-siamo/cantina.jpg" alt="Vino rosso versato nel calice in una cantina scavata nella roccia" width="2400" height="1200" loading="lazy">
       <div class="about-shell about-invitation-content" data-about-reveal>
         <span class="about-eyebrow">Scopri Tenuta Valmora</span>
         <h2 id="invitation-title">La nostra storia,<br>nel tuo calice.</h2>
@@ -867,15 +876,81 @@
     timelineObserver.observe(timeline);
 
     if (!motion.matches) {
+      // Titoli h1/h2 riga per riga: stessa logica di splitLines() in assets/js/home.js
+      // (titoli .home-lines della Home). Esclusi i titoli della linea del tempo.
+      const lineTitles = [...document.querySelectorAll('.about-page main h1, .about-page main h2')]
+        .filter(title => !title.closest('.about-history'));
+      const escapeHtml = text => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const splitLines = title => {
+        if (title.aboutSource === undefined) title.aboutSource = title.innerHTML;
+        title.innerHTML = title.aboutSource;
+        const words = [];
+        let spaceBefore = false;
+        [...title.childNodes].forEach(node => {
+          if (node.nodeType === 1 && node.tagName === 'BR') { spaceBefore = true; return; }
+          if (node.nodeType !== 1 && node.nodeType !== 3) return;
+          const italic = node.nodeType === 1 && node.tagName === 'EM';
+          const holder = document.createDocumentFragment();
+          node.textContent.split(/(\s+)/).forEach(part => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { spaceBefore = true; holder.appendChild(document.createTextNode(' ')); return; }
+            const span = document.createElement('span');
+            span.textContent = part;
+            holder.appendChild(span);
+            words.push({ el: span, text: part, italic, space: spaceBefore });
+            spaceBefore = false;
+          });
+          if (italic) { node.textContent = ''; node.appendChild(holder); }
+          else title.replaceChild(holder, node);
+        });
+        const lines = [];
+        let lastTop = null;
+        words.forEach(word => {
+          const top = word.el.offsetTop;
+          if (lastTop === null || Math.abs(top - lastTop) > 4) { lines.push([]); lastTop = top; }
+          lines[lines.length - 1].push(word);
+        });
+        title.innerHTML = lines.map((line, index) => {
+          let html = '';
+          let open = false;
+          line.forEach((word, i) => {
+            if (open && !word.italic) { html += '</em>'; open = false; }
+            if (i > 0 && word.space) html += ' ';
+            if (!open && word.italic) { html += '<em>'; open = true; }
+            html += escapeHtml(word.text);
+          });
+          if (open) html += '</em>';
+          return `<span class="about-line"><span class="about-line__inner" style="--about-i:${index}">${html}</span></span>`;
+        }).join(' ');
+      };
+      const splitAllTitles = () => lineTitles.forEach(splitLines);
+      splitAllTitles();
+      let lastWidth = innerWidth;
+      let splitTimer;
+      addEventListener('resize', () => {
+        if (innerWidth === lastWidth) return;
+        lastWidth = innerWidth;
+        clearTimeout(splitTimer);
+        splitTimer = setTimeout(splitAllTitles, 150);
+      });
+      if (document.fonts) document.fonts.ready.then(splitAllTitles);
+
+      // Come REPLAY = true in home.js: entra quando una parte è nello schermo,
+      // si azzera solo quando è uscito del tutto, poi rientra scorrendo in su o in giù.
       const revealObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            revealObserver.unobserve(entry.target);
-          }
+          if (entry.isIntersecting) entry.target.classList.add('is-visible');
         });
-      }, { threshold: .08 });
-      document.querySelectorAll('[data-about-reveal]').forEach(el => revealObserver.observe(el));
+      }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+      const resetObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) entry.target.classList.remove('is-visible');
+        });
+      }, { threshold: 0 });
+      document.querySelectorAll('[data-about-reveal]').forEach(el => {
+        revealObserver.observe(el);
+        resetObserver.observe(el);
+      });
       document.body.classList.add('has-reveals');
     }
   } else {
