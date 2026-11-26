@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nameError.textContent = 'Il campo "Nome" è obbligatorio.';
         nameError.style.display = 'block';
       }
-      nameInput.style.borderColor = '#C0392B';
+      nameInput.style.borderColor = '#5E1A28';
     }
 
     // Validazione La tua mail
@@ -49,14 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
         emailError.textContent = 'Il campo "La tua mail" è obbligatorio.';
         emailError.style.display = 'block';
       }
-      emailInput.style.borderColor = '#C0392B';
+      emailInput.style.borderColor = '#5E1A28';
     } else if (!validateEmail(emailVal)) {
       isValid = false;
       if (emailError) {
         emailError.textContent = 'Inserisci un indirizzo email valido (es. nome@dominio.it).';
         emailError.style.display = 'block';
       }
-      emailInput.style.borderColor = '#C0392B';
+      emailInput.style.borderColor = '#5E1A28';
     }
 
     // Se non valido, blocca l'invio
