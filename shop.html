@@ -17,48 +17,272 @@
   <link rel="stylesheet" href="assets/css/components.css?v=sommelier-3">
   <link rel="stylesheet" href="assets/css/layout.css">
   <style>
+    /* Shop: apertura, filtri, griglia e garanzie, con lo stile di Home e Chi siamo */
+    .shop-shell {
+      width: min(100% - 3rem, 1320px);
+      margin-inline: auto;
+    }
+    .shop-intro {
+      padding: clamp(3.5rem, 7vw, 6.5rem) 0 clamp(2.5rem, 4vw, 3.5rem);
+    }
+    .shop-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.9rem;
+      margin: 0 0 1.5rem;
+      font-family: var(--font-sans);
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: #8E4553;
+    }
+    .shop-eyebrow::before {
+      content: '';
+      flex: 0 0 2rem;
+      height: 1px;
+      background-color: #B08D57;
+    }
+    .shop-intro h1 {
+      margin: 0 0 1.25rem;
+      font-family: var(--font-serif);
+      font-size: clamp(3.3rem, 7vw, 6.5rem);
+      font-weight: 400;
+      line-height: 0.96;
+      letter-spacing: -0.035em;
+      color: #5E1A28;
+    }
+    .shop-subtitle {
+      max-width: 34rem;
+      margin: 0;
+      font-family: var(--font-serif);
+      font-size: clamp(1.25rem, 1.9vw, 1.65rem);
+      font-style: italic;
+      line-height: 1.4;
+      color: #8E4553;
+    }
+    .shop-catalog {
+      padding: 0 0 clamp(5rem, 8vw, 8rem);
+    }
+
+    /* Filtri: link testuali, voce attiva sottolineata come nell'header */
     .filter-bar {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
-      margin-bottom: 2.5rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--color-border);
+      gap: 1rem 2rem;
+      margin-bottom: 3rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid rgba(205, 170, 176, 0.55);
     }
     .filter-pills {
       display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 2rem;
+      max-width: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .filter-pills::-webkit-scrollbar {
+      display: none;
     }
     .filter-pill {
-      padding: 0.55rem 1.25rem;
-      border-radius: var(--radius-full);
-      font-size: 0.8rem;
+      position: relative;
+      flex: 0 0 auto;
+      padding: 0.6rem 0;
+      border: 0;
+      border-radius: 0;
+      background: none;
+      font-family: var(--font-sans);
+      font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      background: #FFFFFF;
-      border: 1px solid var(--color-border);
-      color: var(--color-text-muted);
+      white-space: nowrap;
+      color: #5E1A28;
       cursor: pointer;
-      transition: var(--transition);
+      transition: none;
     }
-    .filter-pill:hover, .filter-pill.active {
-      background: var(--color-wine);
-      color: #FFFFFF;
-      border-color: var(--color-wine);
+    .filter-pill::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0.22em;
+      bottom: 0.25rem;
+      height: 1px;
+      background-color: currentColor;
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.9s cubic-bezier(0.2, 0.6, 0.2, 1);
+    }
+    .filter-pill:hover::after,
+    .filter-pill.active::after {
+      transform: scaleX(1);
+    }
+    .filter-pill:focus-visible,
+    .sort-select:focus-visible {
+      outline: 2px solid #5E1A28;
+      outline-offset: 3px;
+    }
+
+    /* Ordinamento: select sobrio, angoli vivi */
+    .sort-field {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .sort-field label {
+      font-family: var(--font-sans);
+      font-size: 0.64rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #8E4553;
     }
     .sort-select {
-      padding: 0.55rem 1rem;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--color-border);
-      background: #FFFFFF;
-      font-family: inherit;
+      appearance: none;
+      -webkit-appearance: none;
+      padding: 0.55rem 2.25rem 0.55rem 0.85rem;
+      border: 1px solid rgba(94, 26, 40, 0.35);
+      border-radius: 0;
+      background-color: transparent;
+      background-image: linear-gradient(45deg, transparent 50%, #5E1A28 50%), linear-gradient(135deg, #5E1A28 50%, transparent 50%);
+      background-position: calc(100% - 16px) 52%, calc(100% - 11px) 52%;
+      background-size: 5px 5px, 5px 5px;
+      background-repeat: no-repeat;
+      font-family: var(--font-sans);
       font-size: 0.85rem;
-      color: var(--color-text);
-      outline: none;
+      color: #2A1A1D;
+      cursor: pointer;
+    }
+
+    /* Griglia: 1 colonna, 2 da 600px, 4 da 1024px */
+    #shop-products-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 3rem 1.5rem;
+      margin-top: 0;
+    }
+
+    /* Striscia garanzie */
+    .shop-assurances {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: clamp(4.5rem, 8vw, 7rem);
+      background-color: #F6F1E7;
+      border-top: 1px solid rgba(205, 170, 176, 0.55);
+      border-bottom: 1px solid rgba(205, 170, 176, 0.55);
+    }
+    .shop-assurance {
+      padding: 2rem 1.25rem;
+    }
+    .shop-assurance:nth-child(even) {
+      border-left: 1px solid rgba(205, 170, 176, 0.55);
+    }
+    .shop-assurance:nth-child(n+3) {
+      border-top: 1px solid rgba(205, 170, 176, 0.55);
+    }
+    .shop-assurance__icon {
+      display: block;
+      width: 28px;
+      height: 28px;
+      margin-bottom: 1.1rem;
+      color: #5E1A28;
+    }
+    .shop-assurance__title {
+      margin: 0 0 0.5rem;
+      font-family: var(--font-sans);
+      font-size: 0.66rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      line-height: 1.5;
+      text-transform: uppercase;
+      color: #5E1A28;
+    }
+    .shop-assurance__text {
+      margin: 0;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #2A1A1D;
+    }
+
+    /* Comparse dell'apertura: stessi valori di Chi siamo (solo con lo script attivo) */
+    .has-reveals [data-shop-reveal] {
+      opacity: 0;
+      transform: translate3d(0, 1.25rem, 0);
+      transition: opacity 1s cubic-bezier(0.2, 0.6, 0.2, 1), transform 1s cubic-bezier(0.2, 0.6, 0.2, 1);
+    }
+    .has-reveals [data-shop-reveal].is-visible {
+      opacity: 1;
+      transform: none;
+    }
+    .shop-line {
+      display: block;
+      overflow: hidden;
+      padding: 0.04em 0.08em 0.14em;
+      margin: -0.04em -0.08em -0.14em;
+    }
+    .shop-line__inner {
+      display: block;
+    }
+    .has-reveals .shop-line__inner {
+      transform: translate3d(0, 110%, 0);
+      transition: transform 1.2s cubic-bezier(0.2, 0.6, 0.2, 1);
+      transition-delay: calc(var(--shop-i, 0) * 0.12s);
+    }
+    .has-reveals .is-visible .shop-line__inner {
+      transform: none;
+    }
+
+    @media (min-width: 600px) {
+      #shop-products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 3.5rem 2rem;
+      }
+    }
+    @media (min-width: 768px) {
+      .shop-shell {
+        width: min(100% - 5rem, 1320px);
+      }
+      .shop-assurances {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+      .shop-assurance {
+        padding: 2.25rem 1.75rem;
+      }
+      .shop-assurance:nth-child(n) {
+        border-left: 0;
+        border-top: 0;
+      }
+      .shop-assurance + .shop-assurance {
+        border-left: 1px solid rgba(205, 170, 176, 0.55);
+      }
+    }
+    @media (min-width: 1024px) {
+      #shop-products-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 4rem 2rem;
+      }
+    }
+    @media (max-width: 599px) {
+      .filter-bar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .filter-pills {
+        width: 100%;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .filter-pill::after {
+        transition: none;
+      }
+      .has-reveals [data-shop-reveal],
+      .has-reveals .shop-line__inner {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
     }
   </style>
 </head>
@@ -77,34 +301,31 @@
   </noscript>
 
   <!-- Intestazione Pagina Shop -->
-  <section class="section section-dark" style="padding:4.5rem 0 3.5rem; text-align:center;">
-    <div class="container" style="max-width:800px;">
-      <span class="heading-eyebrow light">Vendita Diretta dalla Cantina</span>
-      <h1 class="hero-title" style="font-size:3.2rem; margin-bottom:1rem;">La Collezione dei Vini</h1>
-      <p class="section-subtitle" style="color:#D6C2C7;">
-        Spedizione rapida in tutta Italia con corrieri refrigerati e packaging brevettato anti-rottura. 
-        Pagamenti sicuri gestiti in modalità test con Stripe.
-      </p>
+  <section class="shop-intro" aria-labelledby="shop-title">
+    <div class="shop-shell" data-shop-reveal>
+      <p class="shop-eyebrow">Vendita diretta dalla cantina</p>
+      <h1 id="shop-title">I nostri vini.</h1>
+      <p class="shop-subtitle">Otto rossi dei Colli Euganei, dalla vigna alla tua tavola.</p>
     </div>
   </section>
 
   <!-- Catalogo Prodotti -->
-  <section class="section" style="padding-top:3.5rem;">
-    <div class="container">
+  <section class="shop-catalog">
+    <div class="shop-shell">
       
       <!-- Barra Filtri e Ordinamento -->
       <div class="filter-bar">
         <div class="filter-pills" id="category-filters">
-          <button type="button" class="filter-pill active" data-filter="all">Tutti i Vini (8)</button>
-          <button type="button" class="filter-pill" data-filter="rossi">Rossi Classici</button>
-          <button type="button" class="filter-pill" data-filter="riserve">Grandi Riserve</button>
+          <button type="button" class="filter-pill active" data-filter="all">Tutti</button>
+          <button type="button" class="filter-pill" data-filter="rossi">Rossi classici</button>
+          <button type="button" class="filter-pill" data-filter="riserve">Grandi riserve</button>
           <button type="button" class="filter-pill" data-filter="dolci">Passito DOCG</button>
         </div>
 
-        <div style="display:flex; align-items:center; gap:0.5rem;">
-          <label for="sort-select" style="font-size:0.8rem; font-weight:600; color:var(--color-text-muted);">Ordina per:</label>
+        <div class="sort-field">
+          <label for="sort-select">Ordina per</label>
           <select id="sort-select" class="sort-select">
-            <option value="default">Consigliati da Tenuta Valmora</option>
+            <option value="default">In evidenza</option>
             <option value="price-asc">Prezzo: dal più basso</option>
             <option value="price-desc">Prezzo: dal più alto</option>
           </select>
@@ -116,37 +337,27 @@
         <!-- Renderizzato via JS da products.js -->
       </div>
 
-      <!-- Box Vantaggi Shop -->
-      <div style="margin-top:5rem; padding:3rem; background:var(--color-sand); border-radius:var(--radius-md); border:1px solid var(--color-border);">
-        <div class="trust-grid">
-          <div class="trust-item">
-            <div class="trust-icon">📦</div>
-            <div class="trust-text">
-              <h4>Imballo Sicuro Brevettato</h4>
-              <p>Cantinette isotermiche ad alta densità protette da urti e sbalzi termici.</p>
-            </div>
-          </div>
-          <div class="trust-item">
-            <div class="trust-icon">🚚</div>
-            <div class="trust-text">
-              <h4>Consegna in 24/48 Ore</h4>
-              <p>Tracciabilità in tempo reale via SMS ed email.</p>
-            </div>
-          </div>
-          <div class="trust-item">
-            <div class="trust-icon">🛡️</div>
-            <div class="trust-text">
-              <h4>Garanzia Bottiglia Perfetta</h4>
-              <p>Sostituzione gratuita immediata o rimborso in caso di danno o difetto.</p>
-            </div>
-          </div>
-          <div class="trust-item">
-            <div class="trust-icon">💳</div>
-            <div class="trust-text">
-              <h4>Stripe Test Mode</h4>
-              <p>Transazioni simulate in totale sicurezza senza addebiti reali.</p>
-            </div>
-          </div>
+      <!-- Garanzie -->
+      <div class="shop-assurances">
+        <div class="shop-assurance">
+          <svg class="shop-assurance__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 7.5l9-4.5 9 4.5v9l-9 4.5-9-4.5z"/><path d="M3 7.5l9 4.5 9-4.5"/><path d="M12 12v9"/></svg>
+          <h3 class="shop-assurance__title">Imballo protetto</h3>
+          <p class="shop-assurance__text">Cantinette isotermiche anti-urto.</p>
+        </div>
+        <div class="shop-assurance">
+          <svg class="shop-assurance__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 6h12v10H2z"/><path d="M14 9h4l3 3.5V16h-7"/><circle cx="6" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>
+          <h3 class="shop-assurance__title">Spedizione 24/48h</h3>
+          <p class="shop-assurance__text">In tutta Italia, gratuita sopra i 99 €.</p>
+        </div>
+        <div class="shop-assurance">
+          <svg class="shop-assurance__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M10 2h4v4.5l1.5 2.5v11.5a1.5 1.5 0 0 1-1.5 1.5h-4a1.5 1.5 0 0 1-1.5-1.5V9L10 6.5z"/><path d="M8.5 13h7"/><path d="M8.5 17h7"/></svg>
+          <h3 class="shop-assurance__title">Bottiglia garantita</h3>
+          <p class="shop-assurance__text">Sostituzione immediata in caso di danno.</p>
+        </div>
+        <div class="shop-assurance">
+          <svg class="shop-assurance__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 11h14v10H5z"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/><path d="M12 15v2.5"/></svg>
+          <h3 class="shop-assurance__title">Pagamento sicuro</h3>
+          <p class="shop-assurance__text">Pagamento di prova gestito con Stripe.</p>
         </div>
       </div>
 
@@ -400,22 +611,28 @@
           filtered.sort((a, b) => b.price - a.price);
         }
 
+        // Card vino condivisa con la Home (stili in assets/css/layout.css)
         grid.innerHTML = filtered.map(product => `
-          <article class="product-card">
-            <div class="product-badge">${product.badge}</div>
-            <div class="product-image-wrapper">
-              <img src="${product.image}" alt="${product.name}" class="product-image">
-            </div>
-            <div class="product-info">
-              <span class="product-appellation">${product.appellation}</span>
-              <h3 class="product-name">${product.name}</h3>
-              <div class="product-vintage">Annata ${product.vintage} &bull; ${product.format} &bull; ${product.rating} Punti</div>
-              <p class="product-desc">${product.shortDescription}</p>
-              <div class="product-bottom">
-                <div class="product-price">€${product.price.toFixed(2)}</div>
-                <div style="display:flex; gap:0.5rem;">
-                  <button type="button" class="btn btn-outline btn-sm" onclick="openProductModal('${product.id}')">Dettagli</button>
-                  <button type="button" class="btn btn-primary btn-sm" onclick="addToCart('${product.id}', 1)">Acquista</button>
+          <article class="product-card wine-card">
+            <div class="wine-card__inner">
+              <div class="wine-card__media">
+                <button type="button" class="wine-card__image-btn" onclick="openProductModal('${product.id}')" aria-label="Dettagli di ${product.name}">
+                  <img src="${product.image}" alt="Bottiglia di ${product.name} ${product.vintage}" class="wine-card__img" width="1000" height="1241" loading="lazy">
+                </button>
+                ${product.badge ? `<span class="wine-card__badge">${product.badge}</span>` : ''}
+              </div>
+              <div class="wine-card__body">
+                <p class="wine-card__appellation">${product.appellation}</p>
+                <h3 class="wine-card__name"><button type="button" class="wine-card__name-btn" onclick="openProductModal('${product.id}')">${product.name} <span class="wine-card__vintage">${product.vintage}</span></button></h3>
+                <p class="wine-card__desc">${product.shortDescription}</p>
+                <div class="wine-card__bottom">
+                  <p class="wine-card__price">${window.formatPrice(product.price)}</p>
+                  <div class="wine-card__actions">
+                    <button type="button" class="wine-card__details" onclick="openProductModal('${product.id}')">Dettagli</button>
+                    <button type="button" class="wine-card__add" onclick="addToCart('${product.id}', 1)" aria-label="Aggiungi ${product.name} al carrello">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -454,6 +671,83 @@
 
       // Initial render
       renderShopProducts();
+
+      // Apertura: titolo riga per riga e comparse. Stessa logica dello script di
+      // chi-siamo.html (a sua volta uguale a splitLines() di assets/js/home.js).
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+        const lineTitles = [...document.querySelectorAll('.shop-intro h1')];
+        const escapeHtml = text => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const splitLines = title => {
+          if (title.shopSource === undefined) title.shopSource = title.innerHTML;
+          title.innerHTML = title.shopSource;
+          const words = [];
+          let spaceBefore = false;
+          [...title.childNodes].forEach(node => {
+            if (node.nodeType === 1 && node.tagName === 'BR') { spaceBefore = true; return; }
+            if (node.nodeType !== 1 && node.nodeType !== 3) return;
+            const italic = node.nodeType === 1 && node.tagName === 'EM';
+            const holder = document.createDocumentFragment();
+            node.textContent.split(/(\s+)/).forEach(part => {
+              if (!part) return;
+              if (/^\s+$/.test(part)) { spaceBefore = true; holder.appendChild(document.createTextNode(' ')); return; }
+              const span = document.createElement('span');
+              span.textContent = part;
+              holder.appendChild(span);
+              words.push({ el: span, text: part, italic, space: spaceBefore });
+              spaceBefore = false;
+            });
+            if (italic) { node.textContent = ''; node.appendChild(holder); }
+            else title.replaceChild(holder, node);
+          });
+          const lines = [];
+          let lastTop = null;
+          words.forEach(word => {
+            const top = word.el.offsetTop;
+            if (lastTop === null || Math.abs(top - lastTop) > 4) { lines.push([]); lastTop = top; }
+            lines[lines.length - 1].push(word);
+          });
+          title.innerHTML = lines.map((line, index) => {
+            let html = '';
+            let open = false;
+            line.forEach((word, i) => {
+              if (open && !word.italic) { html += '</em>'; open = false; }
+              if (i > 0 && word.space) html += ' ';
+              if (!open && word.italic) { html += '<em>'; open = true; }
+              html += escapeHtml(word.text);
+            });
+            if (open) html += '</em>';
+            return `<span class="shop-line"><span class="shop-line__inner" style="--shop-i:${index}">${html}</span></span>`;
+          }).join(' ');
+        };
+        const splitAllTitles = () => lineTitles.forEach(splitLines);
+        splitAllTitles();
+        let lastWidth = innerWidth;
+        let splitTimer;
+        addEventListener('resize', () => {
+          if (innerWidth === lastWidth) return;
+          lastWidth = innerWidth;
+          clearTimeout(splitTimer);
+          splitTimer = setTimeout(splitAllTitles, 150);
+        });
+        if (document.fonts) document.fonts.ready.then(splitAllTitles);
+
+        // Come in Chi siamo: entra quando è nello schermo, si azzera quando ne è uscito del tutto.
+        const revealObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('is-visible');
+          });
+        }, { threshold: .12, rootMargin: '0px 0px -8% 0px' });
+        const resetObserver = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (!entry.isIntersecting) entry.target.classList.remove('is-visible');
+          });
+        }, { threshold: 0 });
+        document.querySelectorAll('[data-shop-reveal]').forEach(el => {
+          revealObserver.observe(el);
+          resetObserver.observe(el);
+        });
+        document.body.classList.add('has-reveals');
+      }
     });
   </script>
   <script src="assets/js/analytics-events.js"></script>
