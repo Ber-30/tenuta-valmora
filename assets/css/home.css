@@ -443,40 +443,9 @@ html.home-hero-wait .home-hero__content {
   margin-top: 2.25rem;
 }
 
-.home-chapter__kicker {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 0 0 1.25rem;
-  --home-d: 0.35s;
-}
-
-.home-chapter__num {
-  font-family: var(--font-serif);
-  font-size: 2.75rem;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1;
-  color: var(--home-bordeaux);
-}
-
-.home-chapter__label {
-  display: inline-flex;
-  align-items: center;
-  gap: 1rem;
-  font-family: var(--font-sans);
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--home-bordeaux);
-}
-
-.home-chapter__label::before {
-  content: '';
-  width: 2.5rem;
-  height: 1px;
-  background-color: var(--home-oro);
+/* Etichetta unica della sezione ("I nostri valori") */
+.home-chapters__label {
+  margin-bottom: 2.5rem;
 }
 
 .home-chapter__title {
@@ -1013,13 +982,12 @@ html.home-hero-wait .home-hero__content {
     display: grid;
     grid-template-columns: 5fr 1fr 6fr;
     grid-template-areas:
-      "kicker . text"
+      ".      . text"
       "title  . more";
     align-items: end;
     margin-top: 3.5rem;
   }
 
-  .home-chapter--3 .home-chapter__kicker { grid-area: kicker; }
   .home-chapter--3 .home-chapter__title { grid-area: title; margin-bottom: 0; }
 
   .home-chapter--3 .home-chapter__text {
