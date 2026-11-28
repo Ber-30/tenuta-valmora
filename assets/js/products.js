@@ -105,7 +105,7 @@ const PRODUCTS = [
     format: "750 ml in cofanetto di rovere",
     image: "assets/images/bottle-prestige.jpg",
     shortDescription: "La massima opera enologica di Tenuta Valmora. Vendemmia delle migliori uve selezionate acino per acino.",
-    description: "Dedicato alla storia della famiglia Valmora e alle quattro generazioni di vignaioli che si sono tramandate l'arte del vino. Ogni bottiglia è numerata a mano ed è frutto di 36 mesi di affinamento in rovere e 18 mesi di riposo in bottiglia nella nostra cantina storica.",
+    description: "Dedicato alla storia della famiglia Valmora e alle quattro generazioni di vignaioli che si sono tramandate l'arte del vino. Ogni bottiglia è numerata a mano ed è frutto di 36 mesi di affinamento in rovere e 18 mesi di riposo in bottiglia nella nostra cantina storica. L'acquisto comprende anche un cofanetto pregiato in legno di rovere rifinito a mano.",
     grapes: "50% Cabernet Sauvignon, 35% Merlot, 15% Carmenère da vigne storiche",
     terroir: "Le vigne più alte della tenuta su rocce trachitiche esposte a sud-ovest.",
     tastingNotes: {
@@ -116,27 +116,27 @@ const PRODUCTS = [
     pairing: "Grande vino da meditazione, lepre in salmì, carni nobili a lunga cottura e formaggio Asiago Stravecchio stra-stagionato."
   },
   {
-    id: "fior-darancio-passito",
-    name: "Aura d'Oro",
-    appellation: "Colli Euganei Fior d'Arancio Passito DOCG",
-    vintage: "2021",
-    category: "dolci",
-    price: 34.00,
-    badge: "DOCG D'Eccellenza",
-    rating: 96,
-    alcohol: "13.0% Vol.",
-    format: "500 ml",
-    image: "assets/images/bottle-passito.jpg",
-    shortDescription: "Nettare prezioso dei Colli Euganei: uve Moscato Giallo appassite sui graticci per 4 mesi.",
-    description: "Il vitigno autoctono più celebre del nostro territorio interpretato nella sua veste più sublime. I grappoli dorati riposano nel fruttaio fino a inizio inverno prima della pigiatura soffice e del lungo affinamento in piccole botti di ciliegio, che gli regala il caldo colore ramato.",
-    grapes: "100% Moscato Giallo dei Colli Euganei",
-    terroir: "Pendii soleggiati e ben arieggiati con suoli calcareo-vulcanici.",
+    id: "vento-di-collina-merlot",
+    name: "Vento di Collina",
+    appellation: "Colli Euganei Merlot DOC",
+    vintage: "2022",
+    category: "rossi",
+    price: 26.00,
+    badge: "Nuova Selezione",
+    rating: 93,
+    alcohol: "13.5% Vol.",
+    format: "750 ml",
+    image: "assets/images/bottle-vento-collina.jpg",
+    shortDescription: "Merlot fresco e vellutato cullato dalle brezze collinari, ricco di profumi di bosco e viola.",
+    description: "Vento di Collina nasce dai vigneti di Merlot accarezzati dalle brezze fresche che scendono dalle cime dei Colli Euganei. Una vinificazione attenta e l'affinamento equilibrato donano a questo rosso una straordinaria piacevolezza immediata, tannini vellutati e un frutto croccante e fragrante.",
+    grapes: "100% Merlot dei Colli Euganei",
+    terroir: "Pendici vulcaniche ben ventilate con suoli di marna e trachite a 190m s.l.m.",
     tastingNotes: {
-      visual: "Rosso ramato brillante, dal rubino chiaro all'ambra sull'unghia del vino.",
-      olfactory: "Fiori d'arancio, scorza di mandarino candita, ciliegia candita, miele d'acacia e albicocca disidratata.",
-      taste: "Dolcezza sontuosa bilanciata da una vivacissima scia agrumata e minerale che ne evita ogni stucchevolezza."
+      visual: "Rosso rubino limpido e brillante con sfumature violacee.",
+      olfactory: "Profumo fragrante di ciliegia marasca, ribes rosso, piccoli frutti di bosco e una delicata nota floreale di viola.",
+      taste: "Rotondo, fresco e morbido al palato. Beva scorrevole, tannini eleganti e piacevole scia fruttata e sapida nel finale."
     },
-    pairing: "Pasticceria secca tradizionale veneta (zaeti, fregolotta), foie gras, e formaggi erborinati tipo Gorgonzola naturale."
+    pairing: "Primi piatti della tradizione veneta, bigoli con ragù d'anatra, carni bianche saporite, tagliate leggere e formaggi mezzani."
   },
   {
     id: "pietra-viva-cabernet-franc",
