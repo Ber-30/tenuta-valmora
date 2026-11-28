@@ -316,10 +316,9 @@
       <!-- Barra Filtri e Ordinamento -->
       <div class="filter-bar">
         <div class="filter-pills" id="category-filters">
-          <button type="button" class="filter-pill active" data-filter="all">Tutti</button>
-          <button type="button" class="filter-pill" data-filter="rossi">Rossi classici</button>
-          <button type="button" class="filter-pill" data-filter="riserve">Grandi riserve</button>
-          <button type="button" class="filter-pill" data-filter="dolci">Passito DOCG</button>
+          <button type="button" class="filter-pill active" data-filter="all">Tutti (8)</button>
+          <button type="button" class="filter-pill" data-filter="rossi">Rossi classici (4)</button>
+          <button type="button" class="filter-pill" data-filter="riserve">Grandi riserve (4)</button>
         </div>
 
         <div class="sort-field">
@@ -652,7 +651,7 @@
 
       // Filtro iniziale da ?categoria= (link del menu), letto prima del render iniziale
       const categoriaParam = new URLSearchParams(window.location.search).get('categoria');
-      if (['rossi', 'riserve', 'dolci'].includes(categoriaParam)) {
+      if (['rossi', 'riserve'].includes(categoriaParam)) {
         const categoriaPill = document.querySelector('#category-filters .filter-pill[data-filter="' + categoriaParam + '"]');
         if (categoriaPill) {
           filterButtons.forEach(b => b.classList.remove('active'));
